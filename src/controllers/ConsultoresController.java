@@ -18,7 +18,6 @@ import models.ConsultorModel;
 public class ConsultoresController {
 	private ConsultoresView vista;
 	private ConsultorModel consultor;
-	private Hashtable<Integer,ConsultorModel> consultores;
 	
 	public ConsultoresController() {
 		vista = new ConsultoresView(this);

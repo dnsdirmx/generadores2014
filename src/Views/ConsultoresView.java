@@ -234,13 +234,15 @@ public class ConsultoresView extends JInternalFrame {
 							JOptionPane.showMessageDialog(ConsultoresView.this, "Se ha actualizado el consultor");
 						else
 							JOptionPane.showMessageDialog(ConsultoresView.this, "No se ha podido actualizar el consultor");
+						
 					}
 				}
 				else if (rbEliminar.isSelected())
+					
 					if(ConsultoresView.this.controlador.destroy((ConsultorModel) cbUsuarios.getSelectedItem()))
 					{
 						JOptionPane.showMessageDialog(ConsultoresView.this, "Se ha eliminado el consultor");
-						limpiarFormulario();
+						llenarConsultores();
 					}
 					else
 						JOptionPane.showMessageDialog(ConsultoresView.this, "No se ha podido eliminar el consultor");
@@ -255,11 +257,15 @@ public class ConsultoresView extends JInternalFrame {
 																ConsultoresView.this.txtPassword.getPassword(),
 																ConsultoresView.this.cbTipoUsuario.getSelectedIndex());// si es 0 es administrador si es1 es usuario
 						if(resultado)
+						{
 							JOptionPane.showMessageDialog(ConsultoresView.this, "Se ha creado el consultor");
+							llenarConsultores();
+						}
 						else
 							JOptionPane.showMessageDialog(ConsultoresView.this, "No se ha podido crear el consultor");
 					}
 				}
+				
 			}
 		});
 		btnAceptar.setText("Realizar Operaci\u00F3n");
@@ -280,6 +286,7 @@ public class ConsultoresView extends JInternalFrame {
 		cbTipoUsuario.setModel(tipoModel);
 		plFormulario.add(cbTipoUsuario);
 		
+		rbAgregar.setSelected(true);
 		bgOpciones = new ButtonGroup();
 		bgOpciones.add(rbAgregar);
 		bgOpciones.add(rbModificar);
@@ -306,9 +313,10 @@ public class ConsultoresView extends JInternalFrame {
 			estado = false;
 		if(!estado)
 			JOptionPane.showMessageDialog(ConsultoresView.this, "Uno o mas campos estan vacios");
-		String passuno = new String(this.txtPasswordConfirma.getPassword());
+		String passuno = new String(this.txtPassword.getPassword());
 		String passsdos = new String(this.txtPasswordConfirma.getPassword());
-		if(!passuno.equals(passsdos) && estado)
+		System.out.println(passuno + " "  +  passsdos);
+		if(!(passuno.toString().equals( passsdos.toString())) && estado)
 		{
 			estado = false;
 			JOptionPane.showMessageDialog(ConsultoresView.this, "El password no coincide");
@@ -347,9 +355,13 @@ public class ConsultoresView extends JInternalFrame {
 
 
 	private void llenarConsultores() {
+		//JOptionPane.showMessageDialog(null, "he");
+		cbUsuarios.removeAll();
+		//cbUsuarios.removeAllItems();
 		List<ConsultorModel> consultores = controlador.getConsultores();
 		limpiarFormulario();
-		cbUsuarios.removeAll();
+		
+		
 		for(ConsultorModel nombre : consultores)
 		{
 			cbUsuarios.addItem(nombre);

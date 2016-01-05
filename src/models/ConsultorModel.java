@@ -77,7 +77,7 @@ public class ConsultorModel {
 		}
 		BDConexion bd = new BDConexion();
 		estado = bd.ejecutar(sql);
-		if(this.idConsultor == -1)
+		if(this.idConsultor == -1 && estado)
 		{
 			sql = " SELECT LAST_INSERT_ID()";
 			ResultSet rs = bd.consultar(sql);
@@ -102,7 +102,7 @@ public class ConsultorModel {
 		bd.cerrar();
 		return estado;
 	}
-	public static ConsultorModel findConsultor(Integer idConsultor)
+	public static ConsultorModel find(Integer idConsultor)
 	{
 		ConsultorModel consultor = null;
 		return consultor;
@@ -127,6 +127,7 @@ public class ConsultorModel {
 				consultor.setTipousu(rs.getString("tipousu"));
 				consultores.put(consultor.getIdConsultor(), consultor);
 			}
+			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
