@@ -105,7 +105,7 @@ public class Logeo extends JInternalFrame {
 		} );
 
 		Tclave = new JTextField( );
-		Tclave.setText("Eduardo");
+		Tclave.setText("Arturo");
 		Tclave.setBounds(392, 133, 152, 28);
 		jDesktopPane1.add( Tclave );
 

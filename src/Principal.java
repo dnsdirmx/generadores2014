@@ -4,6 +4,8 @@ import EstimacionAceros.ViewEstimacionAceros;
 import ImportarExportar.View.VExportarConceptos;
 import ImportarExportar.View.VImportarConceptos;
 import MetodosRemotos.Metodos;
+import Views.ConsultoresView;
+import controllers.ConsultoresController;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -81,6 +83,7 @@ public class Principal extends JFrame {
 	private VExportarConceptos vExportarCatalogo;
 	private VImportarConceptos vImportarConceptos;
 	private VReasignacionConsultor vReasignacionProyectos;
+	private JMenuItem mntmRegistroDeConsultoress;
 	
 	/**
 	 * Contructor de la clase principal
@@ -148,6 +151,15 @@ public class Principal extends JFrame {
 			Menu.add(mConsultores);
 			mConsultores.setText("Consultores");
 			mConsultores.setEnabled(false);
+			{
+				mntmRegistroDeConsultoress = new JMenuItem("Registro de Consultoress");
+				mntmRegistroDeConsultoress.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						escritorio2.add(new ConsultoresController().getVista());
+					}
+				});
+				mConsultores.add(mntmRegistroDeConsultoress);
+			}
 
 			rConsultores = new JMenuItem();
 			mConsultores.add(rConsultores);

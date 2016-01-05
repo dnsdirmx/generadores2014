@@ -136,6 +136,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 			panelopc.setLayout( null );
 
 			agregar = new JRadioButton( );
+			agregar.setSelected(true);
 			agregar.setFont( new Font( "Tahoma", Font.PLAIN, 12 ) );
 			panelopc.add( agregar );
 			agregar.setText( "Agregar" );
