@@ -6,6 +6,7 @@ import ImportarExportar.View.VImportarConceptos;
 import MetodosRemotos.Metodos;
 import Views.ConsultoresView;
 import controllers.ConsultoresController;
+import controllers.ControlEstimacionController;
 import controllers.ProyectosController;
 
 import java.awt.BorderLayout;
@@ -310,6 +311,14 @@ public class Principal extends JFrame {
 					}
 				}
 			});
+			
+			JMenuItem mntmControlDeEstimacioness = new JMenuItem("Control de Estimacioness");
+			mntmControlDeEstimacioness.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					escritorio2.add(new ControlEstimacionController(conexion,escritorio2).getVista());
+				}
+			});
+			mControlar.add(mntmControlDeEstimacioness);
 
 			rControlar = new JMenuItem();
 			mControlar.add(rControlar);

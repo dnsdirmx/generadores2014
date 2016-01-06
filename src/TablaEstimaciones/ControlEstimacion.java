@@ -1,7 +1,8 @@
 package TablaEstimaciones;
 
 import java.util.LinkedList;
-import ObjetosSerializables.Estimacion;
+
+import Model.Entity.Estimacion;
 
 /**
  * Clase ControlTipo Funciona para manipilar el modelo de la tabla de
@@ -28,7 +29,7 @@ public class ControlEstimacion {
 	 * @param tipo
 	 *            String --- Nombre del Tipo de Proyecto para agregar
 	 */
-	public void anhadeFila(Estimacion es) {
+	public void anhadeFila(Model.Entity.Estimacion es) {
 		modelo.anhadeEstimacion(es);
 	}
 

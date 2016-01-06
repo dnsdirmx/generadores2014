@@ -59,13 +59,13 @@ import Manejodetablas2.ControlTableGenerador;
 import Manejodetablas2.ModeloTablaGenerador;
 import Manejotablas.MyTableModel;
 import MetodosRemotos.Metodos;
-import ObjetosSerializables.Aspecto;
-import ObjetosSerializables.Concepto;
-import ObjetosSerializables.Consultor;
-import ObjetosSerializables.Estimacion;
-import ObjetosSerializables.Frente;
-import ObjetosSerializables.Partida;
-import ObjetosSerializables.Proyecto;
+import Model.Entity.Aspecto;
+import Model.Entity.Concepto;
+import Model.Entity.Consultor;
+import Model.Entity.Estimacion;
+import Model.Entity.Frente;
+import Model.Entity.Partida;
+import Model.Entity.Proyecto;
 import ObjetosSerializables.Rgenerador;
 import ObjetosSerializables.Rutas;
 import Options.ComponentsUser;
@@ -250,7 +250,7 @@ public class Meterdos extends JInternalFrame {
 					if ( c > 0 && agregar.isSelected( ) == true ) {
 						// si la opcion agregar esta seleccionada 
 						// se obtienen las estimaciones iniciales creadas en el frente
-						Lestimacion = conexion.sacarPreinicial( String.valueOf( c ), "I" );
+						Lestimacion = Estimacion.sacarPreinicial( String.valueOf( c ), "I" );// conexion.sacarPreinicial( String.valueOf( c ), "I" );
 						if ( Lestimacion.size( ) == 0 ) {
 							//si no tiene una estimacion inicial no se le puede adr continuacion a la estimacion.
 							JOptionPane.showMessageDialog( null, "Esta frente no tiene ninguna estimacion inicial", "verifica", JOptionPane.WARNING_MESSAGE );
@@ -273,7 +273,7 @@ public class Meterdos extends JInternalFrame {
 					if ( c > 0 && modificar.isSelected( ) == true ) {
 						//si la opcion modificar esta seleccionada
 						// se recupera el egguimiento de las estimaciones creadas 
-						Lestimacion = conexion.sacarPreinicial( String.valueOf( c ), "S" );
+						Lestimacion = Estimacion.sacarPreinicial(String.valueOf( c ), "S");//conexion.sacarPreinicial( String.valueOf( c ), "S" );
 						if ( Lestimacion.size( ) == 0 ) {
 							//si no tiene ningun seguimeinto no se puede continuar la modificación
 							JOptionPane.showMessageDialog( null, "Esta frente no tiene ninguna estimacion de seguimiento", "verifica", JOptionPane.WARNING_MESSAGE );
@@ -296,7 +296,7 @@ public class Meterdos extends JInternalFrame {
 					if ( c > 0 && eliminar.isSelected( ) == true ) {
 						// si la opcion eliminar esta seleccionada
 						//se recupera la informacion de la estimacion en la base de datos
-						Lestimacion = conexion.sacarPreinicial( String.valueOf( c ), "S" );
+						Lestimacion = Estimacion.sacarPreinicial(String.valueOf( c ), "S");//conexion.sacarPreinicial( String.valueOf( c ), "S" );
 						if ( Lestimacion.size( ) == 0 ) {
 							//si no tiene seguimiento de estimaciones no se puede continuar.
 							JOptionPane.showMessageDialog( null, "Esta frente no tiene ninguna estimacion de seguimiento" );
@@ -470,7 +470,7 @@ public class Meterdos extends JInternalFrame {
 						int c = -1;
 						p = new Partida( );
 						p = ( Partida ) Lpartidas.get( Tpartidas.getSelectionModel( ).getLeadSelectionIndex( ) );
-						llenarconceptos( p.getIdpartida( ) );
+						llenarconceptos( p.getIdPartida( ) );
 						partida = p.getNombre( );
 						Taspectos.setVisible( false );
 						// ************************************************************************************************************************************************************************************
@@ -488,7 +488,7 @@ public class Meterdos extends JInternalFrame {
 									}
 									if ( Cconsultor.getSelectedIndex( ) > -1 ) {
 										Consultor con = ( Consultor ) ListaConsultores.get( Cconsultor.getSelectedIndex( ) );
-										idconsultor = con.getIdconsultor( );
+										idconsultor = con.getIdConsultor( );
 										if ( finicial.getDate( ) != null ) {
 
 										} else {
@@ -521,7 +521,7 @@ public class Meterdos extends JInternalFrame {
 									}
 								}
 							}
-							idpartida = p.getIdpartida( );
+							idpartida = p.getIdPartida( );
 							Limpiar2( );
 							llenartodos( p.getNombre( ) );
 						}
@@ -546,7 +546,7 @@ public class Meterdos extends JInternalFrame {
 									conexion.estimacionaspecto( asp.getIdaspecto( ), String.valueOf( esti.Indiceselecionado( ) ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), asp.getFecha( ) );
 								}
 							}
-							idpartida = p.getIdpartida( );
+							idpartida = p.getIdPartida( );
 							Limpiar2( );
 							llenartodos( p.getNombre( ) );
 							// Lseleccion=conexion.general(String.valueOf(esti.Indiceselecionado()),String.valueOf(idpartida));
@@ -629,7 +629,7 @@ public class Meterdos extends JInternalFrame {
 					for (int i = 0; i < Lisconceptos.size(); i++) {
 						con = (Concepto) Lisconceptos.get(i);
 						if (con.getNombre() == table_1.getValueAt(table_1.getSelectedRow(),0)) {
-							indi = con.getIdconcepto();
+							indi = con.getIdConcepto();
 							i=Lisconceptos.size();
 						}
 					}
@@ -701,7 +701,7 @@ public class Meterdos extends JInternalFrame {
 									for ( i = 0 ; i < Laspectos.size( ) ; i++ ) {
 										a = ( Aspecto ) Laspectos.get( i );
 										if ( a.getDescripcion( ) == des ) {
-											indi = a.getIdaspecto( );
+											indi = a.getIdAspecto( );
 											clave = a.getClave( );
 											i = Laspectos.size( ) + 5;
 										}
@@ -711,7 +711,7 @@ public class Meterdos extends JInternalFrame {
 										if ( JOptionPane.showConfirmDialog( null, "Deseas agregar este aspecto al seguimiento de obra", "Confirmacinin", JOptionPane.YES_NO_OPTION ) == JOptionPane.YES_OPTION ) {
 										//	si se confirma agregar el aspecto al seguimiento, se cre una nueva fila para el formato de números generadores
 											Rgenerador asp = new Rgenerador( );
-											asp.setIdaspecto( String.valueOf( a.getIdaspecto( ) ) );
+											asp.setIdaspecto( String.valueOf( a.getIdAspecto( ) ) );
 											asp.setClave( a.getClave( ) );
 											asp.setDescripcion( a.getDescripcion( ) );
 											asp.setUnidad( a.getUnidad( ) );
@@ -966,7 +966,7 @@ public class Meterdos extends JInternalFrame {
 						for ( i = 0 ; i < Laspectos.size( ) ; i++ ) {
 							asp2 = ( Aspecto ) Laspectos.get( i );
 							if ( asp2.getDescripcion( ).equals( des ) == true ) {
-								asp.setIdaspecto( String.valueOf( asp2.getIdaspecto( ) ) );
+								asp.setIdaspecto( String.valueOf( asp2.getIdAspecto( ) ) );
 								asp.setClave( asp2.getClave( ) );
 								asp.setDescripcion( "" );
 								asp.setUnidad( asp2.getUnidad( ) );
@@ -978,7 +978,7 @@ public class Meterdos extends JInternalFrame {
 								asp.setAncho( "0" );
 								asp.setCantidad( "0" );
 								asp.setPiezas( "0" );
-								asp.setCosto( asp2.getCosto( ) );
+								asp.setCosto( String.valueOf(asp2.getCosto( ) ));
 								asp.setImporte( "0" );
 								asp.setFecha( fechaestimacion );
 								for ( int j = 0 ; j < control3.getLista( ).size( ) ; j++ ) {
@@ -1249,7 +1249,7 @@ public class Meterdos extends JInternalFrame {
 	 */
 	private void llenarconsultor ( ) {
 		Cconsultor.removeAllItems( );
-		ListaConsultores = conexion.GetConsultores( );
+		ListaConsultores =Consultor.getConsultores();// conexion.GetConsultores( );
 		for ( int i = 0 ; i < ListaConsultores.size( ) ; i++ ) {
 			consul = ( Consultor ) ListaConsultores.get( i );
 			Cconsultor.addItem( consul.getNombre( ) + "   " + consul.getPaterno( ) + "  " + consul.getMaterno( ) );
@@ -1264,7 +1264,7 @@ public class Meterdos extends JInternalFrame {
 	 */
 	private void llenarproyectos ( ) {
 		Cproyectos.removeAllItems( );
-		ListaProyectos = conexion.GetProyectos( );
+		ListaProyectos = Proyecto.findAll();//conexion.GetProyectos( );
 		for ( int i = 0 ; i < ListaProyectos.size( ) ; i++ ) {
 			pro = ( Proyecto ) ListaProyectos.get( i );
 			Cproyectos.addItem( pro.getProyecto( ) );
@@ -1278,7 +1278,7 @@ public class Meterdos extends JInternalFrame {
 	 * método para llenar recuperar los frentes de la base de datos 
 	 */
 	private void llenarLFrentes ( ) {
-		Listafrentes = conexion.Frentes( );
+		Listafrentes = Frente.findAll();// conexion.Frentes( );
 	}
 
 	/**
@@ -1330,7 +1330,7 @@ public class Meterdos extends JInternalFrame {
 	 * método para recuperar los conceptos de la base de datos
 	 */
 	private void llenarLconceptos ( ) {
-		Lisconceptos = conexion.GetConceptos( );
+		Lisconceptos = Concepto.findAll();//conexion.GetConceptos( );
 	}
 
 	/**
@@ -1343,7 +1343,7 @@ public class Meterdos extends JInternalFrame {
 		LinkedList<String> nameConcept= new LinkedList<String>();
 		for (int i = 0; i < Lisconceptos.size(); i++) {
 			c = (Concepto) Lisconceptos.get(i);
-			if (c.getIdpartida() == indice) {
+			if (c.getIdPartida() == indice) {
 				nameConcept.add(c.getNombre());
 			}
 		}
@@ -1378,7 +1378,7 @@ public class Meterdos extends JInternalFrame {
 	 * método para recuperar las partidas de la base de datos
 	 */
 	public void llenarpartidas ( ) {
-		Lpartidas = conexion.getPartidas( );
+		Lpartidas = Partida.findAll();//conexion.getPartidas( );
 	}
 
 	// **********************************************************************************************************************************
@@ -1534,7 +1534,7 @@ public class Meterdos extends JInternalFrame {
 		//se obtiene el total de aspectos relacionados con el concepto
 		for ( int i = 0 ; i < Laspectos.size( ) ; i++ ) {
 			asp2 = ( Aspecto ) Laspectos.get( i );
-			if ( asp2.getIdconcepto( ) == indice )
+			if ( asp2.getIdConcepto( ) == indice )
 				filas++;
 		}
 		
@@ -1548,7 +1548,7 @@ public class Meterdos extends JInternalFrame {
 		// para cada aspecto se verifica que coincida con el concepto seleccionado en pantalla
 		for ( int i = 0 ; i < Laspectos.size( ) ; i++ ) {
 			asp2 = ( Aspecto ) Laspectos.get( i );
-			if ( asp2.getIdconcepto( ) == indice ) {
+			if ( asp2.getIdConcepto( ) == indice ) {
 				elementos[posi][1] = asp2.getDescripcion( );
 				if ( control3.getLista( ).size( ) > 0 ) {
 					for ( int j = 0 ; j < control3.getLista( ).size( ) ; j++ ) {
@@ -1579,7 +1579,7 @@ public class Meterdos extends JInternalFrame {
 	 * método para obtener los aspectos de la base de datos
 	 */
 	private void llenarLAcpestosdos ( ) {
-		Laspectos = cone.GetAspectos( );
+		Laspectos = Aspecto.findAll();//cone.GetAspectos( );
 	}
 
 	/**

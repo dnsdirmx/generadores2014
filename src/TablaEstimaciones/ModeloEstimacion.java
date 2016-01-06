@@ -4,8 +4,9 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import Model.Entity.Estimacion;
+
 import java.util.LinkedList;
-import ObjetosSerializables.Estimacion;
 
 /**
  * Clase ModeloTipo Funciona para declarar el modelo de la tabla de tipos de las
@@ -69,7 +70,7 @@ public class ModeloEstimacion implements TableModel {
 	 * @param tipo
 	 *            String --- Nombre del nuevo Tipo de Proyecto
 	 */
-	public void anhadeEstimacion(Estimacion es) {
+	public void anhadeEstimacion(Model.Entity.Estimacion es) {
 		datos.add(es);
 		TableModelEvent evento;
 		evento = new TableModelEvent(this, this.getRowCount() - 1, this.getRowCount() - 1, TableModelEvent.ALL_COLUMNS, TableModelEvent.INSERT);

@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.Vector;
+
 
 public class Consultor {
 	private Integer idConsultor;
@@ -131,6 +133,31 @@ public class Consultor {
 		}
 		bd.cerrar();
 		return llConsultores;
+	}
+	public static Vector<Consultor> getConsultores()
+	{
+		Consultor consultor;
+		ResultSet rs = null;
+		Vector<Consultor> Lconsultores = new Vector<Consultor>();
+		String sql = " SELECT c.idConsultor, c.paterno, c.materno, c.nombre, c.login, c.pass, c.tipousu " + " FROM consultor AS c " + " ORDER BY c.nombre ASC, c.paterno ASC, c.nombre ASC ";
+		try {
+			BDConexion bd = new BDConexion();
+			bd.consultar(sql);
+			while (rs.next() == true) {
+				consultor = new Consultor();
+				consultor.setIdConsultor(rs.getInt("idConsultor"));
+				consultor.setPaterno(rs.getString("paterno"));
+				consultor.setMaterno(rs.getString("materno"));
+				consultor.setNombre(rs.getString("nombre"));
+				consultor.setLogin(rs.getString("login"));
+				consultor.setPass(rs.getString("pass"));
+				consultor.setTipousu(rs.getString("tipousu"));
+				Lconsultores.add(consultor);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return Lconsultores;
 	}
 	//TODO vaciar 
 	public String toString()

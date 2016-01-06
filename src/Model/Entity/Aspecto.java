@@ -5,16 +5,17 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class Aspecto{
-	Integer idAspecto;
-	Concepto concepto;
-	String clave;
-	String unidad;
-	String tipo;
-	Double costo;
-	String descripcion;
-	String clave_publica;
-	String descripcion_completa;
+	private Integer idAspecto;
+	private Concepto concepto;
 	private Integer idConcepto;
+	private String clave;
+	private String unidad;
+	private String tipo;
+	private Double costo;
+	private String descripcion;
+	private String clave_privada;
+	private String descripcion_completa;
+
 	
 	public Integer getIdAspecto() {
 		return idAspecto;
@@ -78,12 +79,12 @@ public class Aspecto{
 		this.descripcion = descripcion;
 	}
 
-	public String getClave_publica() {
-		return clave_publica;
+	public String getClave_privada() {
+		return clave_privada;
 	}
 
-	public void setClave_publica(String clave_publica) {
-		this.clave_publica = clave_publica;
+	public void setClave_privada(String clave_privada) {
+		this.clave_privada = clave_privada;
 	}
 
 	public String getDescripcion_completa() {
@@ -141,7 +142,7 @@ public class Aspecto{
 				aspecto.setTipo(rs.getString("tipo"));
 				aspecto.setCosto(rs.getDouble("costo"));
 				aspecto.setDescripcion(rs.getString("descripcion"));
-				aspecto.setClave_publica(rs.getString("clave_publica"));
+				aspecto.setClave_privada(rs.getString("clave_publica"));
 				aspecto.setDescripcion_completa(rs.getString("descripcion_completa"));
 				llAspectos.add(aspecto);
 			}

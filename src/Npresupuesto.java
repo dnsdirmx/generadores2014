@@ -41,14 +41,8 @@ import com.toedter.calendar.JDateChooser;
 import Manejotablas.MyTableModel;
 import Excel.Generarexcel;
 import Excel.Genrargeneral;
-import ObjetosSerializables.Aspecto;
-import ObjetosSerializables.Concepto;
-import ObjetosSerializables.Consultor;
-import ObjetosSerializables.Estimacion;
-import ObjetosSerializables.Frente;
-import ObjetosSerializables.Partida;
+
 import ObjetosSerializables.Plantilla;
-import ObjetosSerializables.Proyecto;
 import ObjetosSerializables.Rgenerador;
 import Options.ComponentsUser;
 import PDF.Generarpdf;
@@ -57,6 +51,13 @@ import TablasPartidas.ControPartida;
 import Manejodetablas2.ControlTableGenerador;
 import Manejodetablas2.ModeloTablaGenerador;
 import MetodosRemotos.Metodos;
+import Model.Entity.Aspecto;
+import Model.Entity.Concepto;
+import Model.Entity.Consultor;
+import Model.Entity.Estimacion;
+import Model.Entity.Frente;
+import Model.Entity.Partida;
+import Model.Entity.Proyecto;
 
 import java.awt.event.MouseAdapter;
 
@@ -247,7 +248,7 @@ public class Npresupuesto extends JInternalFrame {
 						//si no existen aspectos seleccionados en el frente  se llenan los conceptos para desplegarlos en pantalla al usuario
 						indice = tablap.getSelectionModel().getLeadSelectionIndex();
 						par = (Partida) Lpartidas.get(indice);
-						idpartida = par.getIdpartida();
+						idpartida = par.getIdPartida();
 						llenarconceptos(idpartida);
 						if (idestimacion > 0) {
 							//se obtienen los aspectos de la base de datos que estan incluidos en la seleccion
@@ -310,7 +311,7 @@ public class Npresupuesto extends JInternalFrame {
 					}
 					indice = tablap.getSelectionModel().getLeadSelectionIndex();
 					par = (Partida) Lpartidas.get(indice);
-					llenarconceptos(par.getIdpartida());
+					llenarconceptos(par.getIdPartida());
 				}
 			});
 
@@ -392,7 +393,7 @@ public class Npresupuesto extends JInternalFrame {
 				public void actionPerformed(ActionEvent e) {
 					if (consultor.getSelectedIndex() > -1) {
 						Consultor con = (Consultor) ListaConsultores.get(consultor.getSelectedIndex());
-						idconsultor = con.getIdconsultor();
+						idconsultor = con.getIdConsultor();
 						Cproyecto.setEnabled(true);
 					}
 				}
@@ -511,7 +512,7 @@ public class Npresupuesto extends JInternalFrame {
 						}
 						// *************************************************************************************************************************************************************************************************************************
 						if (c > 0 && Coperaciones.getSelectedIndex() == 0) {
-							Lestimacion = cone.sacarPreinicial(String.valueOf(c), "I");
+							Lestimacion = Estimacion.sacarPreinicial(String.valueOf(c), "I");//cone.sacarPreinicial(String.valueOf(c), "I");
 							if (Lestimacion.size() == 0) {
 								int res = JOptionPane.showConfirmDialog(null, "Deseas utilizar una plantilla", "Confirmacion", JOptionPane.YES_NO_OPTION);
 								if (res == JOptionPane.NO_OPTION) {
@@ -590,7 +591,7 @@ public class Npresupuesto extends JInternalFrame {
 						}
 						// ******************************************************************************************************************************************************************************************************************************************************
 						if (c > 0 && Coperaciones.getSelectedIndex() == 1) {
-							Lestimacion = cone.sacarPreinicial(String.valueOf(c), "I");
+							Lestimacion = Estimacion.sacarPreinicial(String.valueOf(c), "I") ;//cone.sacarPreinicial(String.valueOf(c), "I");
 							if (Lestimacion.size() == 0) {
 								JOptionPane.showMessageDialog(null, "Este frente no tiene ninguna estimacinin inicial", "verifica", JOptionPane.WARNING_MESSAGE);
 							} else {
@@ -608,7 +609,7 @@ public class Npresupuesto extends JInternalFrame {
 						// ***********************************************************************************************************************************************************************************************************************************************************
 						if (c > 0 && Coperaciones.getSelectedIndex() == 2) {
 							tablap.setEnabled(false);
-							Lestimacion = cone.sacarPreinicial(String.valueOf(c), "I");
+							Lestimacion = Estimacion.sacarPreinicial(String.valueOf(c), "I");
 
 							if (Lestimacion.size() == 0) {
 								JOptionPane.showMessageDialog(null, "Este frente no tiene ninguna estimacinin inicial", "verifica", JOptionPane.WARNING_MESSAGE);
@@ -704,7 +705,7 @@ public class Npresupuesto extends JInternalFrame {
 						for (i = 0; i < Laspectos.size(); i++) {
 							asp2 = (Aspecto) Laspectos.get(i);
 							if (asp2.getDescripcion().equals(des) == true) {
-								asp.setIdaspecto(String.valueOf(asp2.getIdaspecto()));
+								asp.setIdaspecto(String.valueOf(asp2.getIdAspecto()));
 								asp.setClave(asp2.getClave());
 								asp.setDescripcion("");
 								asp.setUnidad(asp2.getUnidad());
@@ -716,7 +717,7 @@ public class Npresupuesto extends JInternalFrame {
 								asp.setAncho("0");
 								asp.setCantidad("0");
 								asp.setPiezas("0");
-								asp.setCosto(asp2.getCosto());
+								asp.setCosto(String.valueOf(asp2.getCosto()));
 								asp.setImporte("0");
 								asp.setFecha(fechaestimacion);
 								for (int j = 0; j < control.getLista().size(); j++) {
@@ -1095,7 +1096,7 @@ public class Npresupuesto extends JInternalFrame {
 												for (i = 0; i < Laspectos.size(); i++) {
 													a = (Aspecto) Laspectos.get(i);
 													if (a.getDescripcion() == des) {
-														indi = a.getIdaspecto();
+														indi = a.getIdAspecto();
 														clave = a.getClave();
 														i = Laspectos.size() + 5;
 													}
@@ -1103,7 +1104,7 @@ public class Npresupuesto extends JInternalFrame {
 												if (ban.equals("true") == true && des.equals("") == false) {
 													Rgenerador asp = new Rgenerador();
 													asp.setClavePublica(a.getClave_privada());
-													asp.setIdaspecto(String.valueOf(a.getIdaspecto()));
+													asp.setIdaspecto(String.valueOf(a.getIdAspecto()));
 													asp.setClave(a.getClave());
 													asp.setDescripcion(a.getDescripcion());
 													asp.setUnidad(a.getUnidad());
@@ -1168,7 +1169,7 @@ public class Npresupuesto extends JInternalFrame {
 					for (int i = 0; i < Lconceptos.size(); i++) {
 						con = (Concepto) Lconceptos.get(i);
 						if (con.getNombre() == tab_conceptos.getValueAt(tab_conceptos.getSelectedRow(), 0)) {
-							indi = con.getIdconcepto();
+							indi = con.getIdConcepto();
 							idconcepto = indi;
 							i = Lconceptos.size();
 						}
@@ -1192,7 +1193,7 @@ public class Npresupuesto extends JInternalFrame {
 	 */
 	private void llenarproyectos() {
 		Cproyecto.removeAllItems();
-		ListaProyectos = cone.GetProyectos();
+		ListaProyectos = Proyecto.findAll();//cone.GetProyectos();
 		for (int i = 0; i < ListaProyectos.size(); i++) {
 			pro = (Proyecto) ListaProyectos.get(i);
 			Cproyecto.addItem(pro.getProyecto());
@@ -1208,7 +1209,7 @@ public class Npresupuesto extends JInternalFrame {
 	 */
 	private void llenarconsultor() {
 		consultor.removeAllItems();
-		ListaConsultores = cone.GetConsultores();
+		ListaConsultores = Consultor.getConsultores();//cone.GetConsultores();
 		for (int i = 0; i < ListaConsultores.size(); i++) {
 			consul = (Consultor) ListaConsultores.get(i);
 			consultor.addItem(consul.getNombre() + "   " + consul.getPaterno() + "  " + consul.getMaterno());
@@ -1222,7 +1223,7 @@ public class Npresupuesto extends JInternalFrame {
 	 * método para recuperar los frentes de la base de datos 
 	 */
 	private void llenarLFrentes() {
-		Listafrentes = cone.Frentes();
+		Listafrentes = Frente.findAll();//cone.Frentes();
 	}
 
 	/**
@@ -1250,7 +1251,7 @@ public class Npresupuesto extends JInternalFrame {
 	 * método para recuperar los conceptos de la base de datos
 	 */
 	private void llenarLconceptos() {
-		Lconceptos = cone.GetConceptos();
+		Lconceptos = Concepto.findAll();//cone.GetConceptos();
 	}
 
 	/**
@@ -1262,7 +1263,7 @@ public class Npresupuesto extends JInternalFrame {
 		LinkedList<String> nameConcept = new LinkedList<String>();
 		for (int i = 0; i < Lconceptos.size(); i++) {
 			concep = (Concepto) Lconceptos.get(i);
-			if (concep.getIdpartida() == indice) {
+			if (concep.getIdPartida() == indice) {
 				nameConcept.add(concep.getNombre());
 			}
 		}
@@ -1275,7 +1276,7 @@ public class Npresupuesto extends JInternalFrame {
 	 * método para recuperar los Aspectos de la base de datos 
 	 */
 	private void llenarLAcpestosdos() {
-		Laspectos = cone.GetAspectos();
+		Laspectos = Aspecto.findAll();//cone.GetAspectos();
 	}
 
 	/**
@@ -1352,7 +1353,7 @@ public class Npresupuesto extends JInternalFrame {
 
 		for (int i = 0; i < Laspectos.size(); i++) {
 			asp2 = (Aspecto) Laspectos.get(i);
-			if (asp2.getIdconcepto() == indice)
+			if (asp2.getIdConcepto() == indice)
 				filas++;
 		}
 		elementos = new Object[filas][columnas];
@@ -1363,7 +1364,7 @@ public class Npresupuesto extends JInternalFrame {
 
 		for (int i = 0; i < Laspectos.size(); i++) {
 			asp2 = (Aspecto) Laspectos.get(i);
-			if (asp2.getIdconcepto() == indice) {
+			if (asp2.getIdConcepto() == indice) {
 				elementos[posi][1] = asp2.getDescripcion();
 				if (control.Tama() > 0) {
 					for (int j = 0; j < control.getLista().size(); j++) {
@@ -1404,7 +1405,7 @@ public class Npresupuesto extends JInternalFrame {
 	 * método para mostrar las partidas en pantalla
 	 */
 	public void llenarParitdas() {
-		Lpartidas = cone.getPartidas();
+		Lpartidas = Partida.findAll();//cone.getPartidas();
 		for (int i = 0; i < Lpartidas.size(); i++) {
 			par = (Partida) Lpartidas.get(i);
 			controlp.anhadeFila(par.getNombre());

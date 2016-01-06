@@ -12,8 +12,8 @@ import javax.swing.JTable;
 
 import Manejodetablas2.ControlTableGenerador;
 import MetodosRemotos.Metodos;
-import ObjetosSerializables.Estimacion;
-import ObjetosSerializables.Partida;
+import Model.Entity.Estimacion;
+import Model.Entity.Partida;
 import ObjetosSerializables.Rgenerador;
 import TablaEstimaciones.ControlEstimacion;
 import TablaEstimaciones.ModeloEstimacion;
@@ -117,7 +117,7 @@ public class Estimaciones extends javax.swing.JInternalFrame {
 								if ( indice > -1 ) {
 									es = new Estimacion( );
 									es = ( Estimacion ) lista.get( indice );
-									id = Integer.parseInt( es.getIdestimacion( ) );
+									id = es.getIdestimacion( ) ;
 									dispose( );
 								}
 							} else {
@@ -130,7 +130,8 @@ public class Estimaciones extends javax.swing.JInternalFrame {
 										es = new Estimacion( );
 										es = ( Estimacion ) lista.get( indice );
 										try {
-											if ( con.EliminarEstimacion( es.getIdestimacion( ) ) ) {
+											if(es.delete()){
+											//if ( con.EliminarEstimacion( es.getIdestimacion( ) ) ) {
 												JOptionPane.showMessageDialog( null, "La estimación con fecha:  " + es.getFecha( ) + "  ha sido eliminada" );
 											} else {
 												JOptionPane.showMessageDialog( null, "Error al eliminar estimación inicial", "Error", JOptionPane.WARNING_MESSAGE );
@@ -157,15 +158,15 @@ public class Estimaciones extends javax.swing.JInternalFrame {
 	// *************************************************************************************************************************************************************************************************************************
 	/**
 	 * Otro constructor para la clase
-	 * @param esti --- lista de estimaciones, creadas en el proyecto
+	 * @param lestimacion --- lista de estimaciones, creadas en el proyecto
 	 * @param con --- metodos para la manipulación de la base de datos 
 	 * @param accion --- opcion para seleccionar "modificar o eliminar"
 	 * @param controlp --- control para manipular la tabla de partidas 
 	 * @param control3 --- control para manipular la tabla de generadores
 	 */
-	public Estimaciones ( LinkedList < Estimacion > esti , Metodos con , String accion , ControPartida controlp , ControlTableGenerador control3 ) {
+	public Estimaciones ( LinkedList<Model.Entity.Estimacion> lestimacion , Metodos con , String accion , ControPartida controlp , ControlTableGenerador control3 ) {
 		super( "Selecionar estimación", false, true, false, true );
-		initGUI( esti, con, accion, controlp, control3 );
+		initGUI( lestimacion, con, accion, controlp, control3 );
 	}
 
 	// *****************************************************************************************************************************************************************************************************************************************
@@ -219,7 +220,7 @@ public class Estimaciones extends javax.swing.JInternalFrame {
 							 * 
 							 */
 							if ( accion.equals( "agregar" ) == true ) {
-								id = Integer.parseInt( es.getIdestimacion( ) );
+								id = es.getIdestimacion( ) ;
 								Lesti = new LinkedList < Rgenerador >( );
 								Lesti = con.reportegeneral( String.valueOf( id ) );
 								fechaini = es.getFecha( );
@@ -229,7 +230,7 @@ public class Estimaciones extends javax.swing.JInternalFrame {
 								} else {
 									LinkedList < Partida > Lpartidas = new LinkedList < Partida >( );
 									Partida par = new Partida( );
-									Lpartidas = con.getPartidas( );
+									Lpartidas = Partida.findAll();//con.getPartidas( );
 									for ( int i = 0 ; i < Lpartidas.size( ) ; i++ ) {
 										par = ( Partida ) Lpartidas.get( i );
 										controlp.anhadeFila( par.getNombre( ) );
@@ -243,9 +244,9 @@ public class Estimaciones extends javax.swing.JInternalFrame {
 						 * 
 						 */
 						if ( accion.equals( "modificar" ) == true ) {
-							id = Integer.parseInt( es.getIdestimacion( ) );
+							id = es.getIdestimacion( );
 							Lesti = new LinkedList < Rgenerador >( );
-							Lesti = con.reportegeneral( es.getNestimacion( ) );
+							Lesti = con.reportegeneral( es.getNestimacion( ).toString() );
 							nestimacion = id;
 							if ( Lesti.size( ) == 0 ) {
 								JOptionPane.showMessageDialog( null, "Esta estimación de seguimiento no contiene datos" );
@@ -253,7 +254,7 @@ public class Estimaciones extends javax.swing.JInternalFrame {
 							} else {
 								LinkedList < Partida > Lpartidas = new LinkedList < Partida >( );
 								Partida par = new Partida( );
-								Lpartidas = con.getPartidas( );
+								Lpartidas = Partida.findAll();//con.getPartidas( );
 								for ( int i = 0 ; i < Lpartidas.size( ) ; i++ ) {
 									par = ( Partida ) Lpartidas.get( i );
 									controlp.anhadeFila( par.getNombre( ) );
@@ -283,7 +284,7 @@ public class Estimaciones extends javax.swing.JInternalFrame {
 								control3.anhadeFila( meter );
 							}
 							Linicial = Lesti;
-							fechaini = con.sacarfecha( es.getNestimacion( ) );
+							fechaini = con.sacarfecha( es.getNestimacion( ).toString() );
 							dispose( );
 						}
 					}

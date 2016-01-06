@@ -53,9 +53,9 @@ import MetodosRemotos.Metodos;
 import Model.Entity.Aspecto;
 import Model.Entity.Concepto;
 import Model.Entity.Consultor;
+import Model.Entity.Estimacion;
+import Model.Entity.Frente;
 import Model.Entity.Partida;
-import ObjetosSerializables.Estimacion;
-import ObjetosSerializables.Frente;
 import ObjetosSerializables.Plantilla;
 import ObjetosSerializables.Rgenerador;
 import Options.ComponentsUser;
@@ -468,7 +468,8 @@ public class Presupuesto extends JInternalFrame {
 						}
 						// *************************************************************************************************************************************************************************************************************************
 						if (c > 0 && Coperaciones.getSelectedIndex() == 0) {
-							Lestimacion = cone.sacarPreinicial(String.valueOf(c), "I");
+							Estimacion.sacarPreinicial(String.valueOf(c), "I");
+							Lestimacion = Estimacion.sacarPreinicial(String.valueOf(c), "I"); //cone.sacarPreinicial(String.valueOf(c), "I");
 							if (Lestimacion.size() == 0) {
 								int res = JOptionPane.showConfirmDialog(null, "Deseas utilizar una plantilla", "Confirmacion", JOptionPane.YES_NO_OPTION);
 								if (res == JOptionPane.NO_OPTION) {
@@ -547,7 +548,8 @@ public class Presupuesto extends JInternalFrame {
 						}
 						// ******************************************************************************************************************************************************************************************************************************************************
 						if (c > 0 && Coperaciones.getSelectedIndex() == 1) {
-							Lestimacion = cone.sacarPreinicial(String.valueOf(c), "I");
+							
+							Lestimacion = Estimacion.sacarPreinicial(String.valueOf(c), "I");// cone.sacarPreinicial(String.valueOf(c), "I");
 							if (Lestimacion.size() == 0) {
 								JOptionPane.showMessageDialog(null, "Este frente no tiene ninguna estimacinin inicial", "verifica", JOptionPane.WARNING_MESSAGE);
 							} else {
@@ -565,7 +567,8 @@ public class Presupuesto extends JInternalFrame {
 						// ***********************************************************************************************************************************************************************************************************************************************************
 						if (c > 0 && Coperaciones.getSelectedIndex() == 2) {
 							tablap.setEnabled(false);
-							Lestimacion = cone.sacarPreinicial(String.valueOf(c), "I");
+							
+							Lestimacion = Estimacion.sacarPreinicial(String.valueOf(c), "I"); //cone.sacarPreinicial(String.valueOf(c), "I");
 
 							if (Lestimacion.size() == 0) {
 								JOptionPane.showMessageDialog(null, "Este frente no tiene ninguna estimacinin inicial", "verifica", JOptionPane.WARNING_MESSAGE);
@@ -1059,7 +1062,7 @@ public class Presupuesto extends JInternalFrame {
 												}
 												if (ban.equals("true") == true && des.equals("") == false) {
 													Rgenerador asp = new Rgenerador();
-													asp.setClavePublica(a.getClave_publica());
+													asp.setClavePublica(a.getClave_privada());
 													asp.setIdaspecto(String.valueOf(a.getIdAspecto()));
 													asp.setClave(a.getClave());
 													asp.setDescripcion(a.getDescripcion());
@@ -1179,7 +1182,7 @@ public class Presupuesto extends JInternalFrame {
 	 * m�todo para recuperar los frentes de la base de datos 
 	 */
 	private void llenarLFrentes() {
-		Listafrentes = cone.Frentes();
+		Listafrentes = Frente.findAll();//cone.Frentes();
 	}
 
 	/**

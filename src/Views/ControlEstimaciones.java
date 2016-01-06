@@ -63,13 +63,9 @@ import Manejodetablas2.ControlTableGenerador;
 import Manejodetablas2.ModeloTablaGenerador;
 import Manejotablas.MyTableModel;
 import MetodosRemotos.Metodos;
-import ObjetosSerializables.Aspecto;
-import ObjetosSerializables.Concepto;
-import ObjetosSerializables.Consultor;
-import ObjetosSerializables.Estimacion;
-import ObjetosSerializables.Frente;
-import ObjetosSerializables.Partida;
-import ObjetosSerializables.Proyecto;
+import Model.Entity.Consultor;
+import Model.Entity.Estimacion;
+import Model.Entity.Frente;
 import ObjetosSerializables.Rgenerador;
 import ObjetosSerializables.Rutas;
 import Options.ComponentsUser;
@@ -257,7 +253,7 @@ public class ControlEstimaciones extends JInternalFrame {
 					if ( c > 0 && agregar.isSelected( ) == true ) {
 						// si la opcion agregar esta seleccionada 
 						// se obtienen las estimaciones iniciales creadas en el frente
-						Lestimacion = conexion.sacarPreinicial( String.valueOf( c ), "I" );
+						Lestimacion = Estimacion.sacarPreinicial(String.valueOf(c), "I");//conexion.sacarPreinicial( String.valueOf( c ), "I" );
 						if ( Lestimacion.size( ) == 0 ) {
 							//si no tiene una estimacion inicial no se le puede adr continuacion a la estimacion.
 							JOptionPane.showMessageDialog( null, "Esta frente no tiene ninguna estimacion inicial", "verifica", JOptionPane.WARNING_MESSAGE );
@@ -280,7 +276,8 @@ public class ControlEstimaciones extends JInternalFrame {
 					if ( c > 0 && modificar.isSelected( ) == true ) {
 						//si la opcion modificar esta seleccionada
 						// se recupera el egguimiento de las estimaciones creadas 
-						Lestimacion = conexion.sacarPreinicial( String.valueOf( c ), "S" );
+						
+						Lestimacion = Estimacion.sacarPreinicial(String.valueOf( c ), "S" ); //conexion.sacarPreinicial( String.valueOf( c ), "S" );
 						if ( Lestimacion.size( ) == 0 ) {
 							//si no tiene ningun seguimeinto no se puede continuar la modificaciï¿½n
 							JOptionPane.showMessageDialog( null, "Esta frente no tiene ninguna estimacion de seguimiento", "verifica", JOptionPane.WARNING_MESSAGE );
@@ -303,7 +300,7 @@ public class ControlEstimaciones extends JInternalFrame {
 					if ( c > 0 && eliminar.isSelected( ) == true ) {
 						// si la opcion eliminar esta seleccionada
 						//se recupera la informacion de la estimacion en la base de datos
-						Lestimacion = conexion.sacarPreinicial( String.valueOf( c ), "S" );
+						Lestimacion = Estimacion.sacarPreinicial( String.valueOf( c ), "S");// conexion.sacarPreinicial( String.valueOf( c ), "S" );
 						if ( Lestimacion.size( ) == 0 ) {
 							//si no tiene seguimiento de estimaciones no se puede continuar.
 							JOptionPane.showMessageDialog( null, "Esta frente no tiene ninguna estimacion de seguimiento" );
@@ -495,13 +492,21 @@ public class ControlEstimaciones extends JInternalFrame {
 									}
 									if ( Cconsultor.getSelectedIndex( ) > -1 ) {
 										Consultor con = ( Consultor ) ListaConsultores.get( Cconsultor.getSelectedIndex( ) );
-										idconsultor = con.getIdconsultor( );
+										idconsultor = con.getIdConsultor( );
 										if ( finicial.getDate( ) != null ) {
 
 										} else {
 											JOptionPane.showMessageDialog( null, "No has seleccionado fecha inicial" );
 										}
-										idestimacion = conexion.insertarestimacion( String.valueOf( c ), String.valueOf( idconsultor ), "0.0", fechaestimacion, "S", String.valueOf( esti.Indiceselecionado( ) ) );
+										Estimacion estimacion = new Estimacion();
+										estimacion.setIdfrente(c);
+										estimacion.setIdConsultor(idconsultor);
+										estimacion.setPorcentaje((float) 0.0);
+										estimacion.setFecha(fechaestimacion);
+										estimacion.setTipo("S");
+										estimacion.setNestimacion(esti.Indiceselecionado( ));
+										estimacion.save();
+										idestimacion = estimacion.getIdestimacion();//conexion.insertarestimacion( String.valueOf( c ), String.valueOf( idconsultor ), "0.0", fechaestimacion, "S", String.valueOf( esti.Indiceselecionado( ) ) );
 										if ( idestimacion > 0 ) {
 											bandera = false;
 											Limpiar2( );
@@ -643,7 +648,7 @@ public class ControlEstimaciones extends JInternalFrame {
 					
 					llenarAspectos(indi);
 					
-					TableColumn co = Taspectos.getColumn("Seleccion");
+					TableColumn co = Taspectos.getColumn("Selección");
 					co.setPreferredWidth(80);
 					TableColumn co2 = Taspectos.getColumn("Desglose de Conceptos");
 					co2.setPreferredWidth(850);
@@ -758,7 +763,8 @@ public class ControlEstimaciones extends JInternalFrame {
 														veces++;
 													}
 												}
-												if ( cone.Eliminaresaspecto( ida, String.valueOf( idestimacion ) ) ) {
+												if(Estimacion.eliminaAspecto(Integer.valueOf(ida), idestimacion)){
+												//if ( cone.Eliminaresaspecto( ida, String.valueOf( idestimacion ) ) ) {
 													if ( veces > 1 ) {
 														control3.borraFila( id, veces );
 													} else {
@@ -787,7 +793,7 @@ public class ControlEstimaciones extends JInternalFrame {
 
 			JScrollPane Ssegir = new JScrollPane( );
 			Psegir.add( Ssegir );
-			Ssegir.setBounds( 9, 23, 1013, 344 );
+			Ssegir.setBounds( 12, 24, 1013, 344 );
 
 			Tsegir = new JTable( modelo3 );
 			Tsegir.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
@@ -796,7 +802,7 @@ public class ControlEstimaciones extends JInternalFrame {
 			TableColumn tabColClave = Tsegir.getColumn( "Clave" );
 			tabColClave.setCellEditor( new DefaultCellEditor( ComponentsUser.getDataTxt( 15, 2 ) ) );
 			
-			TableColumn c3 = Tsegir.getColumn( "Descripcion" );
+			TableColumn c3 = Tsegir.getColumn( "Descripción" );
 			c3.setCellRenderer( new CustomRenderer( ) );
 			c3.setCellEditor( new CustomEditor( ) );
 			c3.setPreferredWidth( 400 );
@@ -1083,7 +1089,8 @@ public class ControlEstimaciones extends JInternalFrame {
 							if ( asp.getZ( ).equals( " " ) == true ) {
 								asp.setZ( "0" );
 							}
-							ban2 = conexion.estimacionaspecto( asp.getIdaspecto( ), String.valueOf( idestimacion ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), fechaestimacion );
+							ban2 =  Estimacion.InsertaAspecto(asp.getIdaspecto( ), String.valueOf( idestimacion ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), fechaestimacion );
+							//ban2 = conexion.estimacionaspecto( asp.getIdaspecto( ), String.valueOf( idestimacion ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), fechaestimacion );
 						}
 					}
 					//se muestra un cuadro de dialogo para guardar el archivo del formato de nï¿½meros generadores en formato .xls
@@ -1256,7 +1263,7 @@ public class ControlEstimaciones extends JInternalFrame {
 	 */
 	private void llenarconsultor ( ) {
 		Cconsultor.removeAllItems( );
-		ListaConsultores = conexion.GetConsultores( );
+		ListaConsultores = controlador.getConsultores();//Consultor.getConsultores();// conexion.GetConsultores( );
 		for ( int i = 0 ; i < ListaConsultores.size( ) ; i++ ) {
 			consul = ( Consultor ) ListaConsultores.get( i );
 			Cconsultor.addItem( consul.getNombre( ) + "   " + consul.getPaterno( ) + "  " + consul.getMaterno( ) );
@@ -1285,7 +1292,7 @@ public class ControlEstimaciones extends JInternalFrame {
 	 * mï¿½todo para llenar recuperar los frentes de la base de datos 
 	 */
 	private void llenarLFrentes ( ) {
-		Listafrentes = conexion.Frentes( );
+		Listafrentes =  Frente.findAll();//conexion.Frentes( );
 	}
 
 	/**
@@ -1578,7 +1585,7 @@ public class ControlEstimaciones extends JInternalFrame {
 		tc3.setCellRenderer( new ColoredTableCellRenderer( ) );
 		Taspectos.setVisible( true );
 		
-		TableColumn co1 = Taspectos.getColumn( "Seleccion" );
+		TableColumn co1 = Taspectos.getColumn( "Selección" );
 		co1.setPreferredWidth( 70 );
 
 	}
