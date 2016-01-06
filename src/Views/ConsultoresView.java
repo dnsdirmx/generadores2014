@@ -11,13 +11,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import Model.Entity.Consultor;
 import controllers.ConsultoresController;
-import models.ConsultorModel;
 
 import javax.swing.JPasswordField;
 import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,7 @@ public class ConsultoresView extends JInternalFrame {
 	private JTextField txtLogin;
 	private JPasswordField txtPassword;
 	private JPasswordField txtPasswordConfirma;
-	private JComboBox<ConsultorModel> cbUsuarios;
+	private JComboBox<Consultor> cbUsuarios;
 	private JPanel plPrincipal;
 	private JPanel plOpciones;
 	private JRadioButton rbAgregar;
@@ -110,10 +111,10 @@ public class ConsultoresView extends JInternalFrame {
 		rbEliminar.setBounds(230, 11, 78, 20);
 		plOpciones.add(rbEliminar);
 		
-		cbUsuarios = new JComboBox<ConsultorModel>();
+		cbUsuarios = new JComboBox<Consultor>();
 		cbUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultorModel consultor = (ConsultorModel) cbUsuarios.getSelectedItem();
+				Consultor consultor = (Consultor) cbUsuarios.getSelectedItem();
 				llenaFormulario(consultor);
 			}
 		});
@@ -216,6 +217,8 @@ public class ConsultoresView extends JInternalFrame {
 		txtPasswordConfirma.setBorder( new LineBorder( new java.awt.Color( 0, 0, 0 ), 1, false ) );
 		plFormulario.add(txtPasswordConfirma);
 		
+		
+		ImageIcon Imagenprocesar = new ImageIcon( getClass( ).getResource( "/iconos/proceso.png" ) );
 		btnAceptar = new JButton();
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -223,7 +226,7 @@ public class ConsultoresView extends JInternalFrame {
 				{
 					if(validarFormulario())
 					{
-						boolean resultado = ConsultoresView.this.controlador.update((ConsultorModel) cbUsuarios.getSelectedItem(),
+						boolean resultado = ConsultoresView.this.controlador.update((Consultor) cbUsuarios.getSelectedItem(),
 								ConsultoresView.this.txtNombre.getText(),
 								ConsultoresView.this.txtPaterno.getText(),
 								ConsultoresView.this.txtMaterno.getText(),
@@ -234,15 +237,15 @@ public class ConsultoresView extends JInternalFrame {
 							JOptionPane.showMessageDialog(ConsultoresView.this, "Se ha actualizado el consultor");
 						else
 							JOptionPane.showMessageDialog(ConsultoresView.this, "No se ha podido actualizar el consultor");
-						
+						llenarConsultores();
 					}
 				}
 				else if (rbEliminar.isSelected())
 					
-					if(ConsultoresView.this.controlador.destroy((ConsultorModel) cbUsuarios.getSelectedItem()))
+					if(ConsultoresView.this.controlador.destroy((Consultor) cbUsuarios.getSelectedItem()))
 					{
 						JOptionPane.showMessageDialog(ConsultoresView.this, "Se ha eliminado el consultor");
-						llenarConsultores();
+						cbUsuarios.removeItem(cbUsuarios.getSelectedItem());
 					}
 					else
 						JOptionPane.showMessageDialog(ConsultoresView.this, "No se ha podido eliminar el consultor");
@@ -271,6 +274,7 @@ public class ConsultoresView extends JInternalFrame {
 		btnAceptar.setText("Realizar Operaci\u00F3n");
 		btnAceptar.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnAceptar.setBounds(41, 258, 271, 38);
+		btnAceptar.setIcon( Imagenprocesar );
 		plFormulario.add(btnAceptar);
 		
 		lbTipoUsuario = new JLabel();
@@ -325,7 +329,7 @@ public class ConsultoresView extends JInternalFrame {
 	}
 
 
-	protected void llenaFormulario(ConsultorModel consultor) {
+	protected void llenaFormulario(Consultor consultor) {
 		this.txtNombre.setText(consultor.getNombre());
 		this.txtPaterno.setText(consultor.getPaterno());
 		this.txtMaterno.setText(consultor.getMaterno());
@@ -358,11 +362,11 @@ public class ConsultoresView extends JInternalFrame {
 		//JOptionPane.showMessageDialog(null, "he");
 		cbUsuarios.removeAll();
 		//cbUsuarios.removeAllItems();
-		List<ConsultorModel> consultores = controlador.getConsultores();
+		List<Consultor> consultores = controlador.getConsultores();
 		limpiarFormulario();
 		
 		
-		for(ConsultorModel nombre : consultores)
+		for(Consultor nombre : consultores)
 		{
 			cbUsuarios.addItem(nombre);
 		}

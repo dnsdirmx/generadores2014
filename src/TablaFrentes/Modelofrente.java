@@ -19,7 +19,7 @@ import java.util.LinkedList;
 public class Modelofrente implements TableModel {
 
 	// Lista de datos contenidos en el modelo de frentes
-	private LinkedList<Frente> datos = new LinkedList<Frente>();
+	private LinkedList<Model.Entity.Frente> datos = new LinkedList<Model.Entity.Frente>();
 	private LinkedList<TableModelListener> listeners = new LinkedList<TableModelListener>();
 	// Métodos para la manipulación a la base de datos
 	private Metodos cone;
@@ -57,7 +57,7 @@ public class Modelofrente implements TableModel {
 	 *            int --- índice de la columna
 	 */
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Frente aux = (Frente) datos.get(rowIndex);
+		Model.Entity.Frente aux = (Model.Entity.Frente) datos.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
 			return aux.getIndentificador();
@@ -88,7 +88,7 @@ public class Modelofrente implements TableModel {
 	 * @param tipo
 	 *            String --- Nombre del nuevo Tipo de Proyecto
 	 */
-	public void anhadeFrente(Frente fre) {
+	public void anhadeFrente(Model.Entity.Frente fre) {
 		datos.add(fre);
 		TableModelEvent evento;
 		evento = new TableModelEvent(this, this.getRowCount() - 1, this.getRowCount() - 1, TableModelEvent.ALL_COLUMNS, TableModelEvent.INSERT);
@@ -149,9 +149,9 @@ public class Modelofrente implements TableModel {
 	 * Fijar un valor a una celda de la tabla en el modelo
 	 */
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		Frente aux;
+		Model.Entity.Frente aux;
 		String tempIdentificadorUbicacion;
-		aux = (Frente) datos.get(rowIndex);
+		aux = (Model.Entity.Frente) datos.get(rowIndex);
 		switch (columnIndex) {
 			case 0:
 				tempIdentificadorUbicacion= aux.getIndentificador();
@@ -195,7 +195,7 @@ public class Modelofrente implements TableModel {
 	 * 
 	 * @return lista de elementos
 	 */
-	public LinkedList<Frente> getListaDatos() {
+	public LinkedList<Model.Entity.Frente> getListaDatos() {
 		return this.datos;
 	}
 
@@ -203,7 +203,7 @@ public class Modelofrente implements TableModel {
 	 * Limpiar la lista de los elementos del modelo de la tabla
 	 */
 	public void Limpiar() {
-		this.datos = new LinkedList<Frente>();
+		this.datos = new LinkedList<Model.Entity.Frente>();
 	}
 
 }

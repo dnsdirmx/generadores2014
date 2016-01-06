@@ -1,4 +1,6 @@
-import java.awt.BorderLayout;
+package Views;
+
+import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,48 +12,40 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultCellEditor;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
+import javax.swing.JButton;
+import com.toedter.calendar.JDateChooser;
 
 import MetodosRemotos.Metodos;
-import ObjetosSerializables.Frente;
-import ObjetosSerializables.Proyecto;
-import ObjetosSerializables.Tipo;
+import Model.Entity.Frente;
+import Model.Entity.Proyecto;
+import Model.Entity.Tipo;
 import Options.ComponentsUser;
 import Options.OptionsText;
 import Options.VComentarioProyecto;
 import TablaFrentes.Controlfrente;
 import TablaFrentes.Modelofrente;
+import controllers.ProyectosController;
 
-import com.toedter.calendar.JDateChooser;
-
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.table.TableColumn;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 
-/**
- * Clase para administrar la información de proyectos
- * @author Pablo Rivera
- * @colaboración luiiis lazaro
- *
- */
-public class Proyectos extends javax.swing.JInternalFrame {
-
-	/**
-	 * escritorio 
-	 */
+public class ProyectosView extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private JDesktopPane escritorio;
 	private JPanel Pproyectos;
@@ -86,13 +80,14 @@ public class Proyectos extends javax.swing.JInternalFrame {
 	private int idproyecto = -1;
 	private int idfrente = -1, posicion = -1;
 	private LinkedList<Proyecto> Lproyectos = new LinkedList<Proyecto>();
-	private LinkedList<Model.Entity.Frente> Lfrentes = new LinkedList<Model.Entity.Frente>();
+	private LinkedList<Frente> Lfrentes = new LinkedList<Frente>();
 	private Metodos cone;
 	private Modelofrente modelo = new Modelofrente();
 	private Controlfrente control = new Controlfrente(modelo);
 	private JScrollPane scrollPane;
 	private JButton btnComments;
 	private String commentsProyecto;
+	private ProyectosController controlador;
 
 	/**
 	 * Obtenern comentarios acerca del proyecto
@@ -118,8 +113,9 @@ public class Proyectos extends javax.swing.JInternalFrame {
 	 * @param escritorio2 --- panel de la aplacación principal 
 	 * @param cone --- métodos para la manipulación de la base de datos
 	 */
-	public Proyectos(JDesktopPane escritorio2, Metodos cone) {
+	public ProyectosView(ProyectosController controlador, JDesktopPane escritorio2, Metodos cone) {
 		super("Registro de Proyectos", false, true, false, true);
+		this.controlador = controlador;
 		initGUI(escritorio2, cone);
 	}
 
@@ -138,7 +134,7 @@ public class Proyectos extends javax.swing.JInternalFrame {
 			escritorio = new JDesktopPane();
 			getContentPane().add(escritorio, BorderLayout.CENTER);
 			control.meterconexion(cone);
-			Ltipos = cone.Tiposproyectos();
+			Ltipos = Tipo.findAll();
 
 			Pproyectos = new JPanel();
 			escritorio.add(Pproyectos, JLayeredPane.DEFAULT_LAYER);
@@ -372,7 +368,7 @@ public class Proyectos extends javax.swing.JInternalFrame {
 			etifechafin.setBounds(278, 187, 96, 16);
 
 			// BotÃ³n para agregar, modificar o eliminar un proyecto
-			ImageIcon Imagenproceso = new ImageIcon(getClass().getResource("iconos/proceso.png"));
+			ImageIcon Imagenproceso = new ImageIcon(getClass().getResource("/iconos/proceso.png"));
 			aceptar = new JButton();
 			aceptar.setEnabled(false);
 			Pinformacion.add(aceptar);
@@ -407,7 +403,7 @@ public class Proyectos extends javax.swing.JInternalFrame {
 				public void actionPerformed(ActionEvent e) {
 					int ano, mes, dia, existe = 0;
 					String ca = "", cm = "", cd = "", fecha1 = "0", fecha2 = "0";
-					Ltipos = cone.Tiposproyectos();
+					Ltipos = Tipo.findAll();
 					// ****************************************************************************************************************************************
 					if (finicial.getDate() != null) {
 						ano = finicial.getCalendar().get(Calendar.YEAR);
@@ -465,11 +461,13 @@ public class Proyectos extends javax.swing.JInternalFrame {
 					if (agregar.isSelected()) {
 						if (vacio() == false && fecha1.equals("0") == false && fecha2.equals("0") == false) {
 							try {
-								if (cone.existeproyecto(nombre.getText()) == false) {
+								if(Proyecto.findByNombre(nombre.getText()) == null){
+								//if (cone.existeproyecto(nombre.getText()) == false) {
 									// ***************************************************************************************************************************
 									Tipo p = (Tipo) Ltipos.get(tipo.getSelectedIndex());
-									idproyecto = cone.Insertarproyecto(p.getIdtipo(), fecha1, fecha2, descripcion.getText(), nombre.getText(), getCommentsProyecto());
-									if (idproyecto > 0) {
+									//idproyecto = ;//cone.Insertarproyecto(p.getIdtipo(), fecha1, fecha2, descripcion.getText(), nombre.getText(), getCommentsProyecto());
+									if (controlador.create(p.getIdtipo(), finicial.getDate(), Ffin.getDate(), descripcion.getText(), nombre.getText(), getCommentsProyecto())) {
+										idproyecto = controlador.getIdProyecto();
 										JOptionPane.showMessageDialog(null, "Éxito al crear proyecto, ingresa frentes");
 										Tfrentes.setEnabled(true);
 										fagregar.setEnabled(true);
@@ -495,13 +493,13 @@ public class Proyectos extends javax.swing.JInternalFrame {
 							btnComments.setEnabled(true);
 							Tipo p = (Tipo) Ltipos.get(tipo.getSelectedIndex());
 							if (cone.modificarProyecto(p.getIdtipo(), fecha1, fecha2, descripcion.getText(), nombre.getText(), String.valueOf(idproyecto))) {
-								Lfrentes = Model.Entity.Frente.findAll();//cone.Frentes();
+								Lfrentes = Frente.findAll();
 								Limpiarfrente();
-								Model.Entity.Frente fre;
+								Frente fre;
 								if (Lfrentes.size() > 1) {
 									for (int i = 0; i < Lfrentes.size(); i++) {
-										fre = new Model.Entity.Frente();
-										fre = (Model.Entity.Frente) Lfrentes.get(i);
+										fre = new Frente();
+										fre = (Frente) Lfrentes.get(i);
 										if (fre.getIdproyecto() == idproyecto) {
 											control.anhadeFila(fre);
 										}
@@ -523,13 +521,13 @@ public class Proyectos extends javax.swing.JInternalFrame {
 					if (eliminar.isSelected()) {
 						int res = JOptionPane.showConfirmDialog(null, "Confirmar para eliminar", "Confirmación", JOptionPane.YES_NO_OPTION);
 						if (res == JOptionPane.YES_OPTION) {
-							Lfrentes = Model.Entity.Frente.findAll();//cone.Frentes();
+							Lfrentes = Frente.findAll();//cone.Frentes();
 							Limpiarfrente();
-							Model.Entity.Frente fre;
+							Frente fre;
 							if (Lfrentes.size() >= 1) {
 								for (int i = 0; i < Lfrentes.size(); i++) {
-									fre = new Model.Entity.Frente();
-									fre = (Model.Entity.Frente) Lfrentes.get(i);
+									fre = new Frente();
+									fre = (Frente) Lfrentes.get(i);
 									if (fre.getIdproyecto() == idproyecto) {
 										control.anhadeFila(fre);
 										existe++;
@@ -599,16 +597,16 @@ public class Proyectos extends javax.swing.JInternalFrame {
 
 					} else {
 						if (e.isAltDown() == false) {
-							Model.Entity.Frente fre = new Model.Entity.Frente();
+							Frente fre = new Frente();
 							posicion = Tfrentes.getSelectionModel().getLeadSelectionIndex();
-							fre = (Model.Entity.Frente) control.getListaDatos().get(posicion);
+							fre = (Frente) control.getListaDatos().get(posicion);
 							idfrente = fre.getIdfrente();
 						}
 					}
 				}
 			});
 
-			ImageIcon Imagenagregar = new ImageIcon(getClass().getResource("iconos/agregar.png"));
+			ImageIcon Imagenagregar = new ImageIcon(getClass().getResource("/iconos/agregar.png"));
 			fagregar = new JButton();
 			fagregar.addActionListener(new ActionListener() {
 				/**
@@ -618,9 +616,10 @@ public class Proyectos extends javax.swing.JInternalFrame {
 				 */
 				public void actionPerformed(ActionEvent e) {
 					if (idproyecto > 0) {
+						//TODO AQUI HAY UN PEDO
 						idfrente = cone.Insetarfrente(String.valueOf(idproyecto), "nueva descripcion", "nueva ubicacion");
 						if (idfrente > -1) {
-							Model.Entity.Frente fre = new Model.Entity.Frente();
+							Frente fre = new Frente();
 							fre.setIdproyecto(idproyecto);
 							fre.setIdentificador("nueva descripcion");
 							fre.setUbicacion("nueva ubicacion");
@@ -638,7 +637,7 @@ public class Proyectos extends javax.swing.JInternalFrame {
 			fagregar.setEnabled(false);
 
 			// boton para eliminar frente
-			ImageIcon Imageneliminar = new ImageIcon(getClass().getResource("iconos/eliminar.png"));
+			ImageIcon Imageneliminar = new ImageIcon(getClass().getResource("/iconos/eliminar.png"));
 			feliminar = new JButton();
 			Pfrentes.add(feliminar);
 			feliminar.setIcon(Imageneliminar);
@@ -653,7 +652,7 @@ public class Proyectos extends javax.swing.JInternalFrame {
 				 */
 				public void actionPerformed(ActionEvent e) {
 					if (idfrente > -1) {
-						int res = JOptionPane.showConfirmDialog(null, "Deseas eliminar Ã©ste frente", "ConfirmaciÃ³n", JOptionPane.YES_NO_OPTION);
+						int res = JOptionPane.showConfirmDialog(null, "Deseas eliminar éste frente", "Confirmación", JOptionPane.YES_NO_OPTION);
 						if (res == JOptionPane.YES_OPTION) {
 							if (cone.eliminafrente(String.valueOf(idfrente))) {
 								control.borraFila(posicion);
@@ -723,7 +722,8 @@ public class Proyectos extends javax.swing.JInternalFrame {
 	 * consultar los proyectos en la base de datos
 	 */
 	public void llenarproyectos() {
-		Lproyectos = cone.GetProyectos();
+		
+		Lproyectos = Proyecto.findAll();// cone.GetProyectos();
 		Cproyectos.removeAllItems();
 		Proyecto pro = new Proyecto();
 		for (int i = 0; i < Lproyectos.size(); i++) {

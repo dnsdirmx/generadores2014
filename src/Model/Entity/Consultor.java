@@ -1,10 +1,11 @@
-package models;
+package Model.Entity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
+import java.util.LinkedList;
 
-public class ConsultorModel {
+public class Consultor {
 	private Integer idConsultor;
 	private String paterno;
 	private String materno;
@@ -13,7 +14,7 @@ public class ConsultorModel {
 	private String pass;
 	private String tipousu;
 	
-	public ConsultorModel()
+	public Consultor()
 	{
 		idConsultor = -1;
 	}
@@ -86,7 +87,6 @@ public class ConsultorModel {
 				rs.next();
 				this.idConsultor = rs.getInt(0);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -102,22 +102,21 @@ public class ConsultorModel {
 		bd.cerrar();
 		return estado;
 	}
-	public static ConsultorModel find(Integer idConsultor)
+	public static Consultor find(Integer idConsultor)
 	{
-		ConsultorModel consultor = null;
+		Consultor consultor = null;
 		return consultor;
 	}
-	public static Hashtable<Integer,ConsultorModel> findAll()
-	{
-		Hashtable<Integer,ConsultorModel> consultores = null;
+	public static LinkedList<Consultor> findAll() {
+		LinkedList<Consultor> llConsultores = new LinkedList<Consultor>();
 		BDConexion bd = new BDConexion();
-		ResultSet rs = bd.consultar("SELECT * FROM generadores.consultor");
+		String[] campos = {"*"}; 
+		ResultSet rs =  bd.consulta("consultor", campos);
+		
 		try {
-			if (rs != null)
-				consultores = new Hashtable<Integer,ConsultorModel>();
 			while(rs.next())
 			{
-				ConsultorModel consultor = new ConsultorModel();
+				Consultor consultor = new Consultor();
 				consultor.setIdConsultor(rs.getInt("idConsultor"));
 				consultor.setPaterno(rs.getString("paterno"));
 				consultor.setMaterno(rs.getString("materno"));
@@ -125,16 +124,15 @@ public class ConsultorModel {
 				consultor.setLogin(rs.getString("login"));
 				consultor.setPass(rs.getString("pass"));
 				consultor.setTipousu(rs.getString("tipousu"));
-				consultores.put(consultor.getIdConsultor(), consultor);
+				llConsultores.add(consultor);
 			}
-			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		bd.cerrar();
-		return consultores; 
+		return llConsultores;
 	}
+	//TODO vaciar 
 	public String toString()
 	{
 		return nombre + " " + paterno + " " + materno;

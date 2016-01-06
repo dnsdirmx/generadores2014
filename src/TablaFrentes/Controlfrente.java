@@ -28,7 +28,7 @@ public class Controlfrente {
 	 * @param fre
 	 *            Frente--- Frente para agregar
 	 */
-	public void anhadeFila(Frente fre) {
+	public void anhadeFila(Model.Entity.Frente fre) {
 		modelo.anhadeFrente(fre);
 	}
 
@@ -48,7 +48,7 @@ public class Controlfrente {
 	 * 
 	 * @return lista de elementos en el modelo de datos
 	 */
-	public LinkedList<Frente> getListaDatos() {
+	public LinkedList<Model.Entity.Frente> getListaDatos() {
 		return modelo.getListaDatos();
 	}
 

@@ -6,6 +6,7 @@ import ImportarExportar.View.VImportarConceptos;
 import MetodosRemotos.Metodos;
 import Views.ConsultoresView;
 import controllers.ConsultoresController;
+import controllers.ProyectosController;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -215,6 +216,14 @@ public class Principal extends JFrame {
 			Menu.add(mProyectos);
 			mProyectos.setText("Proyectos");
 			mProyectos.setEnabled(false);
+			
+			JMenuItem mntmRegistroDeProyectoss = new JMenuItem("Registro de Proyectoss");
+			mntmRegistroDeProyectoss.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					escritorio2.add(new ProyectosController(escritorio2,conexion).getVista());
+				}
+			});
+			mProyectos.add(mntmRegistroDeProyectoss);
 
 			rProyectos = new JMenuItem();
 			mProyectos.add(rProyectos);

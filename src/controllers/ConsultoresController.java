@@ -8,16 +8,19 @@ import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+
+import Model.Entity.Consultor;
+
 import java.util.Set;
 
 import Views.ConsultoresView;
-import models.ConsultorModel;
 
 public class ConsultoresController {
 	private ConsultoresView vista;
-	private ConsultorModel consultor;
+	private Consultor consultor;
 	
 	public ConsultoresController() {
 		vista = new ConsultoresView(this);
@@ -25,20 +28,17 @@ public class ConsultoresController {
 	public ConsultoresView getVista() {
 		return vista;
 	}
-	public List<ConsultorModel> getConsultores()
+	public List<Consultor> getConsultores()
 	{
-		List<ConsultorModel> nombres = new ArrayList<ConsultorModel>();
-		Hashtable<Integer,ConsultorModel> tb =  ConsultorModel.findAll();
-		Set<Entry<Integer, ConsultorModel>> entradas = tb.entrySet();
-		Iterator<Entry<Integer, ConsultorModel>> it = entradas.iterator();
-		while(it.hasNext())
+		List<Consultor> nombres = new ArrayList<Consultor>();
+		LinkedList<Consultor> tb =  Consultor.findAll();
+		for(Consultor c : tb)
 		{
-			ConsultorModel cm = it.next().getValue();
-			nombres.add(cm);
-		}	
+			nombres.add(c);
+		}
 		return nombres;	
 	}
-	public boolean update(ConsultorModel consultor,String nombre, String paterno, String materno, String login, char[] cs, int tipousu) {
+	public boolean update(Consultor consultor,String nombre, String paterno, String materno, String login, char[] cs, int tipousu) {
 		consultor.setNombre(nombre);
 		consultor.setPaterno(paterno);
 		consultor.setMaterno(materno);
@@ -51,7 +51,7 @@ public class ConsultoresController {
 		return consultor.save();
 	}
 	public boolean create(String nombre, String paterno, String materno, String login, char[] cs, int tipousu) {
-		ConsultorModel consultor = new ConsultorModel();
+		Consultor consultor = new Consultor();
 		consultor.setNombre(nombre);
 		consultor.setPaterno(paterno);
 		consultor.setMaterno(materno);
@@ -63,7 +63,7 @@ public class ConsultoresController {
 			consultor.setTipousu("U");
 		return consultor.save();
 	}
-	public boolean destroy(ConsultorModel consultor) {
+	public boolean destroy(Consultor consultor) {
 		return consultor.delete();
 	}
 }
