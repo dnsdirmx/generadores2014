@@ -234,7 +234,8 @@ public class Presupuesto extends JInternalFrame {
 									if (asp.getZ().equals(" ") == true) {
 										asp.setZ("0");
 									}
-									ban2 = cone.estimacionaspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
+									ban2 = Estimacion.InsertaAspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
+									//ban2 = cone.estimacionaspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
 								}
 								// ***********************************************************************************************
 							} else {
@@ -473,7 +474,16 @@ public class Presupuesto extends JInternalFrame {
 							if (Lestimacion.size() == 0) {
 								int res = JOptionPane.showConfirmDialog(null, "Deseas utilizar una plantilla", "Confirmacion", JOptionPane.YES_NO_OPTION);
 								if (res == JOptionPane.NO_OPTION) {
-									idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
+									Estimacion estimacion = new Estimacion();
+									estimacion.setIdfrente(idfrente);
+									estimacion.setIdConsultor(idconsultor);
+									estimacion.setPorcentaje((float) 0.0);
+									estimacion.setFecha(fe);
+									estimacion.setTipo("I");
+									estimacion.setNestimacion(0);
+									estimacion.save();
+									idestimacion = estimacion.getIdestimacion();
+									//idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
 									if (idestimacion > 0) {
 										JOptionPane.showMessageDialog(null, "Estimacion creada");
 									}
@@ -484,7 +494,16 @@ public class Presupuesto extends JInternalFrame {
 										pla = cone.consultarPlantillas();
 										if (pla.size() > 0) {
 											try {
-												idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
+												Estimacion estimacion = new Estimacion();
+												estimacion.setIdfrente(idfrente);
+												estimacion.setIdConsultor(idconsultor);
+												estimacion.setPorcentaje((float) 0.0);
+												estimacion.setFecha(fe);
+												estimacion.setTipo("I");
+												estimacion.setNestimacion(0);
+												estimacion.save();
+												idestimacion = estimacion.getIdestimacion();
+												//idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
 												vpla = new Elegirplantilla(pla, cone, idestimacion, fechaestimacion);
 												escritorio2.add(vpla);
 												vpla.setSelected(true);
@@ -493,7 +512,16 @@ public class Presupuesto extends JInternalFrame {
 												idestimacion = -1;
 											}
 										} else {
-											idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
+											Estimacion estimacion = new Estimacion();
+											estimacion.setIdfrente(idfrente);
+											estimacion.setIdConsultor(idconsultor);
+											estimacion.setPorcentaje((float) 0.0);
+											estimacion.setFecha(fe);
+											estimacion.setTipo("I");
+											estimacion.setNestimacion(0);
+											estimacion.save();
+											idestimacion = estimacion.getIdestimacion();
+											//idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
 										}
 										// if(idestimacion>0){JOptionPane.showMessageDialog(null,"No hay plantillas desponibles,estimacion creada");
 										// }
@@ -511,7 +539,16 @@ public class Presupuesto extends JInternalFrame {
 								if (res == JOptionPane.YES_OPTION) {
 									int r = JOptionPane.showConfirmDialog(null, "Deseas utilizar una plantilla", "Confirmacion", JOptionPane.YES_NO_OPTION);
 									if (r == JOptionPane.NO_OPTION) {
-										idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
+										Estimacion estimacion = new Estimacion();
+										estimacion.setIdfrente(idfrente);
+										estimacion.setIdConsultor(idconsultor);
+										estimacion.setPorcentaje((float) 0.0);
+										estimacion.setFecha(fe);
+										estimacion.setTipo("I");
+										estimacion.setNestimacion(0);
+										estimacion.save();
+										idestimacion = estimacion.getIdestimacion();
+										//idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
 									} else {
 										if (r == JOptionPane.YES_OPTION) {
 											idestimacion = -1;
@@ -519,7 +556,16 @@ public class Presupuesto extends JInternalFrame {
 											pla = cone.consultarPlantillas();
 											if (pla.size() > 0) {
 												try {
-													idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
+													Estimacion estimacion = new Estimacion();
+													estimacion.setIdfrente(idfrente);
+													estimacion.setIdConsultor(idconsultor);
+													estimacion.setPorcentaje((float) 0.0);
+													estimacion.setFecha(fe);
+													estimacion.setTipo("I");
+													estimacion.setNestimacion(0);
+													estimacion.save();
+													idestimacion = estimacion.getIdestimacion();
+													//idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
 													vpla = new Elegirplantilla(pla, cone, idestimacion, fechaestimacion);
 													escritorio2.add(vpla);
 													vpla.setSelected(true);
@@ -528,7 +574,16 @@ public class Presupuesto extends JInternalFrame {
 													idestimacion = -1;
 												}
 											} else {
-												idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
+												Estimacion estimacion = new Estimacion();
+												estimacion.setIdfrente(idfrente);
+												estimacion.setIdConsultor(idconsultor);
+												estimacion.setPorcentaje((float) 0.0);
+												estimacion.setFecha(fe);
+												estimacion.setTipo("I");
+												estimacion.setNestimacion(0);
+												estimacion.save();
+												idestimacion = estimacion.getIdestimacion();
+												//idestimacion = cone.insertarestimacion(String.valueOf(idfrente), String.valueOf(idconsultor), "0.0", fe, "I", "0");
 											}
 											// if(idestimacion>0){JOptionPane.showMessageDialog(null,"No hay plantillas desponibles,estimacion creada");}
 										} else {
@@ -726,7 +781,7 @@ public class Presupuesto extends JInternalFrame {
 			TableColumn tabColClave = generadores.getColumn("Clave");
 			tabColClave.setCellEditor(new DefaultCellEditor(ComponentsUser.getDataTxt(15, 2)));
 
-			TableColumn tc3 = generadores.getColumn("Descripcion");
+			TableColumn tc3 = generadores.getColumn("Descripción");
 			tc3.setPreferredWidth(400);
 			tc3.setCellRenderer(new CustomRenderer());
 			tc3.setCellEditor(new CustomEditor());
@@ -876,7 +931,9 @@ public class Presupuesto extends JInternalFrame {
 									if (asp.getZ().equals(" ") == true) {
 										asp.setZ("0");
 									}
-									ban2 = cone.estimacionaspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
+									ban2 = Estimacion.InsertaAspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
+									
+									//ban2 = cone.estimacionaspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
 								}
 
 								/**
@@ -916,7 +973,9 @@ public class Presupuesto extends JInternalFrame {
 											Rgenerador asp = new Rgenerador();
 											for (int i = 0; i < control.getLista().size(); i++) {
 												asp = (Rgenerador) control.getLista().get(i);
-												ban2 = cone.estimacionaspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
+												ban2 = Estimacion.InsertaAspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
+												
+												//ban2 = cone.estimacionaspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
 											}
 										} else {
 											ban = false;
@@ -955,7 +1014,9 @@ public class Presupuesto extends JInternalFrame {
 											Rgenerador asp = new Rgenerador();
 											for (int i = 0; i < control.getLista().size(); i++) {
 												asp = (Rgenerador) control.getLista().get(i);
-												ban2 = cone.estimacionaspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
+												ban2 = Estimacion.InsertaAspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
+												
+												//ban2 = cone.estimacionaspecto(asp.getIdaspecto(), String.valueOf(idestimacion), asp.getPiezas(), asp.getImporte(), asp.getX(), asp.getY(), asp.getZ(), asp.getAlto(), asp.getLargo(), asp.getAncho(), asp.getCosto(), String.valueOf(idpartida), String.valueOf(asp.getRepeticion()), fechaestimacion);
 											}
 										} else {
 											ban2 = false;
@@ -1135,7 +1196,7 @@ public class Presupuesto extends JInternalFrame {
 					}
 					llenarAspectos(idconcepto);
 
-					TableColumn co = TDescripcion.getColumn("Seleccion");
+					TableColumn co = TDescripcion.getColumn("Selección");
 					co.setPreferredWidth(80);
 					TableColumn co2 = TDescripcion.getColumn("Desglose de Conceptos");
 					co2.setPreferredWidth(850);
