@@ -235,6 +235,8 @@ public class Estimacion {
 	public static boolean InsertaAspecto(String idaspecto, String idestimacion, String piezas, String importe, String x,
 			String y, String z, String alto, String largo, String ancho, String costo, String idpartida, String repeticion,
 			String fechaestimacion) {
+			if(Estimacion.existeAspecto(idaspecto, idestimacion, repeticion))
+				return true;
 			String sql = "INSERT INTO `generadores`.`esti_aspec` "
 					+ "(`idaspecto`,`idestimacion`,`cantidad`,`importe`,`ubicacionX`,`ubicacionY`,`ubicacionZ`,`alto`,`largo`,`Ancho`,`costo`,`idpartida`,`repeticion`,`fechae`)"
 					+ "VALUES ("+ idaspecto+","
@@ -242,7 +244,24 @@ public class Estimacion {
 							+ " " + piezas + "," + importe + "," + x +"," + y + "," + z + "," + alto + "," + largo + "," + ancho + "," + costo + "," + idpartida + "," + repeticion + ",'" + fechaestimacion + "')";
 			BDConexion bd = new BDConexion();
 			boolean estado = bd.ejecutar(sql);
+			System.out.println("Estado de la estimacion " + estado);
 			bd.cerrar();
+		return estado;
+	}
+	public static boolean existeAspecto(String idaspecto, String idestimacion, String repeticion )
+	{
+		boolean estado = false;
+		BDConexion bd = new BDConexion();
+		String sql = "select * from esti_aspec where idaspecto = " + idaspecto + " and idestimacion = " + idestimacion + " and repeticion = " + repeticion ;
+		ResultSet rs = bd.consultar(sql);
+		try {
+			if(rs.next())
+				estado = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bd.cerrar();
 		return estado;
 	}
 }

@@ -70,8 +70,9 @@ public class BDConexion {
             sentencia.executeUpdate(sql);
             sentencia.close();
             
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e ) {
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
             return false;
         }
         return true;

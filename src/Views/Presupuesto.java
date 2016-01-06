@@ -1020,6 +1020,7 @@ public class Presupuesto extends JInternalFrame {
 											}
 										} else {
 											ban2 = false;
+											JOptionPane.showMessageDialog(null, "verificarDatos() == false", "verifica", JOptionPane.WARNING_MESSAGE);
 										}
 										if (ban2 == true) {
 											path += ".pdf";
@@ -1030,6 +1031,11 @@ public class Presupuesto extends JInternalFrame {
 											} catch (IOException e1) {
 												JOptionPane.showMessageDialog(null, "Error al lanzar PDF");
 											}
+										}
+										else
+										{
+											JOptionPane.showMessageDialog(null, "ban2 == true", "verifica", JOptionPane.WARNING_MESSAGE);
+											
 										}
 										// ***********************************************************************************************
 									} else {
@@ -1156,7 +1162,8 @@ public class Presupuesto extends JInternalFrame {
 																veces++;
 															}
 														}
-														if (cone.Eliminaresaspecto(ida, String.valueOf(idestimacion))) {
+														if(Estimacion.eliminaAspecto(Integer.valueOf(ida), new Integer(idestimacion))){
+														//if (cone.Eliminaresaspecto(ida, String.valueOf(idestimacion))) {
 															if (veces > 1) {
 																control.borraFila(id, veces);
 															} else {
