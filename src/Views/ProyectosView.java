@@ -492,7 +492,8 @@ public class ProyectosView extends JInternalFrame {
 						if (res == JOptionPane.YES_OPTION) {
 							btnComments.setEnabled(true);
 							Tipo p = (Tipo) Ltipos.get(tipo.getSelectedIndex());
-							if (cone.modificarProyecto(p.getIdtipo(), fecha1, fecha2, descripcion.getText(), nombre.getText(), String.valueOf(idproyecto))) {
+							if(controlador.updateProyecto(p.getIdtipo(), finicial.getDate(), Ffin.getDate(), descripcion.getText(), nombre.getText(),idproyecto)){
+							//if (cone.modificarProyecto(p.getIdtipo(), fecha1, fecha2, descripcion.getText(), nombre.getText(), String.valueOf(idproyecto))) {
 								Lfrentes = Frente.findAll();
 								Limpiarfrente();
 								Frente fre;
@@ -515,6 +516,8 @@ public class ProyectosView extends JInternalFrame {
 									aceptar.setEnabled(false);
 								}
 							}
+							else
+								JOptionPane.showMessageDialog(ProyectosView.this, "No se ha podido modificar");
 						}
 					}
 
@@ -540,7 +543,8 @@ public class ProyectosView extends JInternalFrame {
 								feliminar.setEnabled(false);
 								aceptar.setEnabled(true);
 								try {
-									if (cone.eliminarProyecto(String.valueOf(idproyecto))) {
+									if(controlador.destroyProyecto(idproyecto)){
+									//if (cone.eliminarProyecto(String.valueOf(idproyecto))) {
 										JOptionPane.showMessageDialog(null, "El proyecto ha sido eliminado");
 										llenarproyectos();
 										limpiar();
@@ -617,7 +621,14 @@ public class ProyectosView extends JInternalFrame {
 				public void actionPerformed(ActionEvent e) {
 					if (idproyecto > 0) {
 						//TODO AQUI HAY UN PEDO
-						idfrente = cone.Insetarfrente(String.valueOf(idproyecto), "nueva descripcion", "nueva ubicacion");
+						Frente frente = new Frente();
+						frente.setIdproyecto(idproyecto);
+						frente.setIdentificador("nueva descripcion");
+						frente.setUbicacion("nueva ubicacion");
+						frente.save();
+						
+						idfrente = frente.getIdfrente();
+						//cone.Insetarfrente(String.valueOf(idproyecto), "nueva descripcion", "nueva ubicacion");
 						if (idfrente > -1) {
 							Frente fre = new Frente();
 							fre.setIdproyecto(idproyecto);

@@ -116,7 +116,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 			this.tipo = tipo;
 			llenartipos( ); // ##################################33
 
-			ImageIcon Imagenagregar = new ImageIcon( getClass( ).getResource( "iconos/agregar.png" ) );
+			ImageIcon Imagenagregar = new ImageIcon( getClass( ).getResource( "/iconos/agregar.png" ) );
 			agregar = new JButton( );
 			agregar.setIcon( Imagenagregar );
 			Pcontenedor.add( agregar );
@@ -160,7 +160,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 				}
 			} );
 
-			ImageIcon Imageneliminar = new ImageIcon( getClass( ).getResource( "iconos/eliminar.png" ) );
+			ImageIcon Imageneliminar = new ImageIcon( getClass( ).getResource( "/iconos/eliminar.png" ) );
 			eliminar = new JButton( );
 			Pcontenedor.add( eliminar );
 			eliminar.setIcon( Imageneliminar );
@@ -190,7 +190,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 				}
 			} );
 
-			ImageIcon Imagenmodificar = new ImageIcon( getClass( ).getResource( "iconos/modificar.png" ) );
+			ImageIcon Imagenmodificar = new ImageIcon( getClass( ).getResource( "/iconos/modificar.png" ) );
 			modificar = new JButton( );
 			Pcontenedor.add( modificar );
 			modificar.setIcon( Imagenmodificar );

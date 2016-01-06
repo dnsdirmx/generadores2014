@@ -194,7 +194,7 @@ public class Proyecto {
 			proyecto.setInicio(rs.getDate("inicio"));
 			proyecto.setFin(rs.getDate("fin"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			proyecto = null;
 			e.printStackTrace();
 		}
 		return proyecto;
@@ -245,5 +245,11 @@ public class Proyecto {
 			System.out.println(e.toString());
 		}
 		return proye;
+	}
+	public boolean delete() {
+		String sql = "DELETE FROM `generadores`.`proyecto` WHERE idproyecto = " + idproyecto;
+		BDConexion bd = new BDConexion();
+		boolean estado = bd.ejecutar(sql);
+		return estado;
 	}
 }

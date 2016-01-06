@@ -36,4 +36,26 @@ public class ProyectosController {
 			return null;
 		return proyecto.getIdproyecto();
 	}
+	public boolean destroyProyecto(int idproyecto) {
+		boolean estado = false;
+		Proyecto proyecto = Proyecto.findById(idproyecto);
+		if(proyecto != null)
+			estado = proyecto.delete();
+		return estado;
+	}
+	public boolean updateProyecto(String idtipo, Date date, Date date2, String descripcion, String nombre,int idproyecto) {
+		proyecto = Proyecto.findById(idproyecto);
+		if(proyecto == null)
+		{
+			System.out.println("Error al actualizar proyecto");
+		}
+		proyecto.setIdtipo(Integer.parseInt(idtipo));
+		proyecto.setFin(new java.sql.Date(date2.getTime()));
+		proyecto.setInicio(new java.sql.Date(date.getTime()));
+		proyecto.setDescripcion(descripcion);
+		proyecto.setProyecto(nombre);
+		
+		
+		return proyecto.save();
+	}
 }

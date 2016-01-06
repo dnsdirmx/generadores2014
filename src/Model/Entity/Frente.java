@@ -107,7 +107,7 @@ public class Frente {
 		BDConexion bd = new BDConexion();
 		if(idfrente == -1)
 		{
-			sql = "INSERT INTO `generadores`.`frente` (`idfrente`,`idproyecto`,`identificador`,`ubicacion`) VALUES("+ this.idproyecto +",'"+ this.identificador +"','"+ this.ubicacion +"')";
+			sql = "INSERT INTO `generadores`.`frente` (`idproyecto`,`identificador`,`ubicacion`) VALUES("+ this.idproyecto +",'"+ this.identificador +"','"+ this.ubicacion +"')";
 			estado = bd.ejecutar(sql);
 			
 			sql = " SELECT LAST_INSERT_ID() as id";
