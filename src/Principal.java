@@ -7,6 +7,7 @@ import MetodosRemotos.Metodos;
 import Views.ConsultoresView;
 import controllers.ConsultoresController;
 import controllers.ControlEstimacionController;
+import controllers.PresupuestoController;
 import controllers.ProyectosController;
 
 import java.awt.BorderLayout;
@@ -86,6 +87,7 @@ public class Principal extends JFrame {
 	private VImportarConceptos vImportarConceptos;
 	private VReasignacionConsultor vReasignacionProyectos;
 	private JMenuItem mntmRegistroDeConsultoress;
+	private JMenuItem mntmPresupuestoIniciall;
 	
 	/**
 	 * Contructor de la clase principal
@@ -253,6 +255,14 @@ public class Principal extends JFrame {
 			Menu.add(mPresupuestar);
 			mPresupuestar.setText("Presupuestar");
 			mPresupuestar.setEnabled(false);
+			
+			mntmPresupuestoIniciall = new JMenuItem("Presupuesto Iniciall");
+			mntmPresupuestoIniciall.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					escritorio2.add(new PresupuestoController(escritorio2, conexion).getVista());
+				}
+			});
+			mPresupuestar.add(mntmPresupuestoIniciall);
 			rPresupuestar = new JMenuItem();
 			mPresupuestar.add(rPresupuestar);
 			rPresupuestar.setText("Presupuesto Inicial");

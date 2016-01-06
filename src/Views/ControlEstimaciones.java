@@ -1172,7 +1172,7 @@ public class ControlEstimaciones extends JInternalFrame {
 									JOptionPane.showMessageDialog( null, "La estimacion no contiene datos" );
 								}
 							} else {
-								JOptionPane.showMessageDialog( null, "Debes seleccionar una estimacinin" );
+								JOptionPane.showMessageDialog( null, "Debes seleccionar una estimación" );
 							}
 						}
 						// **************************************************************************************************************************************************************************

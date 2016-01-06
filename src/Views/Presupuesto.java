@@ -639,7 +639,7 @@ public class Presupuesto extends JInternalFrame {
 
 			ope = new JLabel();
 			Poperaciones.add(ope);
-			ope.setText("Acci�n:");
+			ope.setText("Acci\u00F3n:");
 			ope.setBounds(16, 4, 53, 16);
 
 			Pgenerador = new JScrollPane();

@@ -1,18 +1,26 @@
 package controllers;
 
+import java.awt.Component;
 import java.util.LinkedList;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import Manejodetablas2.ControlTableGenerador;
 import Manejotablas.MyTableModel;
+import MetodosRemotos.Metodos;
 import Model.Entity.Aspecto;
 import ObjetosSerializables.Rgenerador;
+import Views.Presupuesto;
 
 public class PresupuestoController {
-
+	private Presupuesto vista;
+	public PresupuestoController(JDesktopPane escritorio2, Metodos conexion)
+	{
+		vista = new Presupuesto(escritorio2, conexion, this);
+	}
 	public void obtenerAspectos(ControlTableGenerador control, LinkedList<Rgenerador> lseleccion) {
 		// TODO Auto-generated method stub
 		
@@ -56,6 +64,10 @@ public class PresupuestoController {
 		TDescripcion.removeAll();
 		Ddescripcion.setViewportView(TDescripcion);
 		TDescripcion.setModel(dos);
+	}
+
+	public Component getVista() {
+		return vista;
 	}
 
 }
