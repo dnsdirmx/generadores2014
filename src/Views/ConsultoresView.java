@@ -64,7 +64,7 @@ public class ConsultoresView extends JInternalFrame {
 	 */
 	public ConsultoresView(ConsultoresController controlador) {
 		this.controlador = controlador;
-		
+		/**crea la interfaz **/
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Registro de consultores");
@@ -83,6 +83,7 @@ public class ConsultoresView extends JInternalFrame {
 		rbAgregar = new JRadioButton();
 		rbAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/** cuando se selecciona agregar radiobutton**/
 				seleccionaAgregar();
 			}
 		});
@@ -94,6 +95,7 @@ public class ConsultoresView extends JInternalFrame {
 		rbModificar = new JRadioButton();
 		rbModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/** cuando se selecciona modificar radiobutton**/
 				seleccionaModificar();
 			}
 		});
@@ -105,6 +107,7 @@ public class ConsultoresView extends JInternalFrame {
 		rbEliminar = new JRadioButton();
 		rbEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/** cuando se selecciona eliminar radiobutton**/
 				seleccionaEliminar();
 			}
 		});
@@ -116,6 +119,7 @@ public class ConsultoresView extends JInternalFrame {
 		cbUsuarios = new JComboBox<Consultor>();
 		cbUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/** cuando se selcccioona un consultor del comobox**/
 				Consultor consultor = (Consultor) cbUsuarios.getSelectedItem();
 				llenaFormulario(consultor);
 			}
@@ -228,6 +232,7 @@ public class ConsultoresView extends JInternalFrame {
 				{
 					if(validarFormulario())
 					{
+						/* actualiza el consultor */
 						boolean resultado = ConsultoresView.this.controlador.update((Consultor) cbUsuarios.getSelectedItem(),
 								ConsultoresView.this.txtNombre.getText(),
 								ConsultoresView.this.txtPaterno.getText(),
@@ -243,7 +248,7 @@ public class ConsultoresView extends JInternalFrame {
 					}
 				}
 				else if (rbEliminar.isSelected())
-					
+					/*eliminar el consultor*/
 					if(ConsultoresView.this.controlador.destroy((Consultor) cbUsuarios.getSelectedItem()))
 					{
 						JOptionPane.showMessageDialog(ConsultoresView.this, "Se ha eliminado el consultor");
@@ -255,6 +260,7 @@ public class ConsultoresView extends JInternalFrame {
 				{
 					if(validarFormulario())
 					{
+						/*crea el consultor*/
 						boolean resultado = ConsultoresView.this.controlador.create(ConsultoresView.this.txtNombre.getText(),
 																ConsultoresView.this.txtPaterno.getText(),
 																ConsultoresView.this.txtMaterno.getText(),
@@ -301,7 +307,10 @@ public class ConsultoresView extends JInternalFrame {
 		this.setVisible(true);
 	}
 	
-
+/**
+ * Vaalida el formulario de consultores
+ * @return verdadero si es correcto
+ */
 	protected boolean validarFormulario() {
 		
 		boolean estado = true;
@@ -330,7 +339,10 @@ public class ConsultoresView extends JInternalFrame {
 		return estado;
 	}
 
-
+/**
+ * LLena el formulario con los datos del consultor especificado
+ * @param consultor
+ */
 	protected void llenaFormulario(Consultor consultor) {
 		this.txtNombre.setText(consultor.getNombre());
 		this.txtPaterno.setText(consultor.getPaterno());
@@ -345,21 +357,27 @@ public class ConsultoresView extends JInternalFrame {
 			this.cbTipoUsuario.setSelectedIndex(1);
 	}
 
-
+/**
+ * activa los controles para eliminar
+ */
 	protected void seleccionaEliminar() {
 		if(!cbUsuarios.isEnabled())
 			cbUsuarios.setEnabled(true);
 		llenarConsultores();
 	}
 
-
+/**
+ * Activa los controles para modificar
+ */
 	protected void seleccionaModificar() {
 		cbUsuarios.setEnabled(true);
 		llenarConsultores();
 		
 	}
 
-
+/**
+ * Llena el combobox con los consultores de la bd
+ */
 	private void llenarConsultores() {
 		//JOptionPane.showMessageDialog(null, "he");
 		cbUsuarios.removeAll();

@@ -25,7 +25,15 @@ public class PresupuestoController {
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * Llena los aspectos del la vista
+	 * @param Laspectos
+	 * @param asp2
+	 * @param Ddescripcion
+	 * @param TDescripcion
+	 * @param control
+	 * @param indice
+	 */
 	public void llenarAspectos(LinkedList<Aspecto> Laspectos, Aspecto asp2,
 			JScrollPane Ddescripcion, JTable TDescripcion,
 			ControlTableGenerador control, int indice) {

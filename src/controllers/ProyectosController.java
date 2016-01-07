@@ -16,9 +16,23 @@ public class ProyectosController {
 		this.vista = new ProyectosView(this,escritorio2, cone);
 		proyecto = null;
 	}
+	/**
+	 * Obtiene la vista asociada al controlador
+	 * @return verdadero o falso 
+	 */
 	public ProyectosView getVista() {
 		return vista;
 	}
+	/**
+	 * Inserta un nuevo proyecto
+	 * @param idtipo
+	 * @param date
+	 * @param date2
+	 * @param descripcion
+	 * @param nombre
+	 * @param comentarios
+	 * @return verdadero si se inserto falso en caso contrario
+	 */
 	public boolean create(String idtipo, Date date, Date date2, String descripcion, String nombre, String comentarios) {
 		proyecto = new Proyecto();
 		proyecto.setIdtipo(Integer.parseInt(idtipo));
@@ -29,6 +43,10 @@ public class ProyectosController {
 		proyecto.setComentarios(comentarios);
 		return proyecto.save();
 	}
+	/**
+	 * Obtiene el id del proyecto actual
+	 * @return nulo si no hay un proyecto o el id del proyecto
+	 */
 	public Integer getIdProyecto() {
 		if(proyecto == null)
 			return null;
@@ -36,6 +54,11 @@ public class ProyectosController {
 			return null;
 		return proyecto.getIdproyecto();
 	}
+	/**
+	 * Elimina el proyecto especificado
+	 * @param idproyecto
+	 * @return verdadero o falso
+	 */
 	public boolean destroyProyecto(int idproyecto) {
 		boolean estado = false;
 		Proyecto proyecto = Proyecto.findById(idproyecto);
@@ -43,6 +66,16 @@ public class ProyectosController {
 			estado = proyecto.delete();
 		return estado;
 	}
+	/**
+	 * Actualiza el proyecto especificado 
+	 * @param idtipo
+	 * @param date
+	 * @param date2
+	 * @param descripcion
+	 * @param nombre
+	 * @param idproyecto
+	 * @return verdaero o falso
+	 */
 	public boolean updateProyecto(String idtipo, Date date, Date date2, String descripcion, String nombre,int idproyecto) {
 		proyecto = Proyecto.findById(idproyecto);
 		if(proyecto == null)

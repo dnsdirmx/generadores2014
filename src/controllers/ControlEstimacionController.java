@@ -25,15 +25,33 @@ public class ControlEstimacionController {
 	{
 		this.vista.dispose();
 	}
+	/**
+	 * Verfica si la vista esta cerrada
+	 * @return verdaero o falso
+	 */
 	public boolean isClosed()
 	{
 		return this.vista.isClosed();
 	}
+	/**
+	 * Obtine la vista asociada al controlador
+	 * @return vista
+	 */
 	public ControlEstimaciones getVista()
 	{
 		return this.vista;
 	}
 	
+	/**
+	 * LLena la pantalla de estimacion
+	 * @param LSeleccion
+	 * @param modificar
+	 * @param agregar
+	 * @param esti
+	 * @param idestimacion
+	 * @param nombre
+	 * @param control3
+	 */
 	public void llenarTodos(LinkedList < Rgenerador > LSeleccion,JRadioButton  modificar,JRadioButton  agregar,Estimaciones esti, int idestimacion, String nombre, ControlTableGenerador control3)
 	{
 		Rgenerador ob = new Rgenerador( );
@@ -68,6 +86,10 @@ public class ControlEstimacionController {
 			}
 		}
 	}
+	/**
+	 * Obtiene un vector con los consultores de la bd
+	 * @return vector de consultores
+	 */
 	public Vector<Consultor> getConsultores() {
 		Vector<Consultor> consultores = new Vector<Consultor>();
 		LinkedList<Consultor> tmConsultores = Consultor.findAll();
