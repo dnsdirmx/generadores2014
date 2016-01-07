@@ -1544,7 +1544,7 @@ public class Metodos {
 				Lruta.add(ru);
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			System.out.println(e.getMessage());
 		}
 		return Lruta;
 	}

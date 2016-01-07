@@ -3,7 +3,9 @@ package Model.Entity;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
+/*
+ * Jose Eduardo Hernandez Tapia 
+ */
 public class Aspecto{
 	private Integer idAspecto;
 	private Concepto concepto;

@@ -1,5 +1,7 @@
 package Views;
-
+/*
+ * Jose Eduardo Hernandez Tapia 
+ */
 import javax.swing.JInternalFrame;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;

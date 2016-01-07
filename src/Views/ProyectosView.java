@@ -1,5 +1,7 @@
 package Views;
-
+/*
+ * Jose Eduardo Hernandez Tapia 
+ */
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;

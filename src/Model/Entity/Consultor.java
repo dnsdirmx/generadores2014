@@ -1,5 +1,7 @@
 package Model.Entity;
-
+/*
+ * Jose Eduardo Hernandez Tapia 
+ */
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;

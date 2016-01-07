@@ -1,4 +1,7 @@
 package Views;
+/*
+ * Jose Eduardo Hernandez Tapia 
+ */
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Desktop;

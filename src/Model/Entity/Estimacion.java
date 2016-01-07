@@ -1,15 +1,12 @@
 package Model.Entity;
-
+/*
+ * Jose Eduardo Hernandez Tapia 
+ */
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
 
-/**
- * 
- * @author luiiis
- *
- */
 public class Estimacion {
 
 	Integer idestimacion;
@@ -242,6 +239,7 @@ public class Estimacion {
 					+ "VALUES ("+ idaspecto+","
 							+ " " + idestimacion + ","
 							+ " " + piezas + "," + importe + "," + x +"," + y + "," + z + "," + alto + "," + largo + "," + ancho + "," + costo + "," + idpartida + "," + repeticion + ",'" + fechaestimacion + "')";
+			
 			BDConexion bd = new BDConexion();
 			boolean estado = bd.ejecutar(sql);
 			System.out.println("Estado de la estimacion " + estado);

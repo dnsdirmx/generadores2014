@@ -1127,14 +1127,31 @@ public class ControlEstimaciones extends JInternalFrame {
 								 * } else{ban2=false;}
 								 */
 								if ( ban2 == true ) {
+									if(ob == null)
+									{
+										indice = Tsegir.getSelectionModel( ).getLeadSelectionIndex( );
+										if ( indice > -1 ) {
+											ob = new Rgenerador( );
+											ob = ( Rgenerador ) control3.getLista( ).get( indice );
+										}
+									}
+									
 									LinkedList < Rutas > rutas = new LinkedList < Rutas >( );
 									Rutas ru = new Rutas( );
+									
 									rutas = cone.Rutasfotos( String.valueOf( idpartida ), ob.getIdaspecto( ), String.valueOf( idestimacion ), String.valueOf( ob.getRepeticion( ) ) );
 									for ( int i = 0 ; i < rutas.size( ) ; i++ ) {
 										ru = ( Rutas ) rutas.get( i );
 									}
 									try {
+										
+										if(ob2 == null)
+										{
+											ob2 = ob;
+										}
+										System.out.println(" ob " + ob + " ob2 " + ob2);
 										if ( ob != null && ob2 != null ) {
+											System.out.println("PAS PAS PAS PAS");
 											@ SuppressWarnings ( "unused" )
 											Reporteconcepto exe = new Reporteconcepto( ob, ob2, siinicial, partida, ru.getUno( ), ru.getDos( ), path );
 										}

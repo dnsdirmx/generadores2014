@@ -2,7 +2,9 @@
  * 
  */
 package Model.Entity;
-
+/*
+ * Jose Eduardo Hernandez Tapia 
+ */
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
@@ -10,10 +12,6 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-/**
- * @author dns
- *
- */
 public class Partida{
 
 	private Integer idPartida;
