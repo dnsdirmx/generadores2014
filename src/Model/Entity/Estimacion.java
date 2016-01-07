@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-
 public class Estimacion {
 
 	Integer idestimacion;
@@ -132,7 +131,10 @@ public class Estimacion {
 	public Integer getNestimacion() {
 		return this.nestimacion;
 	}
-	
+	/**
+	 * Inserta o actualiza la estimacion en la base de datos
+	 * @return	verdadero si se guardo falso en caso contrario
+	 */
 	public boolean save()
 	{
 		boolean estado = false;
@@ -171,6 +173,12 @@ public class Estimacion {
 		}
 		return estado;
 	}
+	/**
+	 * Obtiene el prsupuesto inicial de la estimacion
+	 * @param idfrente frent del que se obtendra el presupuesto
+	 * @param tipo 
+	 * @return la estimacion inicial
+	 */
 	public static LinkedList<Estimacion> sacarPreinicial(String idfrente, String tipo)
 	{
 		LinkedList<Estimacion> list = new LinkedList<Estimacion>();
@@ -197,12 +205,22 @@ public class Estimacion {
 		}
 		return list;
 	}
+	/**
+	 * Elimina la estimacion
+	 * @return verdadero si se elimina falso en caso contrario
+	 */
 	public boolean delete()
 	{
 		String sql = "DELETE FROM `generadores`.`control_estimacion` WHERE  idestimacion = " + this.idestimacion;
 		BDConexion bd = new BDConexion();
 		return bd.ejecutar(sql);
 	}
+	/**
+	 * Elimina el aspecto de la estimacion
+	 * @param idaspecto	aspecto a eliminar
+	 * @param idestimacion estimacion asociada
+	 * @return verdadero si se elimino
+	 */
 	public static boolean eliminaAspecto(Integer idaspecto, Integer idestimacion)
 	{
 		String sql = "DELETE FROM `generadores`.`esti_aspec` WHERE idaspecto = " + idaspecto + " and idestimacion = " + idestimacion;
@@ -246,6 +264,13 @@ public class Estimacion {
 			bd.cerrar();
 		return estado;
 	}
+	/**
+	 * Verifica la existencia de la estimacion 
+	 * @param idaspecto 
+	 * @param idestimacion
+	 * @param repeticion
+	 * @return verdadero si existe falso en caso contrario
+	 */
 	public static boolean existeAspecto(String idaspecto, String idestimacion, String repeticion )
 	{
 		boolean estado = false;

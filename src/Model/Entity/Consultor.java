@@ -65,6 +65,10 @@ public class Consultor {
 		this.tipousu = tipousu;
 	}
 	
+	/**
+	 * inserta o actualiza el concepto en la base de datos
+	 * @return verdadero si se actualizo o inserto correctamente
+	 */
 	public boolean save()
 	{
 		boolean estado = false;
@@ -97,6 +101,10 @@ public class Consultor {
 		bd.cerrar();
 		return estado;
 	}
+	/**
+	 * elimina el consultor actual de la base de datos
+	 * @return verdadero si se elimino correctamente falso en caso contrario
+	 */
 	public boolean delete()
 	{
 		boolean estado = false;
@@ -106,11 +114,10 @@ public class Consultor {
 		bd.cerrar();
 		return estado;
 	}
-	public static Consultor find(Integer idConsultor)
-	{
-		Consultor consultor = null;
-		return consultor;
-	}
+	/**
+	 * devuelve todos los consultores de la base de datos
+	 * @return lista con los consulotes
+	 */
 	public static LinkedList<Consultor> findAll() {
 		LinkedList<Consultor> llConsultores = new LinkedList<Consultor>();
 		BDConexion bd = new BDConexion();
@@ -136,6 +143,10 @@ public class Consultor {
 		bd.cerrar();
 		return llConsultores;
 	}
+	/**
+	 * Devuleve todos los consultores en un vector
+	 * @return vector de consultores
+	 */
 	public static Vector<Consultor> getConsultores()
 	{
 		Consultor consultor;

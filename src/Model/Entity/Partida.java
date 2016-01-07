@@ -45,8 +45,10 @@ public class Partida{
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see models.Model#save()
+	/**
+	 * Obtiene lapartida especificada
+	 * @param idPartida identificador de la partida
+	 * @return partida o null
 	 */
 	public static Partida find(Integer idPartida)
 	{
@@ -62,12 +64,17 @@ public class Partida{
 				else
 					JOptionPane.showMessageDialog(null, "Op ");
 		} catch (SQLException e) {
+			p = null;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		bd.cerrar();
 		return p;
 	}
+	/**
+	 * Obtiene todas las partidas de la base de datos
+	 * @return lista con las partidas
+	 */
 	public static LinkedList<Partida> findAll()
 	{
 		LinkedList<Partida> llpartidas = new LinkedList<Partida>();
@@ -86,6 +93,10 @@ public class Partida{
 		bd.cerrar();
 		return llpartidas;
 	}
+	/**
+	 * Inserta o actualiza la partida
+	 * @return verdadero si se guardo falso en caso contrario
+	 */
 	public boolean save() {
 		boolean state = false;
 		BDConexion bd = new BDConexion();
@@ -104,7 +115,10 @@ public class Partida{
 		}
 		return state;
 	}
-
+	/**
+	 * elimina la partida de la base de datos 
+	 * @return verdadero si se elimino correctamente
+	 */
 	public boolean destroy() {
 		boolean state = false;
 		BDConexion bd = new BDConexion();

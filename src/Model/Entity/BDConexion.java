@@ -8,6 +8,13 @@ import java.util.Hashtable;
 
 import javax.swing.JOptionPane;
 
+
+/**
+ * 
+ * @author Jose Eduardo Hernandez Tapia 
+ *	Clase para conectarse a la base de datos 
+ *
+ */
 public class BDConexion {
 	private Connection conexion;
 	private String host;
@@ -22,6 +29,9 @@ public class BDConexion {
     public void setConexion(Connection conexion) {
         this.conexion = conexion;
     }
+    /* 
+     * libera la conexion a la base de datos 
+    */
     public void cerrar()
     {
     	if(conexion == null)
@@ -33,6 +43,10 @@ public class BDConexion {
 			e.printStackTrace();
 		}
     }
+    
+    /*
+     * Constructor de la clase, automaticamente se conecta a la base de datos
+     */
     public BDConexion() {
     	host	 = "jdbc:mysql://localhost/";
     	bdnombre = "generadores";
@@ -52,6 +66,9 @@ public class BDConexion {
         }
     }
 
+    /*
+     * Realiza una consulta (Select) especificada en la cadena de parametro devuelve null o el resultset
+     */
     public ResultSet consultar(String sql) {
         ResultSet resultado;
         try {
@@ -65,6 +82,9 @@ public class BDConexion {
         return resultado;
     }
 
+    /*
+     * Ejecuta una sentencia sql (insertar, actualizar, eliminar) y devuelve verdaero si se ejecuto correctamente
+     */
     public boolean ejecutar(String sql) {
         try {
             Statement sentencia = getConexion().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -83,6 +103,15 @@ public class BDConexion {
     
     
     //metodos antiguos
+    /**
+	 * Actualiza un registro de la tabla especificada
+	 *
+	 * @param tabla  Cadena con el nombre de la tabla
+	 * @param actualizados clave valor con los campos aactualizar
+	 * @param id  Cadena con el nombre del campo a actualizar
+	 * @param idvalor cadena con el id del campo a actualizar
+	 * @return      devuelve mayor que 0 si se a eliminado el registro
+	 */
 	public int actualiza(String tabla,Hashtable<String,String> actualizados, String id, String idvalor)
 	{
 		int  modificados = 0;
@@ -142,6 +171,14 @@ public class BDConexion {
 		}
 		return modificado;
 	}
+	/**
+	 *obtiene un registro de la tabla especificada
+	 *
+	 * @param tabla  Cadena con el nombre de la tabla
+	 * @param id  Cadena con el nombre del campo a actualizar
+	 * @param idvalor cadena con el id del campo a actualizar
+	 * @return      devuelve resultset con la fila obtenida
+	 */
 	public ResultSet obtieneRegistro(String tabla, String id, String idValor)
 	{
 		ResultSet rs = null;
@@ -159,6 +196,13 @@ public class BDConexion {
 		
 		return rs;
 	}
+	/**
+	 *obtiene todos los registros de la tabla especificada
+	 *
+	 * @param tabla  Cadena con el nombre de la tabla
+	 * @param campos array con los nombres de los campos a obtener
+	 * @return      devuelve resultset con la fila obtenida
+	 */
 	public ResultSet consulta(String tabla, String [] campos)
 	{
 		ResultSet rs = null;
@@ -189,6 +233,9 @@ public class BDConexion {
 		}
 		return rs;
 	}
+	/*
+	 * Obtiene el ultimo id insertado
+	 */
 	public Integer ultimoId()
 	{
 		String sql = "select last_insert_id()";
@@ -208,6 +255,12 @@ public class BDConexion {
 		return ultimo;
 		
 	}
+	/**
+	 *  Inserta un registro en la base de datos
+	 * @param tabla	nombre de la tabla
+	 * @param contenedor	clave valor con los campos y valores a insertar
+	 * @return numero de filas insertadas = 1
+	 */
 	public int inserta(String tabla, Hashtable<String,String> contenedor)
 	{
 		

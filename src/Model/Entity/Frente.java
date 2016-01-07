@@ -81,6 +81,10 @@ public class Frente {
 	public String getUbicacion() {
 		return this.ubicacion;
 	}
+	/**
+	 * Obtiene todos los frentes de la base de datos
+	 * @return lista con los frentes
+	 */
 	public static LinkedList<Frente> findAll()
 	{
 		LinkedList<Frente> Lfrentes = new LinkedList<Frente>();
@@ -102,6 +106,10 @@ public class Frente {
 		bd.cerrar();
 		return Lfrentes;
 	}
+	/**
+	 * inserta o actualiza el frente en la base de datos 
+	 * @return verdadero si se guardo falso en caso contrario
+	 */
 	public boolean save()
 	{
 		boolean estado = false;

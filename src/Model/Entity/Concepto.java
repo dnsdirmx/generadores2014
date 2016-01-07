@@ -63,7 +63,11 @@ public class Concepto {
 	}
 
 	
-	
+	/**
+	 * Obtiene un concepto de la nbase de datos
+	 * @param idConcepto identificador de la fila
+	 * @return	el concepto si lo encontro o nulo en caso contrario
+	 */
 	public static Concepto find(Integer idConcepto)
 	{
 		Concepto c = null;
@@ -74,12 +78,16 @@ public class Concepto {
 				c = new Concepto(rs.getInt("idconcepto"),rs.getInt("idPartida"),rs.getString("nombre"));
 			
 		} catch (SQLException e) {
-			
+			c = null;
 			e.printStackTrace();
 		}
 		bd.cerrar();
 		return c;
 	}
+	/**
+	 * Devuelve todos los conceptos en la base de datos
+	 * @return lista con los conceptos
+	 */
 	public static LinkedList<Concepto> findAll()
 	{
 		LinkedList<Concepto> llconceptos = new LinkedList<Concepto>();
@@ -97,6 +105,10 @@ public class Concepto {
 		bd.cerrar();
 		return llconceptos;
 	}
+	/**
+	 * Guarda el conceptto actual
+	 * @return verdadero si se inserto o actualizo falso en caso contrario
+	 */
 	public boolean save() {
 		boolean state = false;
 		BDConexion bd = new BDConexion();
@@ -117,7 +129,10 @@ public class Concepto {
 		}
 		return state;
 	}
-
+	/**
+	 * Elimina el concepto actual de la base de datos
+	 * @return verdadero si se elimino correctamente ffalso en caso contrario
+	 */
 	public boolean destroy() {
 		boolean state = false;
 		BDConexion bd = new BDConexion();
@@ -125,7 +140,9 @@ public class Concepto {
 			state = true;
 		return state;
 	}
-
+	/**
+	 * 
+	 */
 	public String toString() {
 		
 		return "idConcepto: " + idConcepto + "\nidPartida: " + partida.getIdPartida() + "\nnombre: " + nombre ;

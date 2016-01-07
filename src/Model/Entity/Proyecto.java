@@ -137,6 +137,10 @@ public class Proyecto {
 		return this.proyecto;
 	}
 	
+	/**
+	 * Inserta o actualiza el proyecto en la base de datos
+	 * @return verdaderos si se guardo falso en caso contrario
+	 */
 	public boolean save()
 	{
 		boolean estado = false;
@@ -180,6 +184,11 @@ public class Proyecto {
 		return estado;
 	}
 	
+	/**
+	 * Obtiene un proyecto buscandolo por id
+	 * @param idProyecto
+	 * @return si lo encontro el objeto proyecto en caso contrario nulo
+	 */
 	public static Proyecto findById(Integer idProyecto)
 	{
 		String sql = "SELECT idproyecto, idtipo, proyecto, descripcion, inicio, fin, comentarios FROM proyecto WHERE idproyecto = " + idProyecto;
@@ -201,6 +210,11 @@ public class Proyecto {
 		}
 		return proyecto;
 	}
+	/**
+	 * Obtiene un proyecto buscandolo por nombre
+	 * @param nombre 
+	 * @return si lo encontro el objeto proyecto en caso contrario nulo
+	 */
 	public static Proyecto findByNombre(String nombre)
 	{
 		String sql = "SELECT idproyecto, idtipo, proyecto, descripcion, inicio, fin, comentarios FROM proyecto WHERE proyecto = '" + nombre + "'";
@@ -224,6 +238,10 @@ public class Proyecto {
 		}
 		return proyecto;
 	}
+	/**
+	 * Obtiene todos los proyectos de la base de datos
+	 * @return lista con los proyectos
+	 */
 	public static LinkedList<Proyecto> findAll()
 	{
 		LinkedList<Proyecto> proye = new LinkedList<Proyecto>();
@@ -248,6 +266,11 @@ public class Proyecto {
 		}
 		return proye;
 	}
+	
+	/**
+	 * Elimina un proyecto de la base de datos
+	 * @return verdadero si lo elimina falso en caso contrario
+	 */
 	public boolean delete() {
 		String sql = "DELETE FROM `generadores`.`proyecto` WHERE idproyecto = " + idproyecto;
 		BDConexion bd = new BDConexion();
