@@ -1096,9 +1096,34 @@ public class ControlEstimaciones extends JInternalFrame {
 						}
 					}
 					//se muestra un cuadro de dialogo para guardar el archivo del formato de nï¿½meros generadores en formato .xls
-					JFileChooser navega = new JFileChooser( );
-					int estado = navega.showSaveDialog( Tsegir );
-					navega.setDialogTitle( "Salvar reporte" );
+					
+					JFileChooser navega = new JFileChooser(){
+					    @Override
+					    public void approveSelection(){
+					        File f = getSelectedFile();
+					        if(f.exists() && getDialogType() == SAVE_DIALOG){
+					            int result = JOptionPane.showConfirmDialog(this,"El archivo ya existe ¿Deseas sobreescribirlo?","Archivo Existente",JOptionPane.YES_NO_CANCEL_OPTION);
+					            switch(result){
+					                case JOptionPane.YES_OPTION:
+					                    super.approveSelection();
+					                    return;
+					                case JOptionPane.NO_OPTION:
+					                    return;
+					                case JOptionPane.CLOSED_OPTION:
+					                    return;
+					                case JOptionPane.CANCEL_OPTION:
+					                    cancelSelection();
+					                    return;
+					            }
+					        }
+					        super.approveSelection();
+					    }        
+					};
+					int estado = navega.showSaveDialog(Tsegir);
+					//JFileChooser navega = new JFileChooser( );
+					//int estado = navega.showSaveDialog( Tsegir );
+					//navega.setDialogTitle( "Salvar reporte" );
+					
 					if ( estado == JFileChooser.APPROVE_OPTION ) {
 						path = navega.getSelectedFile( ).getAbsolutePath( );
 						path += ".xls";
