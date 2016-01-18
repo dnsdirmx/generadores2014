@@ -1101,6 +1101,9 @@ public class ControlEstimaciones extends JInternalFrame {
 					    @Override
 					    public void approveSelection(){
 					        File f = getSelectedFile();
+					        System.out.println(f.toString());
+					        if(f.toString().indexOf(".xls") == -1)
+					        	f = new File(f.toString() + ".xls");
 					        if(f.exists() && getDialogType() == SAVE_DIALOG){
 					            int result = JOptionPane.showConfirmDialog(this,"El archivo ya existe ¿Deseas sobreescribirlo?","Archivo Existente",JOptionPane.YES_NO_CANCEL_OPTION);
 					            switch(result){
