@@ -529,7 +529,8 @@ public class ControlEstimaciones extends JInternalFrame {
 										if ( asp.getZ( ).equals( " " ) == true ) {
 											asp.setZ( "0" );
 										}
-										conexion.estimacionaspecto( asp.getIdaspecto( ), String.valueOf( idestimacion ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), fechaestimacion );
+										Estimacion.InsertaAspecto( asp.getIdaspecto( ), String.valueOf( idestimacion ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), fechaestimacion );
+										//conexion.estimacionaspecto( asp.getIdaspecto( ), String.valueOf( idestimacion ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), fechaestimacion );
 									}
 								}
 							}
@@ -555,7 +556,8 @@ public class ControlEstimaciones extends JInternalFrame {
 									if ( asp.getZ( ).equals( " " ) == true ) {
 										asp.setZ( "0" );
 									}
-									conexion.estimacionaspecto( asp.getIdaspecto( ), String.valueOf( esti.Indiceselecionado( ) ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), asp.getFecha( ) );
+									//conexion.estimacionaspecto( asp.getIdaspecto( ), String.valueOf( esti.Indiceselecionado( ) ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ), asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), asp.getFecha( ) );
+									Estimacion.InsertaAspecto(asp.getIdaspecto( ), String.valueOf( esti.Indiceselecionado( ) ), asp.getPiezas( ), asp.getImporte( ), asp.getX( ), asp.getY( ),  asp.getZ( ), asp.getAlto( ), asp.getLargo( ), asp.getAncho( ), asp.getCosto( ), String.valueOf( idpartida ), String.valueOf( asp.getRepeticion( ) ), asp.getFecha( ) );
 								}
 							}
 							idpartida = p.getIdPartida( );
