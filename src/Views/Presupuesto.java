@@ -1153,6 +1153,7 @@ public class Presupuesto extends JInternalFrame {
 													generadores.changeSelection(control.Tama() - 1, 2, false, false);
 												} else {
 													tm = control.Tama();
+													System.out.println("Tamaño de datos " + tm);
 													if (ban.equals("false") == true && des.equals("") == false) {
 														Rgenerador asp = new Rgenerador();
 														for (i = 0; i < tm; i++) {
@@ -1167,6 +1168,8 @@ public class Presupuesto extends JInternalFrame {
 														}
 														if(Estimacion.eliminaAspecto(Integer.valueOf(ida), new Integer(idestimacion))){
 														//if (cone.Eliminaresaspecto(ida, String.valueOf(idestimacion))) {
+															if (id == -1 )
+																id = 0;
 															if (veces > 1) {
 																control.borraFila(id, veces);
 															} else {
