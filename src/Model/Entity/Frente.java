@@ -13,10 +13,17 @@ public class Frente {
 	private int idproyecto;
 	private String identificador;
 	private String ubicacion;
+	
+	private LinkedList<Estimacion> estimaciones;
 
 	public Frente()
 	{
 		idfrente = -1;
+	}
+	public LinkedList<Estimacion> getEstimaciones()
+	{
+		estimaciones = Estimacion.findByIdFrente(idfrente);
+		return estimaciones;
 	}
 	/**
 	 * 
@@ -136,5 +143,41 @@ public class Frente {
 			estado = bd.ejecutar(sql);
 		}
 		return estado;
+	}
+	public boolean delete()
+	{
+		boolean estado = false;
+		if( idfrente == -1)
+			return false;
+		for(Estimacion e : Estimacion.findByIdFrente(idfrente))
+		{
+			e.delete();
+		}
+		String sql = "DELETE FROM frente  WHERE idfrente = " + idfrente;
+		BDConexion bd = new BDConexion();
+		estado = bd.ejecutar(sql);
+		bd.cerrar();
+		return estado;
+	}
+	public  static Frente findById(Integer idfrente)
+	{
+		Frente f = null;
+		String sql = "select * from frente where idfrente = " + idfrente;
+		BDConexion bd = new BDConexion();
+		ResultSet rs = bd.consultar(sql);
+		try {
+			while(rs.next())
+			{
+				f = new Frente();
+				f.setIdfrente(rs.getInt("idfrente"));
+				f.setIdproyecto(rs.getInt("idproyecto"));
+				f.setIdentificador(rs.getString("identificador"));
+				f.setUbicacion(rs.getString("ubicacion"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return f;
 	}
 }

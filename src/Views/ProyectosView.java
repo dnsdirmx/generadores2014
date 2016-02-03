@@ -667,12 +667,25 @@ public class ProyectosView extends JInternalFrame {
 					if (idfrente > -1) {
 						int res = JOptionPane.showConfirmDialog(null, "Deseas eliminar éste frente", "Confirmación", JOptionPane.YES_NO_OPTION);
 						if (res == JOptionPane.YES_OPTION) {
+							Frente f = Frente.findById(idfrente);
+							if(f != null)
+							{
+								if(f.delete())
+								{
+									control.borraFila(posicion);
+									Tfrentes.changeSelection(posicion - 1, 1, false, false);
+								}
+								else {
+									JOptionPane.showMessageDialog(null, "Error al eliminar frente", "Error", JOptionPane.WARNING_MESSAGE);
+								}
+							}
+							/*
 							if (cone.eliminafrente(String.valueOf(idfrente))) {
 								control.borraFila(posicion);
 								Tfrentes.changeSelection(posicion - 1, 1, false, false);
 							} else {
 								JOptionPane.showMessageDialog(null, "Error al eliminar frente", "Error", JOptionPane.WARNING_MESSAGE);
-							}
+							}*/
 						}
 					}
 				}

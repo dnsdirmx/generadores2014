@@ -318,7 +318,7 @@ public class Presupuesto extends JInternalFrame {
 
 			Ptabla = new JPanel();
 			escritorio.add(Ptabla, JLayeredPane.DEFAULT_LAYER);
-			Ptabla.setBounds(17, 341, 1240, 285);
+			Ptabla.setBounds(0, 350, 1240, 285);
 			Ptabla.setBorder(new LineBorder(new java.awt.Color(0, 0, 0), 1, false));
 			Ptabla.setLayout(null);
 
@@ -431,13 +431,12 @@ public class Presupuesto extends JInternalFrame {
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
 				public void actionPerformed(ActionEvent evt) {
-					int anio, mes, dia;// , existe = 0;
+					int anio, mes, dia;  // , existe = 0;
 					String ca = "", cm = "", cd = "";
 					int c = -1;
 					String fe = "";
 					if (Cfrente.getSelectedIndex() > 0) {
 						Frente fre = new Frente();
-						;
 						for (int i = 0; i < Listafrentes.size(); i++) {
 							fre = (Frente) Listafrentes.get(i);
 							if (fre.getIndentificador().equals(String.valueOf(Cfrente.getSelectedItem())) == true) {
@@ -723,7 +722,8 @@ public class Presupuesto extends JInternalFrame {
 							asp2 = (Aspecto) Laspectos.get(i);
 							if (asp2.getDescripcion().equals(des) == true) {
 								asp.setIdaspecto(String.valueOf(asp2.getIdAspecto()));
-								asp.setClave(asp2.getClave());
+								//asp.setClave(asp2.getClave());
+								asp.setClavePublica(asp2.getClave());
 								asp.setDescripcion("");
 								asp.setUnidad(asp2.getUnidad());
 								asp.setX(" ");

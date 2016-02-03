@@ -4,6 +4,7 @@ package Model.Entity;
  */
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 
 public class Estimacion {
@@ -211,9 +212,41 @@ public class Estimacion {
 	 */
 	public boolean delete()
 	{
-		String sql = "DELETE FROM `generadores`.`control_estimacion` WHERE  idestimacion = " + this.idestimacion;
+		boolean estado = false;
+		String sql  = "DELETE FROM `generadores`.`esti_aspec` WHERE idestimacion = " + idestimacion;
+		
 		BDConexion bd = new BDConexion();
-		return bd.ejecutar(sql);
+		bd.ejecutar(sql);
+		sql = "DELETE FROM `generadores`.`control_estimacion` WHERE  idestimacion = " + idestimacion;
+		estado  = bd.ejecutar(sql);
+		bd.cerrar();
+		return estado;
+	}
+	public static LinkedList<Estimacion> findByIdFrente(Integer idfrente)
+	{
+		LinkedList<Estimacion> listaFrentes = new LinkedList<Estimacion>();
+		String sql = "select  * from control_estimacion where idfrente = " + idfrente;
+		BDConexion bd = new BDConexion();
+		ResultSet rs = bd.consultar(sql);
+		try {
+			while(rs.next())
+			{
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Estimacion e = new Estimacion();
+				e.setIdestimacion(rs.getInt("idestimacion"));
+				e.setIdfrente(rs.getInt("idfrente"));
+				e.setIdConsultor(rs.getInt("idConsultor"));
+				e.setPorcentaje(rs.getFloat("pocentaje"));
+				e.setFecha(format.format(rs.getDate("fecha")));
+				e.setNestimacion(rs.getInt("nestimacion"));
+				listaFrentes.add(e);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listaFrentes;
 	}
 	/**
 	 * Elimina el aspecto de la estimacion
