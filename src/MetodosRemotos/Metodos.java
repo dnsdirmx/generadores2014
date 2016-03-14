@@ -3,6 +3,7 @@ package MetodosRemotos;
 import java.sql.*;
 import java.util.*;
 
+import Model.Entity.BDConexion;
 import ObjetosSerializables.Rgenerador;
 import ObjetosSerializables.Consultor;
 import ObjetosSerializables.Estimacion;
@@ -17,7 +18,7 @@ import ObjetosSerializables.Plantilla;
 import Options.OptionsText;
 
 /**
- * Clase para la implementar métodos para la manipulación de la base de datos
+ * Clase para la implementar mï¿½todos para la manipulaciï¿½n de la base de datos
  * 
  * @author
  * 
@@ -45,31 +46,33 @@ public class Metodos {
 		Metodos.connectionStrinsg = connectionStrinsg;
 	}
 	/**
-	 * Método que asigna la dirección del servidor
+	 * Mï¿½todo que asigna la direcciï¿½n del servidor
 	 * 
 	 * @param direccion
 	 */
 	public void setDirecccion(String direccion) {
-		this.direccion = direccion;
+		BDConexion bd = new BDConexion();
+		this.direccion = bd.getHost();
+		//this.direccion = direccion;
 	}
 	public String getDireccion() {
 		return direccion;
 	}
 	
 	/**
-	 * Conectar --- Método que crea la conexión con la base de datos.
+	 * Conectar --- Mï¿½todo que crea la conexiï¿½n con la base de datos.
 	 * 
 	 * @param usuario
 	 *            String --- nombre del usuario para ingresar al sistema
 	 * @param password
 	 *            char[] --- arreglo de caracteres que contienen
 	 *            JPasswordField.getPassword
-	 * @return conexión exitosa ? true : false
+	 * @return conexiï¿½n exitosa ? true : false
 	 */
 	public boolean Conectar(String usuario, char[] password) {
 		try {
-			String passMYSQL = new String(password); // conversión de
-														// contraseña
+			/*String passMYSQL = new String(password); // conversiï¿½n de
+														// contraseï¿½a
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
@@ -77,7 +80,10 @@ public class Metodos {
 			}
 			
 			this.setConnectionStrinsg("jdbc:mysql://" + direccion + "/generadores?user=" + usuario + "&password=" + passMYSQL);
-			conexion = DriverManager.getConnection(Metodos.getConnectionStrinsg());
+			*/
+			BDConexion bd = new BDConexion();
+			
+			conexion = bd.getConexion();
 			if (conexion != null) {
 				instancia_sql = this.conexion.createStatement();				
 			}
@@ -90,7 +96,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que cierra la conexión con la base de datos
+	 * Mï¿½todo que cierra la conexiï¿½n con la base de datos
 	 */
 	public void cerrar() {
 		try {
@@ -102,14 +108,14 @@ public class Metodos {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	/**
-	 * APARTADO DE MÉTODOS PARA CONSULTOR 
+	 * APARTADO DE Mï¿½TODOS PARA CONSULTOR 
 	 * ADD,GET,UPDATE,DELETE
 	 * 	
 	 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Método que inserta un nuevo usuario en la base de datos
+	 * Mï¿½todo que inserta un nuevo usuario en la base de datos
 	 * 
 	 * @param paterno
 	 *            String --- apellido paterno del usuario
@@ -123,7 +129,7 @@ public class Metodos {
 	 *            String --- contraseÃ±a del usuario
 	 * @param tipousu
 	 *            String --- tipo de usuario
-	 * @return insert con éxito ? true : false
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public boolean agregarUsuario(String paterno, String materno, String nombre, String login, char[] pass, String tipousu) {
 		boolean ban = false;
@@ -141,7 +147,7 @@ public class Metodos {
 	}
 	
 	/**
-	 * Método que prueba si existe un usuario en la base de datos
+	 * Mï¿½todo que prueba si existe un usuario en la base de datos
 	 * 
 	 * @param paterno
 	 *            String --- apellido parterno del usuario
@@ -173,7 +179,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Consultores --- Método que regresa la Vector de consultores en el sistema
+	 * Consultores --- Mï¿½todo que regresa la Vector de consultores en el sistema
 	 * (Usuarios)
 	 * 
 	 * @return consultores Vector<Consultor> --- Vector de consultores
@@ -205,7 +211,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que modifica el contenido de un usuario
+	 * Mï¿½todo que modifica el contenido de un usuario
 	 * 
 	 * @param paterno
 	 *            String ---nuevo apellido paterno
@@ -239,11 +245,11 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que elimina un usuario
+	 * Mï¿½todo que elimina un usuario
 	 * 
 	 * @param idusuario
 	 *            String --- identificador del usuario a eliminar
-	 * @return delete con éxito ? true : false
+	 * @return delete con ï¿½xito ? true : false
 	 */
 	public boolean eliminarUsuario(String idusuario) {
 		boolean ban = false;
@@ -260,7 +266,7 @@ public class Metodos {
 	}
 	
 	/**
-	 * VerificarUsuario --- Método que hace la verificación de usuario a la base
+	 * VerificarUsuario --- Mï¿½todo que hace la verificaciï¿½n de usuario a la base
 	 * de datos
 	 * 
 	 * @param login
@@ -301,12 +307,12 @@ public class Metodos {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Insertar Partida --- Método para agregar una nueva partida presupuestal a
+	 * Insertar Partida --- Mï¿½todo para agregar una nueva partida presupuestal a
 	 * la base de datos.
 	 * 
 	 * @param partida
 	 *            String --- Nombre de la nueva Partida Presupuestal
-	 * @return insert con éxito ? true : false
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public boolean insertarPartida(String partida) {
 		boolean ban = false;
@@ -323,7 +329,7 @@ public class Metodos {
 	} 
 
 	/**
-	 * ExistePartida --- Método que verifica si una partida ya se encuentra
+	 * ExistePartida --- Mï¿½todo que verifica si una partida ya se encuentra
 	 * registrada en la base de datos
 	 * 
 	 * @param nombre
@@ -359,7 +365,7 @@ public class Metodos {
 
 	
 	/**
-	 * Existe Partida id --- Método que regresa el ID de una partida si la
+	 * Existe Partida id --- Mï¿½todo que regresa el ID de una partida si la
 	 * encuentra en la base de datos
 	 * 
 	 * @param nombre
@@ -393,18 +399,18 @@ public class Metodos {
 	}
 
 	/**
-	 * Insertar Partida Ex --- Método para registrar una nueva partida
+	 * Insertar Partida Ex --- Mï¿½todo para registrar una nueva partida
 	 * presupuestal
 	 * 
 	 * @param partida
 	 *            String --- Nombre de la nueva partida a ser registrada en la
 	 *            base de datos
-	 * @return insert con éxito ? idPartidaNueva : 0
+	 * @return insert con ï¿½xito ? idPartidaNueva : 0
 	 */
 	public String insertarPartidaex(String partida) {
 		ResultSet res;
 		String id = "0";
-		// Ejecución de la función para agregar una nueva partida,
+		// Ejecuciï¿½n de la funciï¿½n para agregar una nueva partida,
 		// selecciona el ID que acaba de registrar como nuevo
 		String consulta = "SELECT agregarpartida('" + partida + "');";
 		try {
@@ -421,7 +427,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Partidas --- Método que regresa las partidas almacenadas en la base de datos
+	 * Partidas --- Mï¿½todo que regresa las partidas almacenadas en la base de datos
 	 * 
 	 * @return Lpartidas LinkedList<Partida> --- Lista de Partidas
 	 */
@@ -446,14 +452,14 @@ public class Metodos {
 	}
 
 	/**
-	 * Modificar Partida --- Método para modificar la informaciï¿½n de una
+	 * Modificar Partida --- Mï¿½todo para modificar la informaciï¿½n de una
 	 * partida existente en la base de datos
 	 * 
 	 * @param nombre
 	 *            String --- nuevo nombre de la partida ha ser modificado
 	 * @param id
 	 *            String --- Identificador de la partida que serï¿½ modificado
-	 * @return update con éxito ? true : false
+	 * @return update con ï¿½xito ? true : false
 	 */
 	public boolean modificarPartida(String nombre, String id) {
 		boolean ban = false;
@@ -470,11 +476,11 @@ public class Metodos {
 	}
 
 	/**
-	 * Eliminar Partida --- Método para Eliminar una partida de la base de datos
+	 * Eliminar Partida --- Mï¿½todo para Eliminar una partida de la base de datos
 	 * 
 	 * @param id
 	 *            String --- Identificador de la Partida a ser Eliminado
-	 * @return delete con éxito ? true : false
+	 * @return delete con ï¿½xito ? true : false
 	 */
 	public boolean eliminarPartida(String id) {
 		boolean ban = false;
@@ -499,7 +505,7 @@ public class Metodos {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * insertarConcepto --- Método
+	 * insertarConcepto --- Mï¿½todo
 	 * 
 	 * @param nombre
 	 * @param id
@@ -520,7 +526,7 @@ public class Metodos {
 	}
 
 	/**
-	 * ExisteConceptoex --- Método que verifica si un concepto existe en la base
+	 * ExisteConceptoex --- Mï¿½todo que verifica si un concepto existe en la base
 	 * de datos
 	 * 
 	 * @param nombre
@@ -545,7 +551,7 @@ public class Metodos {
 	}
 
 	/**
-	 * InsertarConceptoEx --- Método que invoca al procedimento insertarConcepto
+	 * InsertarConceptoEx --- Mï¿½todo que invoca al procedimento insertarConcepto
 	 * de MYSQL
 	 * 
 	 * @param idc
@@ -572,7 +578,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Conceptos --- Método que regresa todas los conceptos que estan en la base
+	 * Conceptos --- Mï¿½todo que regresa todas los conceptos que estan en la base
 	 * de datos
 	 * 
 	 * @return Lconcepto LinkedList<Concepto> --- lista de conceptos
@@ -598,7 +604,7 @@ public class Metodos {
 		return Lconceptos;
 	}
 	/**
-	 * modificarConceptos --- Método que modifica la información de un concepto
+	 * modificarConceptos --- Mï¿½todo que modifica la informaciï¿½n de un concepto
 	 * seleccionado
 	 * 
 	 * @param idconcepto
@@ -608,7 +614,7 @@ public class Metodos {
 	 * @param idpartida
 	 *            String --- id de la partida del concepto que se va a
 	 *            actualizar
-	 * @return insert con éxito ? true : false
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public boolean modificarconceptos(String idconcepto, String nombre, String idpartida) {
 		boolean ban = false;
@@ -625,11 +631,11 @@ public class Metodos {
 	}
 
 	/**
-	 * elimiarconcepto --- Método que elimina un concepto de la base de datos
+	 * elimiarconcepto --- Mï¿½todo que elimina un concepto de la base de datos
 	 * 
 	 * @param idconcepto
 	 *            String --- identificador del concepto a eliminar
-	 * @return eliminación con éxito ? true : false
+	 * @return eliminaciï¿½n con ï¿½xito ? true : false
 	 */
 	public boolean eliminarConcepto(String idconcepto) {
 		boolean ban = false;
@@ -654,7 +660,7 @@ public class Metodos {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * AgregarAspecto --- Método que agrega un nuevo aspecto a la base de datos
+	 * AgregarAspecto --- Mï¿½todo que agrega un nuevo aspecto a la base de datos
 	 * 
 	 * @param idconcepto
 	 *            String --- identificador del concepto para hacer el insert
@@ -667,8 +673,8 @@ public class Metodos {
 	 * @param costo
 	 *            String ---costo del aspecto
 	 * @param descripcion
-	 *            --- descripción del aspecto
-	 * @return ban boolean --- insert con éxito ? true : false
+	 *            --- descripciï¿½n del aspecto
+	 * @return ban boolean --- insert con ï¿½xito ? true : false
 	 */
 	public boolean agregaraspecto(String idconcepto, String clave, String unidad, String tipo, String costo, String descripcion, String clave_publica) {
 		boolean ban = false;
@@ -685,7 +691,7 @@ public class Metodos {
 	}
 
 	/**
-	 * ExistenciaAspectoEx --- Método que selecciona el aspecto dependiendo de
+	 * ExistenciaAspectoEx --- Mï¿½todo que selecciona el aspecto dependiendo de
 	 * la clave
 	 * 
 	 * @param clave
@@ -709,7 +715,7 @@ public class Metodos {
 	}
 
 	/**
-	 * AspectosMétodo que regresa todos los aspectos de la base de datos
+	 * AspectosMï¿½todo que regresa todos los aspectos de la base de datos
 	 * 
 	 * @return aspectos LinkedList<Aspectodos> --- Lista de Aspectos
 	 */
@@ -740,7 +746,7 @@ public class Metodos {
 	}
 	
 	/**
-	 * ModificarAspecto --- Método que actualiza la informaciï¿½n de los
+	 * ModificarAspecto --- Mï¿½todo que actualiza la informaciï¿½n de los
 	 * conceptos
 	 * 
 	 * @param clave
@@ -750,10 +756,10 @@ public class Metodos {
 	 * @param costo
 	 *            --- costo del nuevo aspecto
 	 * @param descripcion
-	 *            --- descripción del nuevo aspecto
+	 *            --- descripciï¿½n del nuevo aspecto
 	 * @param indice
-	 *            --- índice del nuevo aspecto
-	 * @return ban boolean --- update con éxito ? true : false
+	 *            --- ï¿½ndice del nuevo aspecto
+	 * @return ban boolean --- update con ï¿½xito ? true : false
 	 */
 	public boolean modificaraspecto(String clave, String unidad, String costo, String descripcion, String indice, String clave_publica) {
 		boolean ban = false;
@@ -762,7 +768,7 @@ public class Metodos {
 			ConsultaConsola(consulta);
 			if (instancia_sql.execute(consulta) == false) {
 				ban = true;
-				System.out.println("Actualización");
+				System.out.println("Actualizaciï¿½n");
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -771,10 +777,10 @@ public class Metodos {
 	}
 
 	/**
-	 * Eliminar Aspecto --- Método que elimina un aspecto por índice
+	 * Eliminar Aspecto --- Mï¿½todo que elimina un aspecto por ï¿½ndice
 	 * 
 	 * @param indice
-	 *            String --- índice del aspecto a eliminar
+	 *            String --- ï¿½ndice del aspecto a eliminar
 	 * @return
 	 */
 	public boolean eliminaraspecto(String indice) {
@@ -792,9 +798,9 @@ public class Metodos {
 	}
 	
 	/**
-	 * Método para obtener la descripción completa de un aspecto
+	 * Mï¿½todo para obtener la descripciï¿½n completa de un aspecto
 	 * @param idAspecto --- identificador del aspecto a recuparar su descripcion 
-	 * @return aspectoResult --- información del aspecto recuperado
+	 * @return aspectoResult --- informaciï¿½n del aspecto recuperado
 	 */
 	public Aspecto getSeeMoreDescriptionAspecto(int idAspecto) {
 		String query = "SELECT a.descripcion_completa, a.clave, a.clave_publica " + "FROM aspecto AS a " + "WHERE a.idaspecto = " + idAspecto;
@@ -814,9 +820,9 @@ public class Metodos {
 	}
 	
 	/**
-	 * Actualización de la descripción del aspecto seleccionado
+	 * Actualizaciï¿½n de la descripciï¿½n del aspecto seleccionado
 	 * @param idaspecto --- ID del aspecto 
-	 * @param text --- nueva descripción del aspecto 
+	 * @param text --- nueva descripciï¿½n del aspecto 
 	 * @return update con exitr : true ? false
 	 */
 	public boolean updateDescriptionAspecto(int idaspecto, String text) {
@@ -840,7 +846,7 @@ public class Metodos {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Método que inserta un proyecto y regresa su identificador de la base de
+	 * Mï¿½todo que inserta un proyecto y regresa su identificador de la base de
 	 * datos
 	 * 
 	 * @param idtipo
@@ -850,10 +856,10 @@ public class Metodos {
 	 * @param fin
 	 *            String --- fecha final del proyecto
 	 * @param descripcion
-	 *            String --- descripción del proyecto
+	 *            String --- descripciï¿½n del proyecto
 	 * @param nombre
 	 *            String --- nombre del proyecto
-	 * @return insert con éxito ? true : false
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public int Insertarproyecto(String idtipo, String inicio, String fin, String descripcion, String nombre, String comentarios) {
 		String consulta;
@@ -907,7 +913,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Proyectos --- Método que regresa la lista de proyecto que maneja el
+	 * Proyectos --- Mï¿½todo que regresa la lista de proyecto que maneja el
 	 * sistema SysGeneral
 	 * 
 	 * @return proye LinkedList<Proyecto> --- Lista de Proyectos de la base de
@@ -938,7 +944,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que modifica el contenido de un proyecto
+	 * Mï¿½todo que modifica el contenido de un proyecto
 	 * 
 	 * @param idtipo
 	 *            String --- Identificador del tipo de proyecto de obra
@@ -947,12 +953,12 @@ public class Metodos {
 	 * @param fin
 	 *            String --- fecha final del proyecto
 	 * @param descripcion
-	 *            String --- descripción del proyecto
+	 *            String --- descripciï¿½n del proyecto
 	 * @param nombre
 	 *            String --- nombre del proyecto
 	 * @param idproyecto
 	 *            String --- identificador del proyecto
-	 * @return update con éxito ? true : false
+	 * @return update con ï¿½xito ? true : false
 	 */
 	public boolean modificarProyecto(String idtipo, String inicio, String fin, String descripcion, String nombre, String idproyecto) {
 		boolean ban = false;
@@ -974,11 +980,11 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que elimina un proyecto
+	 * Mï¿½todo que elimina un proyecto
 	 * 
 	 * @param idproyecto
 	 *            String --- Identificador del proyecto a elmininar
-	 * @return delete con éxito ? true : false
+	 * @return delete con ï¿½xito ? true : false
 	 */
 	public boolean eliminarProyecto(String idproyecto) {
 		boolean ban = false;
@@ -995,10 +1001,10 @@ public class Metodos {
 	}
 
 	/**
-	 * Método para actualizar la información de los comentarios de un proyecto
+	 * Mï¿½todo para actualizar la informaciï¿½n de los comentarios de un proyecto
 	 * @param idProj --- ID del proyecto
 	 * @param comments --- nuevos comentarios del proyecto
-	 * @return update con éxito ? true : false 
+	 * @return update con ï¿½xito ? true : false 
 	 */
 	public boolean updateCommentsProj(int idProj, String comments) {
 		String query = "UPDATE `proyecto` SET `comentarios`='" + comments + "' WHERE (`idproyecto`='" + idProj + "')";
@@ -1013,9 +1019,9 @@ public class Metodos {
 	}
 
 	/**
-	 * Método para obtener los comentarios de un proyecto
+	 * Mï¿½todo para obtener los comentarios de un proyecto
 	 * @param idProj --- Id del proyecto para recuperar sus comentarios
-	 * @return proj--- información del proyecto
+	 * @return proj--- informaciï¿½n del proyecto
 	 */
 	public Proyecto getCommentsProj(int idProj) {
 		String query = "SELECT p.comentarios, p.proyecto FROM proyecto AS p WHERE p.idproyecto = " + idProj;
@@ -1043,12 +1049,12 @@ public class Metodos {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Método que inserta un tipo de obra (tipo de proyecto)
+	 * Mï¿½todo que inserta un tipo de obra (tipo de proyecto)
 	 * 
 	 * @param tipo
 	 *            String --- nombre del tipo de obra a guardar en la base de
 	 *            datos
-	 * @return insert con éxito ? true : false
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public boolean insertatipo(String tipo) {
 		String consulta = "INSERT INTO tipos " + " SET tipo='" + tipo + "';";
@@ -1065,7 +1071,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que verifica la existencia de un tipo de proyecto en la base de
+	 * Mï¿½todo que verifica la existencia de un tipo de proyecto en la base de
 	 * datos
 	 * 
 	 * @param tipo
@@ -1094,7 +1100,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que regresa los tipos de proyectos
+	 * Mï¿½todo que regresa los tipos de proyectos
 	 * 
 	 * @return Ltipos --- lista de tipos de proyectos
 	 */
@@ -1119,13 +1125,13 @@ public class Metodos {
 	}
 
 		/**
-	 * Método que modifica un tipo de obra en la base de datos
+	 * Mï¿½todo que modifica un tipo de obra en la base de datos
 	 * 
 	 * @param tipo
 	 *            String --- nombre del nuevo tipo de obra
 	 * @param idtipo
 	 *            String --- identificador del tipo a actualizar
-	 * @return update con éxito ? true : false
+	 * @return update con ï¿½xito ? true : false
 	 */
 	public boolean modificartipo(String tipo, String idtipo) {
 		String consulta = "UPDATE tipos " + "SET tipo = '" + tipo + "' " + " WHERE idtipo = " + idtipo;
@@ -1142,11 +1148,11 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que elimina un tipo de proyecto de la tabla tipos de proyectos
+	 * Mï¿½todo que elimina un tipo de proyecto de la tabla tipos de proyectos
 	 * 
 	 * @param indice
 	 *            Strinng --- identificador del tipo de proyecto a eliminar
-	 * @return delete con éxito ? true : false
+	 * @return delete con ï¿½xito ? true : false
 	 */
 	public boolean eliminartipo(String indice) {
 		String consulta = "DELETE FROM tipos " + " WHERE idtipo = " + indice;
@@ -1171,7 +1177,7 @@ public class Metodos {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Método que inserta un frente
+	 * Mï¿½todo que inserta un frente
 	 * 
 	 * @param idproyecto
 	 *            String --- Identificador del proyecto que se relaciona con el
@@ -1179,8 +1185,8 @@ public class Metodos {
 	 * @param identificador
 	 *            String --- identificador del frente a insertar
 	 * @param ubicacion
-	 *            string --- ubicación del frente
-	 * @return insert con éxito ? true : false
+	 *            string --- ubicaciï¿½n del frente
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public int Insetarfrente(String idproyecto, String identificador, String ubicacion) {
 		int indice = -1;
@@ -1200,7 +1206,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Frentes --- Método que regresa todos los frentes que han en la base de
+	 * Frentes --- Mï¿½todo que regresa todos los frentes que han en la base de
 	 * datos, cargandolos en memoria
 	 * 
 	 * @return Lfrentes LinkedList<Frente> --- Lista de frentes existentes
@@ -1228,15 +1234,15 @@ public class Metodos {
 	}
 
 	/**
-	 * Métod que modifica un frente
+	 * Mï¿½tod que modifica un frente
 	 * 
 	 * @param identificador
 	 *            String --- identificador del frente
 	 * @param ubicacion
-	 *            String --- ubicación del frente
+	 *            String --- ubicaciï¿½n del frente
 	 * @param idfrente
 	 *            String --- identificador del frente (llave primaria)
-	 * @return update con éxito ? true : false
+	 * @return update con ï¿½xito ? true : false
 	 */
 	public boolean ModificarFrente(String identificador, String ubicacion, String idfrente) {
 		boolean ban = false;
@@ -1253,11 +1259,11 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que elimina un frente de las tabla de frentes
+	 * Mï¿½todo que elimina un frente de las tabla de frentes
 	 * 
 	 * @param idfrente
 	 *            string --- Identificador del frente a eliminar
-	 * @return delete con éxtio ? true : false
+	 * @return delete con ï¿½xtio ? true : false
 	 */
 	public boolean eliminafrente(String idfrente) {
 		boolean ban;
@@ -1275,29 +1281,29 @@ public class Metodos {
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 /**
-* APARTADO DE METODOS PARA ESTIMACIÓN INICIAL
+* APARTADO DE METODOS PARA ESTIMACIï¿½N INICIAL
 * ADD,GET,UPDATE,DELETE
 * 
 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * insertarestimacion --- Método que registra una nueva estimación
+	 * insertarestimacion --- Mï¿½todo que registra una nueva estimaciï¿½n
 	 * 
 	 * @param idfrente
-	 *            --- identificador del frente de la estimación
+	 *            --- identificador del frente de la estimaciï¿½n
 	 * @param idconsultor
 	 *            --- identificador del consultor
 	 * @param porcentaje
-	 *            --- porcentaje de la estimación
+	 *            --- porcentaje de la estimaciï¿½n
 	 * @param fecha
-	 *            --- fecha de la estimación
+	 *            --- fecha de la estimaciï¿½n
 	 * @param tipo
-	 *            --- tipo de estimación
+	 *            --- tipo de estimaciï¿½n
 	 * @param nestimacion
 	 *            --- Revisar
 	 *            !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	 * @return ban --- nÃºmero mayor o igual a 1 si se ejecuto con éxito el
+	 * @return ban --- nÃºmero mayor o igual a 1 si se ejecuto con ï¿½xito el
 	 *         insert sino -1
 	 */
 	public int insertarestimacion(String idfrente, String idconsultor, String porcentaje, String fecha, String tipo, String nestimacion) {
@@ -1318,7 +1324,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que inserta los conceptos que estanran contenidos en la estimación
+	 * Mï¿½todo que inserta los conceptos que estanran contenidos en la estimaciï¿½n
 	 * incial
 	 * 
 	 * @param idaspecto
@@ -1335,7 +1341,7 @@ public class Metodos {
 	 * @param idpartida
 	 * @param repeticion
 	 * @param fechaestimacion
-	 * @return insert con éxito ? true : false
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public boolean estimacionaspecto(String idaspecto, String idestimacion, String cantidad, String importe, String ubicacionx, String ubicaciony, String ubicacionz, String alto, String largo, String ancho, String costo, String idpartida, String repeticion, String fechaestimacion) {
 		boolean ban = false;
@@ -1352,10 +1358,10 @@ public class Metodos {
 	}
 
 	/**
-	 * Método para seleccionar los elementos que tendra el reporte general
+	 * Mï¿½todo para seleccionar los elementos que tendra el reporte general
 	 * 
 	 * @param idestimacion
-	 *            --- identificador de la estimación que va a ser seleccionada
+	 *            --- identificador de la estimaciï¿½n que va a ser seleccionada
 	 * @return lista --- lista con los datos que seran enviados al reporte
 	 */
 	public LinkedList<Rgenerador> reportegeneral(String idestimacion) {
@@ -1398,10 +1404,10 @@ public class Metodos {
 	}
 
 	/**
-	 * Método para seleccionar los elementos del reporte por periodos
+	 * Mï¿½todo para seleccionar los elementos del reporte por periodos
 	 * 
 	 * @param idestimacion
-	 *            --- identificador de estimación a buscar
+	 *            --- identificador de estimaciï¿½n a buscar
 	 * @param fechai
 	 *            --- fecha inicial a seleccionar
 	 * @param fechaf
@@ -1447,11 +1453,11 @@ public class Metodos {
 	}
 
 		/**
-	 * Método para seleccionar los elementos del reporte por estimación y
+	 * Mï¿½todo para seleccionar los elementos del reporte por estimaciï¿½n y
 	 * partida
 	 * 
 	 * @param idestimacion
-	 *            --- identificador de la estimación
+	 *            --- identificador de la estimaciï¿½n
 	 * @param idpartida
 	 *            --- identificador de la partida
 	 * @return lista --- lista de los elementos para generar el reporte
@@ -1494,10 +1500,10 @@ public class Metodos {
 
 
 	/**
-	 * Método para sacar las fechas de una estimación tabla esti-aspec
+	 * Mï¿½todo para sacar las fechas de una estimaciï¿½n tabla esti-aspec
 	 * 
 	 * @param id
-	 *            --- identificador de la estimación a buscar
+	 *            --- identificador de la estimaciï¿½n a buscar
 	 * @return r --- lista de las fechas que coincidan con el criterio de
 	 *         bÃºsqueda
 	 */
@@ -1521,7 +1527,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que regresa las rutas de las fotografÃ­as que existen
+	 * Mï¿½todo que regresa las rutas de las fotografÃ­as que existen
 	 * 
 	 * @param idpartida
 	 * @param idaspecto
@@ -1550,7 +1556,7 @@ public class Metodos {
 	}
 	
 	/**
-	 * Métood que inserta y/o modifica el contenido con fotografÃ­a
+	 * Mï¿½tood que inserta y/o modifica el contenido con fotografÃ­a
 	 * 
 	 * @param idaspecto
 	 * @param idestimacion
@@ -1568,7 +1574,7 @@ public class Metodos {
 	 * @param uno
 	 * @param dos
 	 * @param fechaestimacion
-	 * @return insert con éxito ? true : false
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public boolean aspectofoto(String idaspecto, String idestimacion, String cantidad, String importe, String ubicacionx, String ubicaciony, String ubicacionz, String alto, String largo, String ancho, String costo, String idpartida, String repeticion, String uno, String dos, String fechaestimacion) {
 		boolean ban = false;
@@ -1585,13 +1591,13 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que elimina un aspecto de control de estimaciones
+	 * Mï¿½todo que elimina un aspecto de control de estimaciones
 	 * 
 	 * @param idaspecto
 	 *            --- identifiacador del aspecto a eliminar
 	 * @param idestimacion
-	 *            --- identificador de la estimación a eliminar
-	 * @return delete con éxito ? true : false
+	 *            --- identificador de la estimaciï¿½n a eliminar
+	 * @return delete con ï¿½xito ? true : false
 	 */
 	public boolean Eliminaresaspecto(String idaspecto, String idestimacion) {
 		boolean ban = false;
@@ -1608,15 +1614,15 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que elimina un aspecto de la estimaciíon seleccionado, en la base de datos
+	 * Mï¿½todo que elimina un aspecto de la estimaciï¿½on seleccionado, en la base de datos
 	 * 
 	 * @param idaspecto
 	 *            --- identificador del aspecto
 	 * @param idestimacion
-	 *            --- identificador de la estimación
+	 *            --- identificador de la estimaciï¿½n
 	 * @param repeticion
-	 *            --- repetición
-	 * @return delete con éxito ? true : false
+	 *            --- repeticiï¿½n
+	 * @return delete con ï¿½xito ? true : false
 	 */
 	public boolean eleminarunaspecto(String idaspecto, String idestimacion, String repeticion) {
 		boolean ban = false;
@@ -1633,11 +1639,11 @@ public class Metodos {
 	}
 	
 	/**
-	 * Método para eliminar una estimación
+	 * Mï¿½todo para eliminar una estimaciï¿½n
 	 * 
 	 * @param idestimacion
-	 *            --- identificador de la estimación a eliminar
-	 * @return delete con éxito ? true : false
+	 *            --- identificador de la estimaciï¿½n a eliminar
+	 * @return delete con ï¿½xito ? true : false
 	 */
 	public boolean EliminarEstimacion(String idestimacion) {
 		String consulta = "SELECT Eliminarestimacion(" + idestimacion + ")";
@@ -1655,14 +1661,14 @@ public class Metodos {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 /**
-* APARTADO DE METODOS PARA CONTROL DE ESTIMACIÓN
+* APARTADO DE METODOS PARA CONTROL DE ESTIMACIï¿½N
 * ADD,GET,UPDATE,DELETE
 * 
 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * PartidasSeleccionadas --- Método que devuelve las partidas seleccionadas
+	 * PartidasSeleccionadas --- Mï¿½todo que devuelve las partidas seleccionadas
 	 * 
 	 * @param idestimacion
 	 *            String --- Filtro
@@ -1688,12 +1694,12 @@ public class Metodos {
 	}
 	
 	/**
-	 * Método que regresa si un frente ya tiene asociados estimaciones iniciales
+	 * Mï¿½todo que regresa si un frente ya tiene asociados estimaciones iniciales
 	 * 
 	 * @param idfrente
 	 *            --- identificador del frente a buscar
 	 * @param tipo
-	 *            --- tipo de estimación a buscar
+	 *            --- tipo de estimaciï¿½n a buscar
 	 * @return list --- lista de Estimaciones encontradas con el criterio de
 	 *         bÃºsqueda
 	 */
@@ -1723,11 +1729,11 @@ public class Metodos {
 	}
 
 	/**
-	 * Sacar la fecha de un control de estimación
+	 * Sacar la fecha de un control de estimaciï¿½n
 	 * 
 	 * @param id
-	 *            --- identificador de estimación a buscar
-	 * @return fe --- fecha de la estimación que cumpla con el criterio de
+	 *            --- identificador de estimaciï¿½n a buscar
+	 * @return fe --- fecha de la estimaciï¿½n que cumpla con el criterio de
 	 *         bÃºsqueda
 	 */
 	public String sacarfecha(String id) {
@@ -1756,7 +1762,7 @@ public class Metodos {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Método que inserta una nueva plantilla y regresa su id
+	 * Mï¿½todo que inserta una nueva plantilla y regresa su id
 	 * 
 	 * @param nombre
 	 *            --- nombre de la plantilla
@@ -1781,14 +1787,14 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que inserta los aspectos en la tabla plantilla y los asocia a la
+	 * Mï¿½todo que inserta los aspectos en la tabla plantilla y los asocia a la
 	 * plantilla
 	 * 
 	 * @param idplantilla
 	 *            --- identificador de la plantilla
 	 * @param idaspecto
 	 *            --- identificador del aspecto
-	 * @return insert con éxito ? true : false
+	 * @return insert con ï¿½xito ? true : false
 	 */
 	public boolean Insetaraspectospalntillas(String idplantilla, String idaspecto) {
 		String consulta = "INSERT aspectos_plantillas " + "SET plantillas_idplantilla = " + idplantilla + ", idaspecto = " + idaspecto;
@@ -1805,7 +1811,7 @@ public class Metodos {
 	}
 
 	/**
-	 * Método que regrsa todas las plantillas existentes en la base de datos
+	 * Mï¿½todo que regrsa todas las plantillas existentes en la base de datos
 	 * 
 	 * @return lista --- lisata de las plantillas
 	 */
@@ -1831,7 +1837,7 @@ public class Metodos {
 	}
 	
 	/**
-	 * Método que regresa una plantilla determinada
+	 * Mï¿½todo que regresa una plantilla determinada
 	 * 
 	 * @param idplantilla
 	 *            --- string identificador de la platilla a buscar
@@ -1863,11 +1869,11 @@ public class Metodos {
 		return li;
 	}
 	/**
-	 * Método que elimina una plantilla en especifico
+	 * Mï¿½todo que elimina una plantilla en especifico
 	 * 
 	 * @param id
 	 *            --- identificador de la plantilla a eliminar
-	 * @return delete con éxito ? true : false
+	 * @return delete con ï¿½xito ? true : false
 	 */
 	public boolean eliminarplantilla(String id) {
 		boolean ban = false;

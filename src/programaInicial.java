@@ -1,11 +1,13 @@
+import MetodosRemotos.Metodos;
+
 /**
- * Clase para la ejecución del programa
+ * Clase para la ejecuciï¿½n del programa
  * 
  * @author Pablo Rivera
  * @version 1.0
- * @description proyecto de vinculación Arquitectos
+ * @description proyecto de vinculaciï¿½n Arquitectos
  * @access {@docRoot}
- * @colaboración luiiis lazaro
+ * @colaboraciï¿½n luiiis lazaro
  */
 
 public class programaInicial {
@@ -13,7 +15,11 @@ public class programaInicial {
 	 * Inicio del programa crea la interfaz para concectarse con el servidor
 	 */
 	public static void main(String[] args) {
-		InterfazServidor conenctarBD = new InterfazServidor();
-		conenctarBD.setVisible(true);
+		//InterfazServidor conenctarBD = new InterfazServidor();
+		//conenctarBD.setVisible(true);
+		Metodos metodos = new Metodos( );// conexiones a la base de datos
+		Principal pricipal = new Principal( metodos );
+		pricipal.setVisible( true );
+		pricipal.setExtendedState( javax.swing.JFrame.MAXIMIZED_BOTH );
 	}
 }

@@ -4,6 +4,7 @@ import EstimacionAceros.ViewEstimacionAceros;
 import ImportarExportar.View.VExportarConceptos;
 import ImportarExportar.View.VImportarConceptos;
 import MetodosRemotos.Metodos;
+import Views.BaseDeDatosView;
 import Views.ConsultoresView;
 import controllers.ConsultoresController;
 import controllers.ControlEstimacionController;
@@ -190,7 +191,7 @@ public class Principal extends JFrame {
 
 			mCatalogo = new JMenu();
 			Menu.add(mCatalogo);
-			mCatalogo.setText("Catálogos");
+			mCatalogo.setText("Catï¿½logos");
 			mCatalogo.setEnabled(false);
 			rCatalogo = new JMenuItem();
 			mCatalogo.add(rCatalogo);
@@ -443,7 +444,7 @@ public class Principal extends JFrame {
 			});
 			mPresupuestar.add(mntmPresupuestoInicialAceros);
 			
-			JMenuItem mntmReasignacionesDeProyectos = new JMenuItem("Reasignación de Consultores");
+			JMenuItem mntmReasignacionesDeProyectos = new JMenuItem("Reasignaciï¿½n de Consultores");
 			mntmReasignacionesDeProyectos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					if (vReasignacionProyectos== null) {
@@ -458,6 +459,17 @@ public class Principal extends JFrame {
 				}
 			});
 			mConsultores.add(mntmReasignacionesDeProyectos);
+			
+			JMenu mnConfiguracin = new JMenu("ConfiguraciÃ³n");
+			Menu.add(mnConfiguracin);
+			
+			JMenuItem mntmBaseDeDatos = new JMenuItem("Base de datos");
+			mntmBaseDeDatos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					escritorio2.add(new BaseDeDatosView());
+				}
+			});
+			mnConfiguracin.add(mntmBaseDeDatos);
 
 			escritorio2 = new JDesktopPane();
 			getContentPane().add(escritorio2, BorderLayout.CENTER);

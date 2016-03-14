@@ -21,6 +21,39 @@ public class BDConexion {
 	private String bdnombre;
 	private String usuario;
 	private String pass;
+	
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public String getBdnombre() {
+		return bdnombre;
+	}
+
+	public void setBdnombre(String bdnombre) {
+		this.bdnombre = bdnombre;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	
 
     public Connection getConexion() {
         return conexion;
@@ -47,6 +80,34 @@ public class BDConexion {
     /*
      * Constructor de la clase, automaticamente se conecta a la base de datos
      */
+    public boolean testConexion(String host, String usuario, String password)
+    {
+    	boolean estado = false;
+    	String hostfull	 = "jdbc:mysql://"+ host +"/";
+    	bdnombre = "generadores";
+    	usuario  = "root";
+    	pass 	 = password;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String BaseDeDatos = hostfull + bdnombre +"?user=" + usuario + "&password=" + pass;
+            System.out.println(BaseDeDatos);
+            setConexion(DriverManager.getConnection(BaseDeDatos));
+            if (conexion != null) {
+                System.out.println(this.getClass().getSimpleName()  + ": Conexion exitosa!");
+                estado = true;
+            } else {
+                System.out.println(this.getClass().getSimpleName() + ": Conexion fallida!");
+                estado = false;
+            }
+        } catch (SQLException sqle)
+        {
+        	return false;
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return estado;
+    }
     public BDConexion() {
     	host	 = "jdbc:mysql://localhost/";
     	bdnombre = "generadores";
