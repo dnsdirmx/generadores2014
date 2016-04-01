@@ -650,7 +650,7 @@ public class ControlEstimaciones extends JInternalFrame {
 					
 					llenarAspectos(indi);
 					
-					TableColumn co = Taspectos.getColumn("Selección");
+					TableColumn co = Taspectos.getColumn("Selecciï¿½n");
 					co.setPreferredWidth(80);
 					TableColumn co2 = Taspectos.getColumn("Desglose de Conceptos");
 					co2.setPreferredWidth(850);
@@ -675,7 +675,9 @@ public class ControlEstimaciones extends JInternalFrame {
 					/**
 					 * grupo de variables para el generador
 					 */
+					
 					int uno, dos, i = 0, tm = 0, veces = 0, id = -1, indi = 0;
+					System.out.println("Entrandooooooooooooooooooooooooooooo");
 					Model.Entity.Aspecto a = new Model.Entity.Aspecto( );
 					String ban = "", des = "", clave = "", ida = "0";
 					uno = Taspectos.getSelectionModel( ).getLeadSelectionIndex( );
@@ -714,6 +716,7 @@ public class ControlEstimaciones extends JInternalFrame {
 									//para cada aspecto se verifica la descripcion con el aspecto seleccionado para obtener su identificador y clave
 									for ( i = 0 ; i < Laspectos.size( ) ; i++ ) {
 										a = ( Model.Entity.Aspecto ) Laspectos.get( i );
+										System.out.println(a.toString());
 										if ( a.getDescripcion( ) == des ) {
 											indi = a.getIdAspecto( );
 											clave = a.getClave( );
@@ -742,6 +745,7 @@ public class ControlEstimaciones extends JInternalFrame {
 											asp.setRepeticion( 1 );
 											asp.setPartida( String.valueOf( idpartida ) );
 											asp.setFecha( fechaestimacion );
+											System.out.println(a.toString());
 											control3.anhadeFila( asp );
 											Tsegir.changeSelection( control3.Tama( ) - 1, 2, false, false );
 										} else {
@@ -804,7 +808,7 @@ public class ControlEstimaciones extends JInternalFrame {
 			TableColumn tabColClave = Tsegir.getColumn( "Clave" );
 			tabColClave.setCellEditor( new DefaultCellEditor( ComponentsUser.getDataTxt( 15, 2 ) ) );
 			
-			TableColumn c3 = Tsegir.getColumn( "Descripción" );
+			TableColumn c3 = Tsegir.getColumn( "Descripciï¿½n" );
 			c3.setCellRenderer( new CustomRenderer( ) );
 			c3.setCellEditor( new CustomEditor( ) );
 			c3.setPreferredWidth( 400 );
@@ -1105,7 +1109,7 @@ public class ControlEstimaciones extends JInternalFrame {
 					        if(f.toString().indexOf(".xls") == -1)
 					        	f = new File(f.toString() + ".xls");
 					        if(f.exists() && getDialogType() == SAVE_DIALOG){
-					            int result = JOptionPane.showConfirmDialog(this,"El archivo ya existe ¿Deseas sobreescribirlo?","Archivo Existente",JOptionPane.YES_NO_CANCEL_OPTION);
+					            int result = JOptionPane.showConfirmDialog(this,"El archivo ya existe ï¿½Deseas sobreescribirlo?","Archivo Existente",JOptionPane.YES_NO_CANCEL_OPTION);
 					            switch(result){
 					                case JOptionPane.YES_OPTION:
 					                    super.approveSelection();
@@ -1219,7 +1223,7 @@ public class ControlEstimaciones extends JInternalFrame {
 									JOptionPane.showMessageDialog( null, "La estimacion no contiene datos" );
 								}
 							} else {
-								JOptionPane.showMessageDialog( null, "Debes seleccionar una estimación" );
+								JOptionPane.showMessageDialog( null, "Debes seleccionar una estimaciï¿½n" );
 							}
 						}
 						// **************************************************************************************************************************************************************************
@@ -1605,7 +1609,7 @@ public class ControlEstimaciones extends JInternalFrame {
 		for ( int i = 0 ; i < elementos.length ; i++ ) {
 			elementos[i][0] = new Boolean( false );
 		}
-
+		System.out.println("Algo pasa aqui");
 		// para cada aspecto se verifica que coincida con el concepto seleccionado en pantalla
 		for ( int i = 0 ; i < Laspectos.size( ) ; i++ ) {
 			asp2 = ( Model.Entity.Aspecto ) Laspectos.get( i );
@@ -1632,7 +1636,7 @@ public class ControlEstimaciones extends JInternalFrame {
 		tc3.setCellRenderer( new ColoredTableCellRenderer( ) );
 		Taspectos.setVisible( true );
 		
-		TableColumn co1 = Taspectos.getColumn( "Selección" );
+		TableColumn co1 = Taspectos.getColumn( "Selecciï¿½n" );
 		co1.setPreferredWidth( 70 );
 
 	}

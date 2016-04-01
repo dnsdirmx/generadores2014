@@ -18,7 +18,10 @@ public class Aspecto{
 	private String clave_privada;
 	private String descripcion_completa;
 
-	
+	public String toString()
+	{
+		return "CLAVE : " + clave;
+	}
 	
 
 	

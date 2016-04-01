@@ -784,7 +784,7 @@ public class Presupuesto extends JInternalFrame {
 			TableColumn tabColClave = generadores.getColumn("Clave");
 			tabColClave.setCellEditor(new DefaultCellEditor(ComponentsUser.getDataTxt(15, 2)));
 
-			TableColumn tc3 = generadores.getColumn("Descripción");
+			TableColumn tc3 = generadores.getColumn("Descripciï¿½n");
 			tc3.setPreferredWidth(400);
 			tc3.setCellRenderer(new CustomRenderer());
 			tc3.setCellEditor(new CustomEditor());
@@ -1105,6 +1105,7 @@ public class Presupuesto extends JInternalFrame {
 							public void mouseClicked(java.awt.event.MouseEvent evt) {
 								int uno, dos, i = 0, tm = 0, veces = 0, id = -1;
 								Aspecto a = new Aspecto();
+								System.out.println("Aqui entro a algo");
 								String ban = "", des = "", clave = "", ida = "0";
 								uno = TDescripcion.getSelectionModel().getLeadSelectionIndex(); //
 								dos = TDescripcion.getColumnModel().getSelectionModel().getLeadSelectionIndex(); //
@@ -1124,7 +1125,8 @@ public class Presupuesto extends JInternalFrame {
 											if (dos == 0) {
 												for (i = 0; i < Laspectos.size(); i++) {
 													a = (Aspecto) Laspectos.get(i);
-													if (a.getDescripcion() == des) {
+													
+													if (a.getDescripcion().compareTo(des) == 0) {
 														indi = a.getIdAspecto();
 														clave = a.getClave();
 														i = Laspectos.size() + 5;
@@ -1153,7 +1155,7 @@ public class Presupuesto extends JInternalFrame {
 													generadores.changeSelection(control.Tama() - 1, 2, false, false);
 												} else {
 													tm = control.Tama();
-													System.out.println("Tamaño de datos " + tm);
+													System.out.println("Tamaï¿½o de datos " + tm);
 													if (ban.equals("false") == true && des.equals("") == false) {
 														Rgenerador asp = new Rgenerador();
 														for (i = 0; i < tm; i++) {
@@ -1209,7 +1211,7 @@ public class Presupuesto extends JInternalFrame {
 					}
 					llenarAspectos(idconcepto);
 
-					TableColumn co = TDescripcion.getColumn("Selección");
+					TableColumn co = TDescripcion.getColumn("Selecciï¿½n");
 					co.setPreferredWidth(80);
 					TableColumn co2 = TDescripcion.getColumn("Desglose de Conceptos");
 					co2.setPreferredWidth(850);
