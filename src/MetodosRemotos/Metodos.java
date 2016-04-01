@@ -4,8 +4,9 @@ import java.sql.*;
 import java.util.*;
 
 import Model.Entity.BDConexion;
+import Model.Entity.Consultor;
 import ObjetosSerializables.Rgenerador;
-import ObjetosSerializables.Consultor;
+
 import ObjetosSerializables.Estimacion;
 import ObjetosSerializables.Partida;
 import ObjetosSerializables.Proyecto;
@@ -195,12 +196,12 @@ public class Metodos {
 			consultores = instancia_sql.executeQuery(consulta);
 			while (consultores.next() == true) {
 				consul = new Consultor();
-				consul.setIdconsultor(consultores.getInt("idConsultor"));
+				consul.setIdConsultor(consultores.getInt("idConsultor"));
 				consul.setPaterno(consultores.getString("paterno"));
 				consul.setMaterno(consultores.getString("materno"));
 				consul.setNombre(consultores.getString("nombre"));
 				consul.setLogin(consultores.getString("login"));
-				consul.setPassword(consultores.getString("pass"));
+				consul.setPass(consultores.getString("pass"));
 				consul.setTipousu(consultores.getString("tipousu"));
 				Lconsultores.add(consul);
 			}
@@ -277,13 +278,23 @@ public class Metodos {
 	 * @return usuario existe ? true : false
 	 */
 	public String verificarusuario(String login, char[] password) {
+		
 		String tusuario = "nada";
 		ResultSet rusuario;
 		String passUser = new String(password);
 		if (login.isEmpty() || passUser.isEmpty()) {
 			return tusuario;
 		}
-		String consulta = " SELECT login, pass, tipousu " + " FROM consultor " + " WHERE login= '" + login.toString() + "' AND pass = '" + passUser.toString() + "'";
+		LinkedList<Consultor> consultores = Consultor.findAll();
+		for(Consultor c : consultores)
+		{
+			if(c.getLogin().compareTo(login) == 0 && c.getPass().compareTo(passUser) == 0)
+			{
+				tusuario = c.getTipousu();
+			}
+		}
+		
+		/*String consulta = " SELECT login, pass, tipousu " + " FROM consultor " + " WHERE login= '" + login.toString() + "' AND pass = '" + passUser.toString() + "'";
 		ConsultaConsola(consulta);
 		try {
 			rusuario = instancia_sql.executeQuery(consulta);
@@ -294,6 +305,7 @@ public class Metodos {
 			System.out.println(e.toString());
 			//System.out.println("Error al verificar el usuario en la base de datos");
 		}
+		*/
 		return tusuario;
 	}
 	

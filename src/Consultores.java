@@ -26,8 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import MetodosRemotos.Metodos;
-
-import ObjetosSerializables.Consultor;
+import Model.Entity.Consultor;
 import Options.LenString;
 import Options.OptionsText;
 
@@ -35,36 +34,36 @@ import Options.OptionsText;
  * Clase para la actualizaciones de los consultores en la base de datos
  * (usuarios)
  * @author Pablo Rivera
- * @colaboración luiiis Lazaro
+ * @colaboraciï¿½n luiiis Lazaro
  * @access {@docRoot}
  */
 public class Consultores extends javax.swing.JInternalFrame {
 
 	/**
-	 * escritorio --- panel de la aplicación (menú principal)
+	 * escritorio --- panel de la aplicaciï¿½n (menï¿½ principal)
 	 * paneluno --- panel del JInternalFrame
-	 * agregar --- botón para agregar nuevo usuario (Administrador o consultor)
+	 * agregar --- botï¿½n para agregar nuevo usuario (Administrador o consultor)
 	 * materno --- campo txt para el apellido materno
 	 * ematern --- etiqueta del campo txt de apellido materno
 	 * tipo --- comboboc para asignar el tipo de usuario
-	 * aceptar --- botón para confirmar operación seleccionada
-	 * password2 --- confirmación de la contraseña elegida
-	 * epassword2 --- etiqueta para la confirmacion de la contraseña elegida
-	 * password --- contraseña elegida del usuarios (Administrador o consultor)
-	 * epassword --- etiqueta para la contraseña
+	 * aceptar --- botï¿½n para confirmar operaciï¿½n seleccionada
+	 * password2 --- confirmaciï¿½n de la contraseï¿½a elegida
+	 * epassword2 --- etiqueta para la confirmacion de la contraseï¿½a elegida
+	 * password --- contraseï¿½a elegida del usuarios (Administrador o consultor)
+	 * epassword --- etiqueta para la contraseï¿½a
 	 * login --- campo txt para asignar nickname (alias) para el sistema
 	 * elogin --- etiqueta para nickname
 	 * nombre --- campo txt para escribir el nombre del usuario
 	 * enombre --- etiqueta para el nombre 
 	 * paterno --- campo txt para escribir el apellido paterno del usuario
 	 * epaterno --- etiqueta para el apellido paterno
-	 * pdatos --- panel para contener la información del usuario
+	 * pdatos --- panel para contener la informaciï¿½n del usuario
 	 * eusuario --- etiqueta para el tipo de usuario
 	 * Cusuarios --- combobox para seleccionar el tipo de usuario elegido
-	 * eliminar --- botón para eliminar un usuario
-	 * modificar --- botón para modificar la información de un usuario
+	 * eliminar --- botï¿½n para eliminar un usuario
+	 * modificar --- botï¿½n para modificar la informaciï¿½n de un usuario
 	 * panelopc --- panel para contener los RadioButtons de opciones disponibles
-	 * Lconsultores --- vector para manipular la información de la base de datos de los usuarios (administradores y consultores)
+	 * Lconsultores --- vector para manipular la informaciï¿½n de la base de datos de los usuarios (administradores y consultores)
 	 * idconsultor --- auxiliar para obtener el id del consultor seleccionado por el Cbox
 	 * 
 	 */
@@ -93,11 +92,11 @@ public class Consultores extends javax.swing.JInternalFrame {
 	private JRadioButton eliminar;
 	private JRadioButton modificar;
 	private JPanel panelopc;
-	private Vector < Consultor > Lconsultores = new Vector < Consultor >( );
+	private Vector<Model.Entity.Consultor> Lconsultores = new Vector < Model.Entity.Consultor>( );
 	private int idconsultor = -1;
 
 	/**
-	 * contructor de la clase inicia componentes gráficos
+	 * contructor de la clase inicia componentes grï¿½ficos
 	 * 
 	 * @param cone
 	 *            para las operaciones a la base de datos
@@ -108,7 +107,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 	}
 
 	/**
-	 * Inicialización de componentes gráficos para la ventana de consultores
+	 * Inicializaciï¿½n de componentes grï¿½ficos para la ventana de consultores
 	 * 
 	 * @param cone
 	 *            para las operaciones a la base de datos
@@ -143,7 +142,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 			agregar.setBounds( 17, 11, 73, 20 );
 			agregar.addActionListener( new ActionListener( ) {
 				/**
-				 * Opción para Agregar un nuevo Usuario
+				 * Opciï¿½n para Agregar un nuevo Usuario
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 * 
@@ -165,7 +164,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 			modificar.addActionListener( new ActionListener( ) {
 
 				/**
-				 * Opción para modificar/actualizar la información de un consultor 
+				 * Opciï¿½n para modificar/actualizar la informaciï¿½n de un consultor 
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -187,7 +186,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 			eliminar.setBounds( 230, 11, 78, 20 );
 			eliminar.addActionListener( new ActionListener( ) {
 
-				/** Opción para Eliminar un consultor del sistema
+				/** Opciï¿½n para Eliminar un consultor del sistema
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -213,7 +212,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 			Cusuarios.setEnabled( false );
 			Cusuarios.addActionListener( new ActionListener( ) {
 				/**
-				 * Sección encargada de llenar los campos de texto dependiendo de que usuario esta 
+				 * Secciï¿½n encargada de llenar los campos de texto dependiendo de que usuario esta 
 				 * seleccionado en el combo box
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -246,11 +245,11 @@ public class Consultores extends javax.swing.JInternalFrame {
 			paterno.addKeyListener( new KeyListener( ) {
 
 				/**
-				 * Listener para escribir sólo caracteres permitidos en el JtextField
-				 * invoca otro método statico que se encarga de revisar los caracteres. 
+				 * Listener para escribir sï¿½lo caracteres permitidos en el JtextField
+				 * invoca otro mï¿½todo statico que se encarga de revisar los caracteres. 
 				 * @Override(non-Javadoc)
 				 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-				 * validación de texto de entrada
+				 * validaciï¿½n de texto de entrada
 				 */
 				public void keyTyped ( KeyEvent e ) {
 					OptionsText.onlyCharsSpace( e.getKeyChar( ), e );
@@ -271,11 +270,11 @@ public class Consultores extends javax.swing.JInternalFrame {
 			materno.addKeyListener( new KeyListener( ) {
 
 				/**
-				 * Listener para escribir sólo caracteres permitidos en el JtextField
-				 * invoca otro método statico que se encarga de revisar los caracteres. 
+				 * Listener para escribir sï¿½lo caracteres permitidos en el JtextField
+				 * invoca otro mï¿½todo statico que se encarga de revisar los caracteres. 
 				 * @Override(non-Javadoc)
 				 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-				 * validación del texto de entrada
+				 * validaciï¿½n del texto de entrada
 				 */
 				public void keyTyped ( KeyEvent e ) {
 					OptionsText.onlyCharsSpace( e.getKeyChar( ), e );
@@ -298,11 +297,11 @@ public class Consultores extends javax.swing.JInternalFrame {
 			nombre.addKeyListener( new KeyListener( ) {
 
 				/**
-				 * Listener para escribir sólo caracteres permitidos en el JtextField
-				 * invoca otro método statico que se encarga de revisar los caracteres. 
+				 * Listener para escribir sï¿½lo caracteres permitidos en el JtextField
+				 * invoca otro mï¿½todo statico que se encarga de revisar los caracteres. 
 				 * @Override(non-Javadoc)
 				 * @see	java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-				 * validación del texto de entrada
+				 * validaciï¿½n del texto de entrada
 				 */
 				public void keyTyped ( KeyEvent e ) {
 					OptionsText.onlyCharsSpace( e.getKeyChar( ), e );
@@ -324,8 +323,8 @@ public class Consultores extends javax.swing.JInternalFrame {
 			login.addKeyListener( new KeyListener( ) {
 
 				/**
-				 * Listener para escribir sólo caracteres permitidos en el JtextField
-				 * invoca otro método statico que se encarga de revisar los caracteres. 
+				 * Listener para escribir sï¿½lo caracteres permitidos en el JtextField
+				 * invoca otro mï¿½todo statico que se encarga de revisar los caracteres. 
 				 * @Override (non-Javadoc)
 				 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 				 * validacion de texto de entrada
@@ -341,7 +340,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 
 			epassword = new JLabel( );
 			Pdatos.add( epassword );
-			epassword.setText( "Contraseña:" );
+			epassword.setText( "Contraseï¿½a:" );
 			epassword.setBounds( 41, 152, 77, 25 );
 
 			password = new JPasswordField( );
@@ -352,11 +351,11 @@ public class Consultores extends javax.swing.JInternalFrame {
 			password.addKeyListener( new KeyListener( ) {
 
 				/**
-				 * Listener para escribir sólo caracteres permitidos en el JtextField
-				 * invoca otro método statico que se encarga de revisar los caracteres.
+				 * Listener para escribir sï¿½lo caracteres permitidos en el JtextField
+				 * invoca otro mï¿½todo statico que se encarga de revisar los caracteres.
 				 * (non-Javadoc)
 				 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-				 * validación de texto de entrada
+				 * validaciï¿½n de texto de entrada
 				 */
 				public void keyTyped ( KeyEvent e ) {
 					OptionsText.onlyCharsNumbers( e.getKeyChar( ), e );
@@ -369,7 +368,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 
 			epassword2 = new JLabel( );
 			Pdatos.add( epassword2 );
-			epassword2.setText( "Repita Contraseña:" );
+			epassword2.setText( "Repita Contraseï¿½a:" );
 			epassword2.setBounds( 6, 189, 121, 22 );
 
 			password2 = new JPasswordField( );
@@ -379,11 +378,11 @@ public class Consultores extends javax.swing.JInternalFrame {
 			password2.addKeyListener( new KeyListener( ) {
 
 				/**
-				 * Listener para escribir sólo caracteres permitidos en el JtextField
-				 * invoca otro método statico que se encarga de revisar los caracteres.
+				 * Listener para escribir sï¿½lo caracteres permitidos en el JtextField
+				 * invoca otro mï¿½todo statico que se encarga de revisar los caracteres.
 				 * (non-Javadoc)
 				 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-				 * validación de texto de entrada
+				 * validaciï¿½n de texto de entrada
 				 */
 				public void keyTyped ( KeyEvent e ) {
 					OptionsText.onlyCharsNumbers( e.getKeyChar( ), e );
@@ -395,7 +394,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 			} );
 
 			/**
-			 * Bloqueo CopyPaste en campos de usuario, y contraseñas
+			 * Bloqueo CopyPaste en campos de usuario, y contraseï¿½as
 			 */
 			OptionsText.disablePasteAndCopyAction( ( JComponent ) login );
 			OptionsText.disablePasteAndCopyAction( ( JComponent ) password );
@@ -412,14 +411,14 @@ public class Consultores extends javax.swing.JInternalFrame {
 			aceptar = new JButton( );
 			Pdatos.add( aceptar );
 			aceptar.setIcon( Imagenprocesar );
-			aceptar.setText( "Realizar Operación" );
+			aceptar.setText( "Realizar Operaciï¿½n" );
 			aceptar.setBounds( 41, 258, 271, 38 );
 			aceptar.setFont( new java.awt.Font( "Segoe UI", 1, 12 ) );
 			aceptar.addActionListener( new ActionListener( ) {
 
 				/**
-				 * Validación para comparación de contraseñas
-				 * y para la información del usuario nuevo
+				 * Validaciï¿½n para comparaciï¿½n de contraseï¿½as
+				 * y para la informaciï¿½n del usuario nuevo
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -429,11 +428,11 @@ public class Consultores extends javax.swing.JInternalFrame {
 					String pass2 = new String( password2.getPassword( ) );
 
 					/**
-					 * Sección para agregar el usuario
+					 * Secciï¿½n para agregar el usuario
 					 */
 					if ( agregar.isSelected( ) ) {
 						if ( vacio( ) == false ) {
-							// verificación del tipo de usuario
+							// verificaciï¿½n del tipo de usuario
 							if ( pass1.toString( ).equals( pass2.toString( ) ) == true ) {
 								if ( tipo.getSelectedIndex( ) == 0 ) {
 									tu = "A";
@@ -441,10 +440,10 @@ public class Consultores extends javax.swing.JInternalFrame {
 									tu = "U";
 								}
 								try {
-									// verficación si ya existe el usuario
+									// verficaciï¿½n si ya existe el usuario
 									if ( cone.existeUsuario( paterno.getText( ), materno.getText( ), nombre.getText( ) ) == false ) {
 										if ( cone.agregarUsuario( paterno.getText( ), materno.getText( ), nombre.getText( ), login.getText( ), password.getPassword( ), tu ) ) {
-											JOptionPane.showMessageDialog( null, "La inserción se realizó con éxito" );
+											JOptionPane.showMessageDialog( null, "La inserciï¿½n se realizï¿½ con ï¿½xito" );
 											Limpiar( );
 										}
 									} else {
@@ -454,17 +453,17 @@ public class Consultores extends javax.swing.JInternalFrame {
 									JOptionPane.showMessageDialog( null, "Servidor Fuera de Servicio (Error al insertar usuario) ", "Error", JOptionPane.ERROR_MESSAGE );
 								}
 							} else {
-								JOptionPane.showMessageDialog( null, "Las Contraseñas no Coincide" );
+								JOptionPane.showMessageDialog( null, "Las Contraseï¿½as no Coincide" );
 							}
 						}
 					} else if ( modificar.isSelected( ) ) {
 						/**
-						 * Sección para modificar la información
+						 * Secciï¿½n para modificar la informaciï¿½n
 						 * de los datos del usuario
 						 */
 						if ( vacio( ) == false ) {
 							if ( pass1.toString( ).equals( pass2.toString( ) ) == true ) {
-								int res = JOptionPane.showConfirmDialog( null, "Deseas modificar el usuario", "Confirmación", JOptionPane.YES_NO_OPTION );
+								int res = JOptionPane.showConfirmDialog( null, "Deseas modificar el usuario", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION );
 								if ( res == JOptionPane.YES_OPTION ) {
 									if ( tipo.getSelectedIndex( ) == 0 ) {
 										tu = "A";
@@ -473,7 +472,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 									}
 									try {
 										if ( cone.modificarUsuario( paterno.getText( ), materno.getText( ), nombre.getText( ), login.getText( ), password.getPassword( ), tu, String.valueOf( idconsultor ) ) ) {
-											JOptionPane.showMessageDialog( null, "La Modificación se realizó con éxito" );
+											JOptionPane.showMessageDialog( null, "La Modificaciï¿½n se realizï¿½ con ï¿½xito" );
 											Lconsultores = cone.GetConsultores( );
 											llenarConsultores( );
 											Limpiar( );
@@ -488,16 +487,16 @@ public class Consultores extends javax.swing.JInternalFrame {
 						}
 					} else if ( eliminar.isSelected( ) ) {
 						/**
-						 * Sección para eliminar información
+						 * Secciï¿½n para eliminar informaciï¿½n
 						 * de los usuarios
 						 */
 						if ( vacio( ) == false ) {
 							if ( pass1.toString( ).equals( pass2.toString( ) ) == true ) {
-								int res = JOptionPane.showConfirmDialog( null, "Deseas eliminar el usuario", "Confirmación", JOptionPane.YES_NO_OPTION );
+								int res = JOptionPane.showConfirmDialog( null, "Deseas eliminar el usuario", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION );
 								if ( res == JOptionPane.YES_OPTION ) {
 									try {
 										if ( cone.eliminarUsuario( String.valueOf( idconsultor ) ) == true ) {
-											JOptionPane.showMessageDialog( null, "La eliminación se realizó con éxito" );
+											JOptionPane.showMessageDialog( null, "La eliminaciï¿½n se realizï¿½ con ï¿½xito" );
 											Lconsultores = cone.GetConsultores( );
 											llenarConsultores( );
 											Limpiar( );
@@ -512,7 +511,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 						}// fin de vacio en la comparcion con falso
 					}// fin de eliminar
 					else {
-						JOptionPane.showMessageDialog( null, "Selecciona una Opción ha Realizar" );
+						JOptionPane.showMessageDialog( null, "Selecciona una Opciï¿½n ha Realizar" );
 					}
 
 				}// fin de action performed
@@ -538,7 +537,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 	}// fin de inicio de ventana
 
 	/**
-	 * Función Vacio() ->
+	 * Funciï¿½n Vacio() ->
 	 * Verifica si uno o mas campos esta vacio o no
 	 * JpasswordField..gettext Error ->> JpasswordField.getPassword
 	 * 
@@ -552,7 +551,7 @@ public class Consultores extends javax.swing.JInternalFrame {
 		String strPass = new String( password.getPassword( ) ).trim( );
 		String strPassConfirm = new String( password2.getPassword( ) ).trim( );
 		if ( strPaterno.isEmpty( ) || strMaterno.isEmpty( ) || strNombre.isEmpty( ) || strLogin.isEmpty( ) || strPass.isEmpty( ) || strPassConfirm.isEmpty( ) ) {
-			JOptionPane.showMessageDialog( null, "Uno o varios campos están vacíos", "Verifica", JOptionPane.WARNING_MESSAGE );
+			JOptionPane.showMessageDialog( null, "Uno o varios campos estï¿½n vacï¿½os", "Verifica", JOptionPane.WARNING_MESSAGE );
 			return true;
 		} else {
 			return false;
@@ -603,15 +602,15 @@ public class Consultores extends javax.swing.JInternalFrame {
 			paterno.setText( con.getPaterno( ) );
 			materno.setText( con.getMaterno( ) );
 			nombre.setText( con.getNombre( ) );
-			login.setText( con.getlogin( ) );
+			login.setText( con.getLogin( ) );
 			if ( con.getTipousu( ).equals( "A" ) == true ) {
 				tipo.setSelectedIndex( 0 );
 			} else {
 				tipo.setSelectedIndex( 1 );
 			}
-			password.setText( con.getPassword( ).toString( ) );
-			password2.setText( con.getPassword( ).toString( ) );
-			idconsultor = con.getIdconsultor( );
+			password.setText( con.getPass( ).toString( ) );
+			password2.setText( con.getPass( ).toString( ) );
+			idconsultor = con.getIdConsultor( );
 		}
 	}
 }
