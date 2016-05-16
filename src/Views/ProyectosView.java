@@ -112,8 +112,8 @@ public class ProyectosView extends JInternalFrame {
 
 	/**
 	 * construtor de la clase 
-	 * @param escritorio2 --- panel de la aplacación principal 
-	 * @param cone --- métodos para la manipulación de la base de datos
+	 * @param escritorio2 --- panel de la aplacaciï¿½n principal 
+	 * @param cone --- mï¿½todos para la manipulaciï¿½n de la base de datos
 	 */
 	public ProyectosView(ProyectosController controlador, JDesktopPane escritorio2, Metodos cone) {
 		super("Registro de Proyectos", false, true, false, true);
@@ -122,9 +122,9 @@ public class ProyectosView extends JInternalFrame {
 	}
 
 	/**
-	 * inicialización de los componentes gráficos
-	 * @param escritorio2 --- panel de la aplacación principal 
-	 * @param cone --- métodos para la manipulación de la base de datos
+	 * inicializaciï¿½n de los componentes grï¿½ficos
+	 * @param escritorio2 --- panel de la aplacaciï¿½n principal 
+	 * @param cone --- mï¿½todos para la manipulaciï¿½n de la base de datos
 	 */
 	private void initGUI(final JDesktopPane escritorio2, final Metodos cone) {
 		try {
@@ -155,7 +155,7 @@ public class ProyectosView extends JInternalFrame {
 			agregar.setBounds(17, 6, 74, 20);
 			agregar.addActionListener(new ActionListener() {
 				/**
-				 * opción para agregar un nuevo proyecto
+				 * opciï¿½n para agregar un nuevo proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -175,7 +175,7 @@ public class ProyectosView extends JInternalFrame {
 			modificar.setBounds(108, 6, 88, 20);
 			modificar.addActionListener(new ActionListener() {
 				/**
-				 * Opción para actualizar la información de un proyecto
+				 * Opciï¿½n para actualizar la informaciï¿½n de un proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -200,7 +200,7 @@ public class ProyectosView extends JInternalFrame {
 			eliminar.setBounds(201, 6, 82, 20);
 			eliminar.addActionListener(new ActionListener() {
 				/**
-				 * opción para eliminar un proyecto
+				 * opciï¿½n para eliminar un proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -217,7 +217,7 @@ public class ProyectosView extends JInternalFrame {
 				}
 			});
 
-			// Agrupación de los botones radios
+			// Agrupaciï¿½n de los botones radios
 			ButtonGroup groupRadioBTN = new ButtonGroup();
 			groupRadioBTN.add(agregar);
 			groupRadioBTN.add(modificar);
@@ -230,7 +230,7 @@ public class ProyectosView extends JInternalFrame {
 			Cproyectos.setEnabled(false);
 			Cproyectos.addActionListener(new ActionListener() {
 				/**
-				 * Listener para desplegar la información del proyecto seleccionado
+				 * Listener para desplegar la informaciï¿½n del proyecto seleccionado
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -302,7 +302,7 @@ public class ProyectosView extends JInternalFrame {
 			Pinformacion.add(descripcion);
 			descripcion.addKeyListener(new KeyAdapter() {
 				/**
-				 * Validación del texto de entrada
+				 * Validaciï¿½n del texto de entrada
 				 * (non-Javadoc) 
 				 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 				 */
@@ -322,7 +322,7 @@ public class ProyectosView extends JInternalFrame {
 			bproyecto.setBounds(351, 10, 29, 23);
 			bproyecto.addActionListener(new ActionListener() {
 				/**
-				 * opción para crear nuevos tipos de proyecto
+				 * opciï¿½n para crear nuevos tipos de proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -382,7 +382,7 @@ public class ProyectosView extends JInternalFrame {
 			btnComments.setEnabled(false);
 			btnComments.addActionListener(new ActionListener() {
 				/**
-				 * opción para agregar o actualizar la información de los comentarios del proyecto
+				 * opciï¿½n para agregar o actualizar la informaciï¿½n de los comentarios del proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -398,7 +398,7 @@ public class ProyectosView extends JInternalFrame {
 
 			aceptar.addActionListener(new ActionListener() {
 				/**
-				 * opción para guardar / actualizar o eliminar un proyecto 
+				 * opciï¿½n para guardar / actualizar o eliminar un proyecto 
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -448,11 +448,11 @@ public class ProyectosView extends JInternalFrame {
 					}
 					
 					/**
-					 * validación para las fechas, la fecha final no debe ser menor a la fecha de inicio
+					 * validaciï¿½n para las fechas, la fecha final no debe ser menor a la fecha de inicio
 					 */
 					try {
 						if (Ffin.getCalendar().before(finicial.getCalendar())){
-							JOptionPane.showMessageDialog(null, "Atención con la fecha final del proyecto. No puede ser menor a la de inicio.");
+							JOptionPane.showMessageDialog(null, "Atenciï¿½n con la fecha final del proyecto. No puede ser menor a la de inicio.");
 							return;
 						}	
 					} catch (Exception e2) {
@@ -470,7 +470,7 @@ public class ProyectosView extends JInternalFrame {
 									//idproyecto = ;//cone.Insertarproyecto(p.getIdtipo(), fecha1, fecha2, descripcion.getText(), nombre.getText(), getCommentsProyecto());
 									if (controlador.create(p.getIdtipo(), finicial.getDate(), Ffin.getDate(), descripcion.getText(), nombre.getText(), getCommentsProyecto())) {
 										idproyecto = controlador.getIdProyecto();
-										JOptionPane.showMessageDialog(null, "Éxito al crear proyecto, ingresa frentes");
+										JOptionPane.showMessageDialog(null, "ï¿½xito al crear proyecto, ingresa frentes");
 										Tfrentes.setEnabled(true);
 										fagregar.setEnabled(true);
 										feliminar.setEnabled(true);
@@ -490,7 +490,7 @@ public class ProyectosView extends JInternalFrame {
 					}
 
 					if (modificar.isSelected()) {
-						int res = JOptionPane.showConfirmDialog(null, "Confirmar para modificar", "Confirmación", JOptionPane.YES_NO_OPTION);
+						int res = JOptionPane.showConfirmDialog(null, "Confirmar para modificar", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION);
 						if (res == JOptionPane.YES_OPTION) {
 							btnComments.setEnabled(true);
 							Tipo p = (Tipo) Ltipos.get(tipo.getSelectedIndex());
@@ -524,7 +524,7 @@ public class ProyectosView extends JInternalFrame {
 					}
 
 					if (eliminar.isSelected()) {
-						int res = JOptionPane.showConfirmDialog(null, "Confirmar para eliminar", "Confirmación", JOptionPane.YES_NO_OPTION);
+						int res = JOptionPane.showConfirmDialog(null, "Confirmar para eliminar", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION);
 						if (res == JOptionPane.YES_OPTION) {
 							Lfrentes = Frente.findAll();//cone.Frentes();
 							Limpiarfrente();
@@ -558,7 +558,7 @@ public class ProyectosView extends JInternalFrame {
 									JOptionPane.showMessageDialog(null, "Servidor fuera de servicio (Error al eliminar proyecto) ", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "No puede eliminar éste proyecto tiene: " + existe + " frentes", "Error", JOptionPane.WARNING_MESSAGE);
+								JOptionPane.showMessageDialog(null, "No puede eliminar ï¿½ste proyecto tiene: " + existe + " frentes", "Error", JOptionPane.WARNING_MESSAGE);
 								Tfrentes.setEnabled(true);
 								fagregar.setEnabled(true);
 								feliminar.setEnabled(true);
@@ -589,7 +589,7 @@ public class ProyectosView extends JInternalFrame {
 			TableColumn c1IdentificadorColumn = Tfrentes.getColumn("Indentificador");
 			c1IdentificadorColumn.setCellEditor(new DefaultCellEditor(ComponentsUser.getDataTxt(45, 2)));
 
-			TableColumn c2UbicacionColumn = Tfrentes.getColumn("Ubicación");
+			TableColumn c2UbicacionColumn = Tfrentes.getColumn("Ubicaciï¿½n");
 			c2UbicacionColumn.setCellEditor(new DefaultCellEditor(ComponentsUser.getDataTxt(45, 2)));
 
 			Tfrentes.addMouseListener(new MouseAdapter() {
@@ -607,6 +607,7 @@ public class ProyectosView extends JInternalFrame {
 							posicion = Tfrentes.getSelectionModel().getLeadSelectionIndex();
 							fre = (Frente) control.getListaDatos().get(posicion);
 							idfrente = fre.getIdfrente();
+							System.out.println("[[[[[Aqui pasa algo");
 						}
 					}
 				}
@@ -616,7 +617,7 @@ public class ProyectosView extends JInternalFrame {
 			fagregar = new JButton();
 			fagregar.addActionListener(new ActionListener() {
 				/**
-				 * opción para agregar un nuevo frente al proyecto
+				 * opciï¿½n para agregar un nuevo frente al proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
@@ -659,13 +660,13 @@ public class ProyectosView extends JInternalFrame {
 			feliminar.setEnabled(false);
 			feliminar.addActionListener(new ActionListener() {
 				/**
-				 * opción para eliminar un frente del proyecto
+				 * opciï¿½n para eliminar un frente del proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
 				public void actionPerformed(ActionEvent e) {
 					if (idfrente > -1) {
-						int res = JOptionPane.showConfirmDialog(null, "Deseas eliminar éste frente", "Confirmación", JOptionPane.YES_NO_OPTION);
+						int res = JOptionPane.showConfirmDialog(null, "Deseas eliminar ï¿½ste frente", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION);
 						if (res == JOptionPane.YES_OPTION) {
 							Frente f = Frente.findById(idfrente);
 							if(f != null)

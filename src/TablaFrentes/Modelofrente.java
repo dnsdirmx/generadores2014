@@ -6,7 +6,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 import MetodosRemotos.Metodos;
-import ObjetosSerializables.Frente;
+import Model.Entity.Frente;
 
 // import java.rmi.RemoteException;
 
@@ -21,28 +21,28 @@ public class Modelofrente implements TableModel {
 	// Lista de datos contenidos en el modelo de frentes
 	private LinkedList<Model.Entity.Frente> datos = new LinkedList<Model.Entity.Frente>();
 	private LinkedList<TableModelListener> listeners = new LinkedList<TableModelListener>();
-	// Métodos para la manipulación a la base de datos
+	// Mï¿½todos para la manipulaciï¿½n a la base de datos
 	private Metodos cone;
 
 	/**
-	 * Asignación de la conexión
+	 * Asignaciï¿½n de la conexiï¿½n
 	 * 
 	 * @param con
-	 *            Metodos --- para la manipulación de la base de datos
+	 *            Metodos --- para la manipulaciï¿½n de la base de datos
 	 */
 	public void conexion(Metodos con) {
 		this.cone = con;
 	}
 
 	/**
-	 * Número de columnas existentes en el modelo de datos
+	 * Nï¿½mero de columnas existentes en el modelo de datos
 	 */
 	public int getColumnCount() {
 		return 2;
 	}
 
 	/**
-	 * Número de elementos en la lista de datos
+	 * Nï¿½mero de elementos en la lista de datos
 	 */
 	public int getRowCount() {
 		return datos.size();
@@ -52,9 +52,9 @@ public class Modelofrente implements TableModel {
 	 * Obtiene el valor de una celda de la tabla
 	 * 
 	 * @param rowIndex
-	 *            int --- índice de la fila
+	 *            int --- ï¿½ndice de la fila
 	 * @param columnIndex
-	 *            int --- índice de la columna
+	 *            int --- ï¿½ndice de la columna
 	 */
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Model.Entity.Frente aux = (Model.Entity.Frente) datos.get(rowIndex);
@@ -73,7 +73,7 @@ public class Modelofrente implements TableModel {
 	 * Elimina una fila del modelo de la tabla
 	 * 
 	 * @param fila
-	 *            int --- Índice de la fila a eliminar
+	 *            int --- ï¿½ndice de la fila a eliminar
 	 */
 	public void borrarfrente(int indice) {
 		datos.remove(indice);
@@ -125,14 +125,14 @@ public class Modelofrente implements TableModel {
 		case 0:
 			return "Indentificador";
 		case 1:
-			return "Ubicación";
+			return "Ubicaciï¿½n";
 		default:
 			return null;
 		}
 	}
 
 	/**
-	 * Permitir Edición
+	 * Permitir Ediciï¿½n
 	 */
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		return true;
@@ -157,9 +157,13 @@ public class Modelofrente implements TableModel {
 				tempIdentificadorUbicacion= aux.getIndentificador();
 				aux.setIdentificador((String) aValue);
 				if (!aux.getIndentificador().equals("")) {
-					cone.ModificarFrente(aux.getIndentificador(), aux.getUbicacion(), String.valueOf(aux.getIdfrente()));
+					Frente frente = Frente.findById(aux.getIdfrente());
+					frente.setIdentificador(aux.getIndentificador());
+					frente.setUbicacion(aux.getUbicacion());
+					frente.save();
+					//cone.ModificarFrente(aux.getIndentificador(), aux.getUbicacion(), String.valueOf(aux.getIdfrente()));
 				}else{
-					JOptionPane.showMessageDialog(null, "No se permite este campo vacío...");
+					JOptionPane.showMessageDialog(null, "No se permite este campo vacï¿½o...");
 					setValueAt(tempIdentificadorUbicacion, rowIndex, columnIndex);
 				}
 				break;
@@ -167,9 +171,13 @@ public class Modelofrente implements TableModel {
 				tempIdentificadorUbicacion=aux.getUbicacion();
 				aux.setUbicacion((String) aValue);
 				if (! aux.getUbicacion().equals("")) {
-					cone.ModificarFrente(aux.getIndentificador(), aux.getUbicacion(), String.valueOf(aux.getIdfrente()));
+					Frente frente = Frente.findById(aux.getIdfrente());
+					frente.setIdentificador(aux.getIndentificador());
+					frente.setUbicacion(aux.getUbicacion());
+					frente.save();
+					//cone.ModificarFrente(aux.getIndentificador(), aux.getUbicacion(), String.valueOf(aux.getIdfrente()));
 				}else{
-					JOptionPane.showMessageDialog(null, "No se permite este campo vacío...");
+					JOptionPane.showMessageDialog(null, "No se permite este campo vacï¿½o...");
 					setValueAt(tempIdentificadorUbicacion, rowIndex, columnIndex);
 				}
 			default:
@@ -180,7 +188,7 @@ public class Modelofrente implements TableModel {
 	}
 
 	/**
-	 * Avisa cual es la fila y columna que cambió
+	 * Avisa cual es la fila y columna que cambiï¿½
 	 * 
 	 * @param evento
 	 */
