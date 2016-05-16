@@ -181,6 +181,7 @@ public class Proyecto {
 					+ "WHERE `idproyecto` = " + idproyecto;
 			estado = bd.ejecutar(sql);
 		}
+		System.out.println("Proyecto : save() return : " + estado); 
 		return estado;
 	}
 	
@@ -202,6 +203,7 @@ public class Proyecto {
 			proyecto.setIdtipo(rs.getInt("idtipo"));
 			proyecto.setProyecto(rs.getString("proyecto"));
 			proyecto.setDescripcion(rs.getString("descripcion"));
+			proyecto.setComentarios(rs.getString("comentarios"));
 			proyecto.setInicio(rs.getDate("inicio"));
 			proyecto.setFin(rs.getDate("fin"));
 		} catch (SQLException e) {
@@ -229,6 +231,7 @@ public class Proyecto {
 				proyecto.setIdtipo(rs.getInt("idtipo"));
 				proyecto.setProyecto(rs.getString("proyecto"));
 				proyecto.setDescripcion(rs.getString("descripcion"));
+				proyecto.setComentarios(rs.getString("comentarios"));
 				proyecto.setInicio(rs.getDate("inicio"));
 				proyecto.setFin(rs.getDate("fin"));
 			}
@@ -256,6 +259,7 @@ public class Proyecto {
 				proyecto.setIdtipo(rs.getInt("idtipo"));
 				proyecto.setProyecto(rs.getString("proyecto"));
 				proyecto.setDescripcion(rs.getString("descripcion"));
+				proyecto.setComentarios(rs.getString("comentarios"));
 				proyecto.setInicio(rs.getDate("inicio"));
 				proyecto.setFin(rs.getDate("fin"));
 				proye.add(proyecto);

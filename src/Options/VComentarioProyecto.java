@@ -6,7 +6,7 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 
 import MetodosRemotos.Metodos;
-import ObjetosSerializables.Proyecto;
+import Model.Entity.Proyecto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,10 +22,10 @@ public class VComentarioProyecto extends JInternalFrame {
 
 	/**
      * idproyect --- ID del proyecto para escribir comentarios
-     * textArea --- área para escribir comentarios
+     * textArea --- ï¿½rea para escribir comentarios
      * lblnombredelproyecto --- etiqueta para el nombre del proyecto
-     * btnactualizar --- botón para habilitar la edición del Textarea 
-     * btnagregar --- botón para agregar y guardar los comentarios
+     * btnactualizar --- botï¿½n para habilitar la ediciï¿½n del Textarea 
+     * btnagregar --- botï¿½n para agregar y guardar los comentarios
      * scrollPanel --- scroll para el textArea de los comentarios
      */
 	private int idProyect;
@@ -38,7 +38,7 @@ public class VComentarioProyecto extends JInternalFrame {
 	private JScrollPane scrollPane = new JScrollPane();
 
 	/**
-	 * Mét
+	 * Mï¿½t
 	 * @return the conn
 	 */
 	public Metodos getConn() {
@@ -90,11 +90,15 @@ public class VComentarioProyecto extends JInternalFrame {
 
 		btnAgregar.addActionListener(new ActionListener() {
 			/**
-			 * Sección para actualizar los comentarios del proyecto
+			 * Secciï¿½n para actualizar los comentarios del proyecto
 			 */
 			public void actionPerformed(ActionEvent arg0) {
 				textArea.setEditable(false);
-				getConn().updateCommentsProj(getIdProyect(), textArea.getText());
+				Proyecto p = Proyecto.findById(getIdProyect());
+				p.setComentarios(textArea.getText());
+				p.save();
+				
+				//getConn().updateCommentsProj(getIdProyect(), textArea.getText());
 				dispose();
 			}
 		});
@@ -103,7 +107,7 @@ public class VComentarioProyecto extends JInternalFrame {
 
 		btnActualizar.addActionListener(new ActionListener() {
 			/**
-			 * Sección para activar la edición de los comentarios
+			 * Secciï¿½n para activar la ediciï¿½n de los comentarios
 			 */
 			public void actionPerformed(ActionEvent arg0) {
 				textArea.setEditable(true);
@@ -123,15 +127,17 @@ public class VComentarioProyecto extends JInternalFrame {
 		JLabel lblNameproject = new JLabel("Nombre del Proyecto:");
 		lblNameproject.setBounds(10, 8, 129, 16);
 		getContentPane().add(lblNameproject);
-
+		System.out.println("[XX] SACANDO EL TEXTO : " + Proyecto.findById(idProyecto).getComentarios());
+		textArea.setText(Proyecto.findById(idProyecto).getComentarios());
 		FillCommentsProj();
 	}
 
 	/**
-	 * Muestra en el área de texto los comentarios del proyecto
+	 * Muestra en el ï¿½rea de texto los comentarios del proyecto
 	 */
 	public void FillCommentsProj() {
-		Proyecto proj = conn.getCommentsProj(this.idProyect);
+		//Proyecto proj = conn.getCommentsProj(this.idProyect);
+		Proyecto proj = Proyecto.findById(this.idProyect);
 		textArea.setText(proj.getComentarios());
 		lblNombreDelProyecto.setText(proj.getProyecto());
 	}

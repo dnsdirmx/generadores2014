@@ -148,7 +148,7 @@ public class ConsultoresView extends JInternalFrame {
 		txtPaterno.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				soloLetras(arg0);
+				soloLetrasEspacios(arg0);
 			}
 		});
 		txtPaterno.setBounds(121, 11, 191, 28);
@@ -164,7 +164,7 @@ public class ConsultoresView extends JInternalFrame {
 		txtMaterno.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				soloLetras(e);
+				soloLetrasEspacios(e);
 			}
 		});
 		txtMaterno.setBounds(121, 51, 191, 29);
@@ -180,7 +180,7 @@ public class ConsultoresView extends JInternalFrame {
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				soloLetras(e);
+				soloLetrasEspacios(e);
 			}
 		});
 		txtNombre.setBounds(121, 86, 191, 27);
@@ -397,7 +397,11 @@ public class ConsultoresView extends JInternalFrame {
 		if(!Character.isLetter(arg0.getKeyChar()))
 			arg0.consume();
 	}	
-
+	protected void soloLetrasEspacios(KeyEvent arg0) {
+		if(		!Character.isLetter(arg0.getKeyChar()) 
+				&& !Character.isSpaceChar(arg0.getKeyChar()))
+			arg0.consume();
+	}
 
 	private void limpiarFormulario()
 	{

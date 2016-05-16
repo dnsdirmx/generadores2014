@@ -17,31 +17,31 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import MetodosRemotos.Metodos;
-import ObjetosSerializables.Tipo;
+import Model.Entity.Tipo;
 import Options.ComponentsUser;
 import TablaTipo.ControlTipo;
 /**
  * clase para administrar los tipos de proyectos de la base de datos
  * @author Pablo Rivera
- * @colaboración luiiis lazaro
+ * @colaboraciï¿½n luiiis lazaro
  *
  */
 public class Tipoproyecto extends javax.swing.JInternalFrame {
 
 	/**
-	 * escritorio --- panel principal de la aplicación 
-	 * pcontenedor --- panel para la información de los tipos de proyectos
-	 * agregar --- botón para agregar un nuevo tipo 
-	 * ttipos --- Tabla para visualizar la información de los tipos de proyectos
-	 * eliminar -- botón para eliminar un tipo 
+	 * escritorio --- panel principal de la aplicaciï¿½n 
+	 * pcontenedor --- panel para la informaciï¿½n de los tipos de proyectos
+	 * agregar --- botï¿½n para agregar un nuevo tipo 
+	 * ttipos --- Tabla para visualizar la informaciï¿½n de los tipos de proyectos
+	 * eliminar -- botï¿½n para eliminar un tipo 
 	 * scontenedor --- scroll para la tabla de tipos de proyecto
 	 * modelo --- modelo de la tabla para los tipos
-	 * control --- controlo de la tabla para manipular el modelo y su información 
-	 * modificar --- botón para actualizar la información de de un tipo 
+	 * control --- controlo de la tabla para manipular el modelo y su informaciï¿½n 
+	 * modificar --- botï¿½n para actualizar la informaciï¿½n de de un tipo 
 	 * ltipos --- lista de tipos de proyectos existentes en la base de datos
 	 * ti --- auxiliar para manipular los tipos en la lista
 	 * indice --- auxiliar para obtener el Id del tipo seleccionado
-	 * tipo --- combo box //sin viisualización 
+	 * tipo --- combo box //sin viisualizaciï¿½n 
 	 * 
 	 */
 
@@ -61,7 +61,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 	
 	/**
 	 * constructor de la clase 
-	 * @param cone --- métodos para la manipulación de la base de datos 
+	 * @param cone --- mï¿½todos para la manipulaciï¿½n de la base de datos 
 	 * @param tipo --- combo box que no se visualiza 
 	 */
 	public Tipoproyecto ( Metodos cone , JComboBox < String > tipo ) {
@@ -70,8 +70,8 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 	}
 
 	/**
-	 * inicialización de los componentes gráficos
-	 * @param cone --- métodos para la manipulación de la base de datos 
+	 * inicializaciï¿½n de los componentes grï¿½ficos
+	 * @param cone --- mï¿½todos para la manipulaciï¿½n de la base de datos 
 	 * @param tipo --- combo box que no se visualiza
 	 */
 	private void initGUI ( final Metodos cone , JComboBox < String > tipo ) {
@@ -95,7 +95,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 
 			Ttipos = new JTable( control.getModeloTipo() );
 			Scontenedor.setViewportView( Ttipos );
-			Ltipos = cone.Tiposproyectos( );
+			Ltipos = Tipo.findAll();
 			Ttipos.addMouseListener( new java.awt.event.MouseAdapter( ) {
 				/**
 				 * listener para obtener el ID del tipo seleccionado en la tabla 
@@ -135,26 +135,35 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 						case 0 :
 							try {
 								String newtype = txt.getText( ).trim( );
-								if ( Boolean.valueOf( cone.existetipo( newtype ) ).equals( false ) ) {
-									if ( Boolean.valueOf( newtype.equals( "" ) ).equals( true ) ) {
-										JOptionPane.showMessageDialog( null, "No se ha Ingresado NingÃºn Dato" );
-									} else {
-										if ( cone.insertatipo( newtype ) ) {
-											control.anhadeFila( newtype );
-											Ltipos = cone.Tiposproyectos( );
-											llenarTipos( );
-										}
-									}
-								} else {
-									JOptionPane.showMessageDialog( null, "El Tipo Ya Existe", "Atención", JOptionPane.WARNING_MESSAGE );
+								if(newtype.length() == 0)
+								{
+									JOptionPane.showMessageDialog( null, "No se ha Ingresado NingÃºn Dato" );
+									return;
 								}
+								System.out.println("Nuevo tipo : " + newtype);
+								Tipo tipo = new Tipo();
+								tipo.setTipo(newtype);
+								
+								if(Tipo.find(newtype) != null)
+								{
+									JOptionPane.showMessageDialog( null, "El Tipo Ya Existe", "Atenciï¿½n", JOptionPane.WARNING_MESSAGE );
+								}
+								else
+								{
+									tipo.save();
+									control.anhadeFila( newtype );
+									Ltipos = Tipo.findAll();
+									llenarTipos();
+								}
+								
 							} catch ( Exception e1 ) {
 								JOptionPane.showMessageDialog( null, "Servidor fuera de servicio (Error insertar tipo de proyecto) ", "AtenciÃ³n", JOptionPane.ERROR_MESSAGE );
 							}
+							
 							break;
 
 						default :
-							JOptionPane.showMessageDialog( null, "Operación Cancelada por el Usuario" );
+							JOptionPane.showMessageDialog( null, "Operaciï¿½n Cancelada por el Usuario" );
 							break;
 					}
 				}
@@ -168,19 +177,19 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 			eliminar.setBounds( 283, 236, 103, 30 );
 			eliminar.addActionListener( new ActionListener( ) {
 				/**
-				 * opción para eliminar un tipo de proyecto
+				 * opciï¿½n para eliminar un tipo de proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
 				public void actionPerformed ( ActionEvent e ) {
 					if ( indice > 0 ) {
-						int res = JOptionPane.showConfirmDialog( null, "Deseas eliminar éste tipo", "confirmar", JOptionPane.YES_NO_OPTION );
+						int res = JOptionPane.showConfirmDialog( null, "Deseas eliminar ï¿½ste tipo", "confirmar", JOptionPane.YES_NO_OPTION );
 						if ( res == JOptionPane.YES_OPTION ) {
 							Tipo t = new Tipo( );
 							t = ( Tipo ) Ltipos.get( indice );
-							if ( cone.eliminartipo( t.getIdtipo( ) ) ) {
+							if ( t.delete()) {
 								control.borraFila( indice );
-								Ltipos = cone.Tiposproyectos( );
+								Ltipos = Tipo.findAll();
 								llenarTipos( );
 							} else {
 								JOptionPane.showMessageDialog( null, "Error al eliminar tipo proyecto", "Error", JOptionPane.WARNING_MESSAGE );
@@ -198,13 +207,13 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 			modificar.setBounds( 169, 237, 103, 30 );
 			modificar.addActionListener( new ActionListener( ) {
 				/**
-				 * opción para actualizar el tipo de proyecto
+				 * opciï¿½n para actualizar el tipo de proyecto
 				 * (non-Javadoc)
 				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 				 */
 				public void actionPerformed ( ActionEvent e ) {
 					if ( indice >= 0 ) {
-						JTextField txt = ComponentsUser.getDataTxt( 45, 1 );// Creación de la caja de texto
+						JTextField txt = ComponentsUser.getDataTxt( 45, 1 );// Creaciï¿½n de la caja de texto
 						int result = JOptionPane.showConfirmDialog( null, txt, "Ingrese el Nuevo Nombre del Tipo", JOptionPane.OK_CANCEL_OPTION );
 						switch ( result ) {
 							case 0 :
@@ -213,9 +222,10 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 									if ( Boolean.valueOf( cone.existetipo( newtype ) ).equals( false ) ) {
 										Tipo t = new Tipo( );
 										t = ( Tipo ) Ltipos.get( indice );
-										if ( cone.modificartipo( newtype, t.getIdtipo( ) ) ) {
-											Limpiar( );
-											Ltipos = cone.Tiposproyectos( );
+										t.setTipo(newtype);
+										if (t.save()) {
+											Limpiar();
+											Ltipos = Tipo.findAll();
 											llenartipos( );
 											llenarTipos( );
 										}
@@ -227,7 +237,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 								}
 								break;
 							default :
-								JOptionPane.showMessageDialog( null, "Operación Cancelada por el Usuario" );
+								JOptionPane.showMessageDialog( null, "Operaciï¿½n Cancelada por el Usuario" );
 								break;
 						}
 					}
@@ -240,7 +250,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 	}
 
 	/**
-	 * método para llenar la tabla de tipos con la información de la base de datos
+	 * mï¿½todo para llenar la tabla de tipos con la informaciï¿½n de la base de datos
 	 */
 	public void llenartipos ( ) {
 		ti = new Tipo( );
@@ -251,7 +261,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 	}
 
 	/**
-	 * Método para limpiar la información de la tabla de tipos 
+	 * Mï¿½todo para limpiar la informaciï¿½n de la tabla de tipos 
 	 */
 	public void Limpiar ( ) {
 		int tama = control.Tama( ) - 1;
@@ -264,7 +274,7 @@ public class Tipoproyecto extends javax.swing.JInternalFrame {
 	}
 
 	/**
-	 * método para llenar el Combobox de tipos de proyectos
+	 * mï¿½todo para llenar el Combobox de tipos de proyectos
 	 * 
 	 */
 	public void llenarTipos ( ) {

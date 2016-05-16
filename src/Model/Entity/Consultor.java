@@ -73,8 +73,24 @@ public class Consultor {
 	{
 		boolean estado = false;
 		String sql = "";
+		String validaSql = "select count(*) from `generadores`.`consultor` where login = \"" + this.login + "\"";
+		BDConexion bd = new BDConexion();
+		
 		if(this.idConsultor == -1)
 		{
+			ResultSet estaRegistro = bd.consultar(validaSql);
+			try {
+				if(estaRegistro.next())
+				{
+					String cantidad = estaRegistro.getString(1);
+					System.out.println("[x] existe " + cantidad);
+					if(cantidad.compareTo("0") != 0)
+						return false;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			sql = "INSERT INTO `generadores`.`consultor` (`paterno`,`materno`,`nombre`,`login`,`pass`,`tipousu`) "
 						+ "VALUES ('" + this.paterno + "','"+ this.materno +"','" + this.nombre + "','" + this.login + "','" + this.pass + "','" + this.tipousu + "')";
 		}
@@ -84,7 +100,6 @@ public class Consultor {
 					+ "SET `paterno` = '"+ this.paterno+"', `materno` = '" + this.materno + "', `nombre` = '" + this.nombre + "', `login` = '" + this.login + "', `pass` = '"+ this.pass+"', `tipousu` = '" + this.tipousu + "' "
 					+ "WHERE `idConsultor` = " + this.idConsultor;
 		}
-		BDConexion bd = new BDConexion();
 		estado = bd.ejecutar(sql);
 		if(this.idConsultor == -1 && estado)
 		{
@@ -93,7 +108,7 @@ public class Consultor {
 			
 			try {
 				rs.next();
-				this.idConsultor = rs.getInt(0);
+				this.idConsultor = rs.getInt(1);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
