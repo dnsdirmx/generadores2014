@@ -1380,14 +1380,19 @@ public class Metodos {
 		LinkedList<Rgenerador> lista = new LinkedList<Rgenerador>();
 		ResultSet res;
 		Rgenerador ob;
+		Integer contador = 0;
 		String consulta = "SELECT partida.nombre, aspecto.idConcepto, esti_aspec.idaspecto, aspecto.clave, aspecto.clave_publica, aspecto.descripcion, aspecto.unidad, esti_aspec.ubicacionX, " + // CAMPOS DE SELECT
 				" esti_aspec.ubicacionY, esti_aspec.ubicacionZ, esti_aspec.alto, esti_aspec.largo, esti_aspec.Ancho, " + // CAMPOS
 				" esti_aspec.importe, esti_aspec.cantidad, esti_aspec.costo, esti_aspec.repeticion, esti_aspec.fechae " + // CAMPOS
 				" FROM aspecto " + " join partida join esti_aspec WHERE aspecto.idaspecto = esti_aspec.idaspecto " + " AND partida.idpartida = esti_aspec.idpartida  " + " AND esti_aspec.idestimacion = " + idestimacion;
 		try {
 			ConsultaConsola(consulta);
-			res = instancia_sql.executeQuery(consulta);
+			BDConexion bd = new BDConexion();
+			res = bd.consultar(consulta);
+			//res = instancia_sql.executeQuery(consulta);
+			System.out.println("No hay dinero");
 			while (res.next()) {
+				contador++;
 				ob = new Rgenerador();
 				ob.setIdconcepto(res.getString("aspecto.idConcepto"));
 				ob.setIdaspecto(res.getString("esti_aspec.idaspecto"));
@@ -1409,6 +1414,7 @@ public class Metodos {
 				ob.setFecha(res.getString("esti_aspec.fechae"));
 				lista.add(ob);
 			}
+			System.out.println("Contador : " + contador);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -1436,7 +1442,8 @@ public class Metodos {
 				"FROM aspecto " + "join partida join esti_aspec WHERE aspecto.idaspecto = esti_aspec.idaspecto " + "AND  partida.idpartida = esti_aspec.idpartida  " + "AND esti_aspec.idestimacion = " + idestimacion + "  AND fechae >= '" + fechaf + "' AND fechae <= '" + fechai + "' ;";
 		try {
 			ConsultaConsola(consulta);
-			res = instancia_sql.executeQuery(consulta);
+			BDConexion bd = new BDConexion();
+			res = bd.consultar(consulta);
 			while (res.next()) {
 				ob = new Rgenerador();
 				ob.setIdconcepto(res.getString("aspecto.idConcepto"));
@@ -1482,7 +1489,8 @@ public class Metodos {
 				" esti_aspec.ubicacionY, esti_aspec.ubicacionZ, esti_aspec.alto, esti_aspec.largo, esti_aspec.Ancho, " + " esti_aspec.importe, esti_aspec.cantidad, esti_aspec.costo, esti_aspec.idpartida, esti_aspec.repeticion, esti_aspec.fechae " + " FROM aspecto " + " join partida join esti_aspec WHERE aspecto.idaspecto = esti_aspec.idaspecto " + " AND partida.idpartida = esti_aspec.idpartida  " + " AND esti_aspec.idestimacion = " + idestimacion + " AND esti_aspec.idpartida = " + idpartida;
 		try {
 			ConsultaConsola(consulta);
-			res = instancia_sql.executeQuery(consulta);
+			BDConexion bd = new BDConexion();
+			res = bd.consultar(consulta);
 			while (res.next()) {
 				ob = new Rgenerador();
 				ob.setIdaspecto(res.getString("esti_aspec.idaspecto"));

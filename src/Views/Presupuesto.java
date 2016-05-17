@@ -1070,7 +1070,7 @@ public class Presupuesto extends JInternalFrame {
 					JFileChooser navega;
 					navega = new JFileChooser();
 					int estado = navega.showOpenDialog(verplano);
-					;
+					
 					if (estado == JFileChooser.APPROVE_OPTION) {
 						String ruta = navega.getSelectedFile().getAbsolutePath();
 						pla = new Lplano(ruta);
@@ -1081,6 +1081,7 @@ public class Presupuesto extends JInternalFrame {
 					} catch (Exception a) {
 						a.printStackTrace();
 					}
+					JOptionPane.showMessageDialog(null, "Suave");
 				}
 			});
 			Pconcepto.setLayout(null);
