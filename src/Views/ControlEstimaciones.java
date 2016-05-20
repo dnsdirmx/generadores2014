@@ -537,6 +537,7 @@ public class ControlEstimaciones extends JInternalFrame {
 							idpartida = p.getIdPartida( );
 							Limpiar2( );
 							llenartodos( p.getNombre( ) );
+							System.out.println("Aqui hay algo");
 						}
 						// ******************************************************************************************************************************************************************************
 						if ( modificar.isSelected( ) == true ) {
@@ -613,6 +614,9 @@ public class ControlEstimaciones extends JInternalFrame {
 							 * }
 							 */
 						}
+						
+						System.out.println("Aqui hay algo");
+						
 					}
 			});
 			Spartidas.setViewportView( Tpartidas );
@@ -802,6 +806,7 @@ public class ControlEstimaciones extends JInternalFrame {
 			Ssegir.setBounds( 12, 24, 1013, 344 );
 
 			Tsegir = new JTable( modelo3 );
+			
 			Tsegir.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 			Tsegir.setRowHeight( 60 );
 			
@@ -1661,6 +1666,7 @@ public class ControlEstimaciones extends JInternalFrame {
 		if ( agregar.isSelected( ) ) {
 			LSeleccion = cone.reportegeneral( String.valueOf( idestimacion ) );
 		}
+		System.out.println("Aqui pasa algo");
 		for ( int i = 0 ; i < LSeleccion.size( ) ; i++ ) {
 			ob = ( Rgenerador ) LSeleccion.get( i );
 			if ( ob.getPartida( ).equals( nombre ) == true ) {
@@ -1683,7 +1689,9 @@ public class ControlEstimaciones extends JInternalFrame {
 				meter.setFecha( ob.getFecha( ) );
 				control3.anhadeFila( meter );
 			}
+			
 		}
+		System.out.println("CAAHAUET");
 	}
 
 	// *******************************************************************************************************************************************************

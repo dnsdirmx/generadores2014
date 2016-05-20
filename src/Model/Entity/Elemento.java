@@ -90,7 +90,7 @@ public class Elemento {
 		}
 		else
 		{
-			if(bd.actualiza("partida", contenedor, "idelemento", this.idElemento.toString()) > 0)
+			if(bd.actualiza("elemento", contenedor, "idelemento", this.idElemento.toString()) > 0)
 				state = true;
 		}
 		return state;

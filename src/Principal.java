@@ -6,6 +6,7 @@ import ImportarExportar.View.VImportarConceptos;
 import MetodosRemotos.Metodos;
 import Views.BaseDeDatosView;
 import Views.ConsultoresView;
+import controllers.AcerosController;
 import controllers.ConsultoresController;
 import controllers.ControlEstimacionController;
 import controllers.PresupuestoController;
@@ -291,6 +292,17 @@ public class Principal extends JFrame {
 			Menu.add(mControlar);
 			mControlar.setText("Controlar");
 			mControlar.setEnabled(false);
+			
+			JMenu mnAceros = new JMenu("Aceros");
+			Menu.add(mnAceros);
+			
+			JMenuItem mntmCuantificacinDeAceros = new JMenuItem("Cuantificación de aceros");
+			mntmCuantificacinDeAceros.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					escritorio2.add(new AcerosController(escritorio2,conexion).getVista());
+				}
+			});
+			mnAceros.add(mntmCuantificacinDeAceros);
 
 			mCuenta = new JMenu();
 			Menu.add(mCuenta);
