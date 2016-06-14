@@ -106,4 +106,9 @@ public class Elemento {
 		return "idElemento: " + idElemento + "\nnombre: " + nombre;
 	}
 
+	public static void main(String[] args) {
+		Elemento ele = new Elemento();
+		ele.setNombre("holi 2");
+		ele.save();
+	}
 }

@@ -65,6 +65,7 @@ import Options.ComponentsUser;
 import PDF.Generarpdf;
 import Tablaconceptos.ModeloConceptoSeleccion;
 import TablasPartidas.ControPartida;
+import Tables.TableElemento;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -136,7 +137,7 @@ public class AcerosView extends JInternalFrame {
 	private GuardarEstimacion gestimacion;
 	private Elegirplantilla vpla;
 	//private ModeloPartida modelop = new ModeloPartida();
-	private ControPartida controlp = new ControPartida();
+	private TableElemento controlp = new TableElemento();
 	private String fechaestimacion = "";
 	private AcerosController controlador;
 
